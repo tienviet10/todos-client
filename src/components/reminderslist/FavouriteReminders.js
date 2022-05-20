@@ -11,6 +11,7 @@ import {
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
 import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
 import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
+import { CONFIRMATIONDELETION } from "../config";
 
 export const FavouriteReminders = () => {
   const { favoriteReminders, updateRecord, discardRecord } =
@@ -42,14 +43,25 @@ export const FavouriteReminders = () => {
   };
 
   const execDeletion = (itemId) => {
-    setDescriptionText({
-      titleText: "Delete A Reminder",
-      displayText: "Are you sure you want to delete the reminder?",
-      confirmText: "Accept",
-      declineText: "Cancel",
-    });
+    setDescriptionText(CONFIRMATIONDELETION);
     setHoldCallback(() => () => discardRecord(itemId));
     setConfirmationOn(true);
+  };
+
+  const editReminder = (item) => {
+    setModalOn(true);
+    setNewReminder({
+      title: item.title,
+      description: item.description,
+      status: "active",
+      favorite: item.favorite,
+      _id: item._id,
+    });
+  };
+
+  const moveReminderToPast = (item) => {
+    editStatus(item);
+    addRecordFromActive(item);
   };
 
   return (
@@ -65,18 +77,9 @@ export const FavouriteReminders = () => {
                 <div
                   key={item._id}
                   className="flex justify-center"
-                  onDoubleClick={() => {
-                    editStatus(item);
-                    addRecordFromActive(item);
-                  }}
+                  onDoubleClick={() => moveReminderToPast(item)}
                 >
-                  <div
-                    className={
-                      item.status === "active"
-                        ? "block px-6 py-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-2 border-l-green-500"
-                        : "block px-6 py-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-2 border-l-red-500"
-                    }
-                  >
+                  <div className="block px-6 py-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500">
                     <AiFillStar
                       className="hover:cursor-pointer float-right mr-[-5%]"
                       size={25}
@@ -84,13 +87,13 @@ export const FavouriteReminders = () => {
                     />
 
                     <h5
-                      className="text-gray-900 text-xl leading-tight font-medium mb-2 truncate px-10 max-w-[250px] sm:max-w-[330px]"
+                      className="text-gray-900 text-xl leading-tight font-medium mb-2 truncate px-10 max-w-[300px] sm:max-w-[330px]"
                       onClick={() => handleDetailsScreen(item)}
                     >
                       {item.title}
                     </h5>
                     <p
-                      className="text-gray-700 text-base px-6 mb-4 truncate max-w-[250px] sm:max-w-[330px]"
+                      className="text-gray-700 text-base px-6 mb-4 truncate max-w-[300px] sm:max-w-[330px]"
                       onClick={() => handleDetailsScreen(item)}
                     >
                       {item.description}
@@ -100,24 +103,12 @@ export const FavouriteReminders = () => {
                         className="hover:cursor-pointer"
                         color="#6366f1"
                         size={25}
-                        onClick={() => {
-                          editStatus(item);
-                          addRecordFromActive(item);
-                        }}
+                        onClick={() => moveReminderToPast(item)}
                       />
                       <AiFillEdit
                         className="hover:cursor-pointer"
                         size={25}
-                        onClick={() => {
-                          setModalOn(true);
-                          setNewReminder({
-                            title: item.title,
-                            description: item.description,
-                            status: "active",
-                            favorite: item.favorite,
-                            _id: item._id,
-                          });
-                        }}
+                        onClick={() => editReminder(item)}
                       />
                       <AiFillDelete
                         className="hover:cursor-pointer"

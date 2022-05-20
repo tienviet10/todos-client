@@ -3,6 +3,9 @@ import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminde
 import { ReminderContext } from "../../service/context/ReminderContext";
 import { AiOutlineFileDone, AiFillDelete, AiFillCaretUp } from "react-icons/ai";
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
+import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
+import { CONFIRMATIONDELETION } from "../config";
+import { CloseButton } from "./CloseButton";
 
 const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { updateRecord, discardRecord } = useContext(ReminderContext);
@@ -11,12 +14,43 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
   const { title, description } = reminderDetails;
 
+  const { setConfirmationOn, setDescriptionText, setHoldCallback } =
+    useContext(ConfirmationContext);
+
   const editStatus = (item) => {
     const currentStatus = item.status;
     currentStatus === "active"
       ? (item.status = "deactive")
       : (item.status = "active");
     updateRecord(item, false);
+  };
+
+  const execDeletion = (reminderDetails) => {
+    if (reminderDetails.status === "active") {
+      setDescriptionText(CONFIRMATIONDELETION);
+      setHoldCallback(() => () => discardRecord(reminderDetails._id));
+      setConfirmationOn(true);
+    } else if (reminderDetails.status === "deactive") {
+      setDescriptionText(CONFIRMATIONDELETION);
+      setHoldCallback(
+        () => () => discardRecordPastReminder(reminderDetails._id, true)
+      );
+      setConfirmationOn(true);
+    }
+    setDetailOn(false);
+  };
+
+  const moveReminderToPast = (reminderDetails) => {
+    editStatus(reminderDetails);
+    setDetailOn(false);
+    addRecordFromActive(reminderDetails);
+  };
+
+  const restoreReminder = (reminderDetails) => {
+    const newUpdate = { ...reminderDetails, status: "active" };
+    discardRecordPastReminder(newUpdate._id, false);
+    updateRecord(newUpdate, true);
+    setDetailOn(false);
   };
 
   return (
@@ -28,25 +62,7 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-2xl font-semibold">Details Reminder</h3>
-              <button
-                type="button"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                data-modal-toggle="defaultModal"
-                onClick={() => setDetailOn(false)}
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </button>
+              <CloseButton takeAction={() => setDetailOn(false)} />
             </div>
             {/*body*/}
 
@@ -78,23 +94,14 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
                   className="hover:cursor-pointer"
                   color="#6366f1"
                   size={25}
-                  onClick={() => {
-                    editStatus(reminderDetails);
-                    setDetailOn(false);
-                    addRecordFromActive(reminderDetails);
-                  }}
+                  onClick={() => moveReminderToPast(reminderDetails)}
                 />
               ) : (
                 <AiFillCaretUp
                   className="hover:cursor-pointer"
                   size={25}
                   color="green"
-                  onClick={() => {
-                    const newUpdate = { ...reminderDetails, status: "active" };
-                    discardRecordPastReminder(newUpdate._id, false);
-                    updateRecord(newUpdate, true);
-                    setDetailOn(false);
-                  }}
+                  onClick={() => restoreReminder(reminderDetails)}
                 />
               )}
 
@@ -102,14 +109,7 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
                 className="hover:cursor-pointer"
                 color="red"
                 size={25}
-                onClick={() => {
-                  if (reminderDetails.status === "active") {
-                    discardRecord(reminderDetails._id);
-                  } else if (reminderDetails.status === "deactive") {
-                    discardRecordPastReminder(reminderDetails._id, true);
-                  }
-                  setDetailOn(false);
-                }}
+                onClick={() => execDeletion(reminderDetails)}
               />
             </div>
           </div>

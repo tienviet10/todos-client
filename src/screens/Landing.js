@@ -1,23 +1,7 @@
 import React from "react";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-
-const carts = [
-  {
-    _id: "1",
-    title: "Shopping List",
-    description: "Apple, Banana, Grapes, Burger",
-    days: "2 days ago",
-    status: "active",
-  },
-  {
-    _id: "2",
-    title: "Homework",
-    description: "Math, English, Chem",
-    days: "5 days ago",
-    status: "deactive",
-  },
-];
+import { MAINPAGEEXAMPLE } from "../components/config";
 
 export const Landing = () => {
   const navigate = useNavigate();
@@ -37,13 +21,13 @@ export const Landing = () => {
         </p>
       </div>
       <div className="grid sm:grid-cols-2 gap-4 sm:gap-8 sm:mt-10">
-        {carts.map((cart) => (
+        {MAINPAGEEXAMPLE.map((cart) => (
           <div key={cart._id} className="flex justify-center">
             <div
               className={
                 cart.status === "active"
-                  ? "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-2 border-l-green-500"
-                  : "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-2 border-l-red-500"
+                  ? "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500"
+                  : "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-red-500"
               }
             >
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">

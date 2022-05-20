@@ -51,6 +51,7 @@ const Navbar = ({ setNavTab }) => {
   const onClick = () => {
     navigate("login");
   };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -75,11 +76,6 @@ const Navbar = ({ setNavTab }) => {
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                     alt="Workflow"
                   />
-                  {/* <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                    alt="Workflow"
-                  /> */}
                   <h1
                     className={`hidden lg:block h-10 w-auto text-3xl px-5 text-application-color cursor-pointer`}
                     onClick={() => navigate("/dashboard")}
@@ -87,7 +83,7 @@ const Navbar = ({ setNavTab }) => {
                     ReMe
                   </h1>
                 </div>
-                {/* <h1 className="text-3xl text-[#00df9a]">ReMe</h1> */}
+
                 <div className="hidden sm:block sm:ml-6 mt-1">
                   <div className="flex space-x-4">
                     {isAuth ? (
