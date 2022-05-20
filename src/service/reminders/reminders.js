@@ -57,7 +57,7 @@ export function useRestOperationReminder() {
     };
   }, [isAuth, token]);
 
-  function updateRecord(record) {
+  function updateRecord(record, fromDiscardSection) {
     const originalAllRecords = [...allReminders];
     const originalRecords = [...reminders];
     const originalFavoriteRecords = [...favoriteReminders];
@@ -79,13 +79,19 @@ export function useRestOperationReminder() {
 
           newAllRecords.push(itemToStore);
           record.favorite === true
-            ? favRecord.push(itemToStore)
-            : newRecords.push(itemToStore);
+            ? favRecord.unshift(itemToStore)
+            : newRecords.unshift(itemToStore);
         }
       } else {
         newAllRecords.push(item);
         item.favorite === true ? favRecord.push(item) : newRecords.push(item);
       }
+    }
+
+    if (fromDiscardSection) {
+      record.favorite === true
+        ? favRecord.unshift(record)
+        : newRecords.unshift(record);
     }
 
     async function execFunction() {
@@ -142,11 +148,17 @@ export function useRestOperationReminder() {
     delete record._id;
     const originalRecords = [...reminders];
     const originalAllRecords = [...allReminders];
+    const originaFavRecords = [...favoriteReminders];
     async function execFunction() {
       try {
         await createAReminder(`${API}/addreminder`, record, token).then(
           (res) => {
-            setReminders([res.data, ...reminders]);
+            if (res.data.favorite === true) {
+              setFavoriteReminders([res.data, ...favoriteReminders]);
+            } else {
+              setReminders([res.data, ...reminders]);
+            }
+
             setAllReminders([res.data, ...allReminders]);
             setLoading(false);
           }
@@ -154,6 +166,7 @@ export function useRestOperationReminder() {
       } catch (error) {
         setReminders(originalRecords);
         setAllReminders(originalAllRecords);
+        setFavoriteReminders(originaFavRecords);
         setLoading(false);
       }
     }

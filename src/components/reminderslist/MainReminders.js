@@ -5,27 +5,39 @@ import {
   AiFillEdit,
   AiOutlineFileDone,
   AiOutlineStar,
-  //AiFillStar,
 } from "react-icons/ai";
 import { ModalContext } from "../../service/context/ModalContext";
 import { ReminderContext } from "../../service/context/ReminderContext";
+import { PastRemindersContext } from "../../service/context/PastRemindersContext";
+import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
+import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
 
 export const MainReminders = () => {
-  const { reminders, discardRecord, updateRecord } =
-    useContext(ReminderContext);
+  const { reminders, updateRecord } = useContext(ReminderContext);
   const { setModalOn, setNewReminder } = useContext(ModalContext);
+  const { addRecordFromActive } = useContext(PastRemindersContext);
+  const { setReminderDetails, setDetailOn } = useContext(
+    DetailOfAReminderContext
+  );
+  const { setConfirmationOn, setDescriptionText, setItemID, setFromWhere } =
+    useContext(ConfirmationContext);
 
   const editStatus = (item) => {
     const currentStatus = item.status;
     currentStatus === "active"
       ? (item.status = "deactive")
       : (item.status = "active");
-    updateRecord(item);
+    updateRecord(item, false);
   };
 
   const editFavorite = (item) => {
     item.favorite = true;
-    updateRecord(item);
+    updateRecord(item, false);
+  };
+
+  const handleDetailsScreen = (item) => {
+    setReminderDetails(item);
+    setDetailOn(true);
   };
 
   return (
@@ -39,7 +51,10 @@ export const MainReminders = () => {
             <div
               key={item._id}
               className="flex justify-center"
-              onDoubleClick={() => editStatus(item)}
+              onDoubleClick={() => {
+                editStatus(item);
+                addRecordFromActive(item);
+              }}
             >
               <div
                 className={
@@ -54,10 +69,16 @@ export const MainReminders = () => {
                   onClick={() => editFavorite(item)}
                 />
 
-                <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
+                <h5
+                  className="text-gray-900 text-xl leading-tight font-medium mb-2 truncate px-8 max-w-[250px] sm:max-w-[330px]"
+                  onClick={() => handleDetailsScreen(item)}
+                >
                   {item.title}
                 </h5>
-                <p className="text-gray-700 text-base mb-4">
+                <p
+                  className="text-gray-700 text-base px-6 mb-4 truncate max-w-[250px] sm:max-w-[330px]"
+                  onClick={() => handleDetailsScreen(item)}
+                >
                   {item.description}
                 </p>
                 <div className="flex gap-6 justify-center mt-7">
@@ -65,7 +86,10 @@ export const MainReminders = () => {
                     className="hover:cursor-pointer"
                     color="#6366f1"
                     size={25}
-                    onClick={() => editStatus(item)}
+                    onClick={() => {
+                      editStatus(item);
+                      addRecordFromActive(item);
+                    }}
                   />
                   <AiFillEdit
                     className="hover:cursor-pointer"
@@ -85,7 +109,19 @@ export const MainReminders = () => {
                     className="hover:cursor-pointer"
                     color="red"
                     size={25}
-                    onClick={() => discardRecord(item._id)}
+                    //onClick={() => discardRecord(item._id)}
+                    onClick={() => {
+                      setItemID(item._id);
+                      setFromWhere("main");
+                      setDescriptionText({
+                        titleText: "Delete A Reminder",
+                        displayText:
+                          "Are you sure you want to delete the reminder?",
+                        confirmText: "Accept",
+                        declineText: "Cancel",
+                      });
+                      setConfirmationOn(true);
+                    }}
                   />
                 </div>
                 <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">

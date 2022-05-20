@@ -5,6 +5,10 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { ModalProvider } from "./service/context/ModalContext";
 import { AuthProvider } from "./service/context/AuthService";
+import { DetailOfAReminderProvider } from "./service/context/DetailOfAReminderContext";
+import { PastReminderProvider } from "./service/context/PastRemindersContext";
+import { ReminderProvider } from "./service/context/ReminderContext";
+import { ConfirmationProvider } from "./service/context/ComfirmationToProceed";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,7 +16,15 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <ModalProvider>
-          <App />
+          <DetailOfAReminderProvider>
+            <PastReminderProvider>
+              <ReminderProvider>
+                <ConfirmationProvider>
+                  <App />
+                </ConfirmationProvider>
+              </ReminderProvider>
+            </PastReminderProvider>
+          </DetailOfAReminderProvider>
         </ModalProvider>
       </AuthProvider>
     </BrowserRouter>

@@ -39,7 +39,7 @@ export function useRestPastReminder() {
     };
   }, [isAuth, token]);
 
-  function discardRecord(itemID) {
+  function discardRecord(itemID, typeOfDelete) {
     const originalRecords = [...pastReminders];
     const newRecords = pastReminders.filter(function (rec) {
       return rec._id !== itemID;
@@ -47,7 +47,9 @@ export function useRestPastReminder() {
     async function execFunction() {
       try {
         setPastReminders(newRecords);
-        await discardAReminder(`${API}/deletereminder/${itemID}`, token);
+        if (typeOfDelete) {
+          await discardAReminder(`${API}/deletereminder/${itemID}`, token);
+        }
       } catch (error) {
         setPastReminders(originalRecords);
       }
@@ -55,10 +57,16 @@ export function useRestPastReminder() {
     execFunction();
   }
 
+  function addRecordFromActive(record) {
+    record.status = "deactive";
+    setPastReminders([record, ...pastReminders]);
+  }
+
   return {
     pastReminders,
     error,
     loading,
     discardRecord,
+    addRecordFromActive,
   };
 }
