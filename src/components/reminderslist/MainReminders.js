@@ -13,13 +13,14 @@ import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminde
 import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
 
 export const MainReminders = () => {
-  const { reminders, updateRecord } = useContext(ReminderContext);
+  const { reminders, updateRecord, discardRecord } =
+    useContext(ReminderContext);
   const { setModalOn, setNewReminder } = useContext(ModalContext);
   const { addRecordFromActive } = useContext(PastRemindersContext);
   const { setReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
-  const { setConfirmationOn, setDescriptionText, setItemID, setFromWhere } =
+  const { setConfirmationOn, setDescriptionText, setHoldCallback } =
     useContext(ConfirmationContext);
 
   const editStatus = (item) => {
@@ -38,6 +39,17 @@ export const MainReminders = () => {
   const handleDetailsScreen = (item) => {
     setReminderDetails(item);
     setDetailOn(true);
+  };
+
+  const execDeletion = (itemId) => {
+    setDescriptionText({
+      titleText: "Delete A Reminder",
+      displayText: "Are you sure you want to delete the reminder?",
+      confirmText: "Accept",
+      declineText: "Cancel",
+    });
+    setHoldCallback(() => () => discardRecord(itemId));
+    setConfirmationOn(true);
   };
 
   return (
@@ -109,19 +121,7 @@ export const MainReminders = () => {
                     className="hover:cursor-pointer"
                     color="red"
                     size={25}
-                    //onClick={() => discardRecord(item._id)}
-                    onClick={() => {
-                      setItemID(item._id);
-                      setFromWhere("main");
-                      setDescriptionText({
-                        titleText: "Delete A Reminder",
-                        displayText:
-                          "Are you sure you want to delete the reminder?",
-                        confirmText: "Accept",
-                        declineText: "Cancel",
-                      });
-                      setConfirmationOn(true);
-                    }}
+                    onClick={() => execDeletion(item._id)}
                   />
                 </div>
                 <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">

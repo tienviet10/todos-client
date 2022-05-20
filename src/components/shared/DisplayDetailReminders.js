@@ -5,7 +5,7 @@ import { AiOutlineFileDone, AiFillDelete, AiFillCaretUp } from "react-icons/ai";
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
 
 const DetailOfAReminderWindow = ({ selectedTab }) => {
-  const { updateRecord } = useContext(ReminderContext);
+  const { updateRecord, discardRecord } = useContext(ReminderContext);
   const { addRecordFromActive, discardRecord: discardRecordPastReminder } =
     useContext(PastRemindersContext);
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
@@ -103,7 +103,11 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
                 color="red"
                 size={25}
                 onClick={() => {
-                  discardRecordPastReminder(reminderDetails._id, true);
+                  if (reminderDetails.status === "active") {
+                    discardRecord(reminderDetails._id);
+                  } else if (reminderDetails.status === "deactive") {
+                    discardRecordPastReminder(reminderDetails._id, true);
+                  }
                   setDetailOn(false);
                 }}
               />

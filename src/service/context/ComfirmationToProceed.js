@@ -1,14 +1,8 @@
-import React, { createContext, useContext, useState } from "react";
-import { PastRemindersContext } from "./PastRemindersContext";
-import { ReminderContext } from "./ReminderContext";
+import React, { createContext, useState } from "react";
 
 const ConfirmationContext = createContext();
 
 function ConfirmationProvider({ children }) {
-  const { discardRecord: discardRecordFromActive } =
-    useContext(ReminderContext);
-  const { discardRecord: discardRecordFromPast } =
-    useContext(PastRemindersContext);
   const [confirmationOn, setConfirmationOn] = useState(false);
   const [descriptionText, setDescriptionText] = useState({
     titleText: "",
@@ -16,15 +10,11 @@ function ConfirmationProvider({ children }) {
     confirmText: "",
     declineText: "",
   });
-  const [itemId, setItemID] = useState("");
-  const [fromWhere, setFromWhere] = useState("");
 
-  function discardAction() {
-    if (itemId && fromWhere && (fromWhere === "main" || fromWhere === "fav")) {
-      discardRecordFromActive(itemId);
-    } else if (itemId && fromWhere && fromWhere === "past") {
-      discardRecordFromPast(itemId, true);
-    }
+  const [holdCallBack, setHoldCallback] = useState(() => () => {});
+
+  function deleteAction() {
+    holdCallBack();
     setConfirmationOn(false);
   }
 
@@ -35,9 +25,8 @@ function ConfirmationProvider({ children }) {
         setConfirmationOn,
         descriptionText,
         setDescriptionText,
-        discardAction,
-        setItemID,
-        setFromWhere,
+        deleteAction,
+        setHoldCallback,
       }}
     >
       {children}

@@ -44,6 +44,7 @@ export function useRestPastReminder() {
     const newRecords = pastReminders.filter(function (rec) {
       return rec._id !== itemID;
     });
+    console.log(itemID);
     async function execFunction() {
       try {
         setPastReminders(newRecords);

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
 
 export const Confirmation = () => {
-  const { setConfirmationOn, descriptionText, discardAction } =
+  const { setConfirmationOn, descriptionText, deleteAction } =
     useContext(ConfirmationContext);
   return (
     <div>
@@ -51,7 +51,10 @@ export const Confirmation = () => {
               <button
                 className={`bg-application-color hover:bg-hover-color text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
                 type="button"
-                onClick={() => discardAction()}
+                onClick={() => {
+                  //discardAction();
+                  deleteAction();
+                }}
               >
                 {descriptionText.confirmText}
               </button>

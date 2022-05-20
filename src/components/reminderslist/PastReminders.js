@@ -21,12 +21,23 @@ export const PastReminders = () => {
     DetailOfAReminderContext
   );
 
-  const { setConfirmationOn, setDescriptionText, setItemID, setFromWhere } =
+  const { setConfirmationOn, setDescriptionText, setHoldCallback } =
     useContext(ConfirmationContext);
 
   const handleDetailsScreen = (item) => {
     setReminderDetails(item);
     setDetailOn(true);
+  };
+
+  const execDeletion = (itemId) => {
+    setDescriptionText({
+      titleText: "Delete A Reminder",
+      displayText: "Are you sure you want to delete the reminder?",
+      confirmText: "Accept",
+      declineText: "Cancel",
+    });
+    setHoldCallback(() => () => discardRecord(itemId, true));
+    setConfirmationOn(true);
   };
 
   if (loading)
@@ -91,19 +102,7 @@ export const PastReminders = () => {
                       className="hover:cursor-pointer"
                       color="red"
                       size={25}
-                      onClick={() => {
-                        setItemID(item._id);
-                        setFromWhere("past");
-                        setDescriptionText({
-                          titleText: "Delete A Reminder",
-                          displayText:
-                            "Are you sure you want to delete the reminder?",
-                          confirmText: "Accept",
-                          declineText: "Cancel",
-                        });
-                        setConfirmationOn(true);
-                        //discardRecord(item._id, true);
-                      }}
+                      onClick={() => execDeletion(item._id)}
                     />
                   </div>
                   <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">
