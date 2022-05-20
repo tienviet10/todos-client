@@ -10,8 +10,7 @@ import {
 } from "react-icons/ai";
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
 import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
-import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
-import { CONFIRMATIONDELETION } from "../config";
+import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
 
 export const FavouriteReminders = () => {
   const { favoriteReminders, updateRecord, discardRecord } =
@@ -21,8 +20,7 @@ export const FavouriteReminders = () => {
   const { setReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
-  const { setConfirmationOn, setDescriptionText, setHoldCallback } =
-    useContext(ConfirmationContext);
+  const { confirm } = useContext(ConfirmationContext);
 
   const editStatus = (item) => {
     const currentStatus = item.status;
@@ -43,9 +41,9 @@ export const FavouriteReminders = () => {
   };
 
   const execDeletion = (itemId) => {
-    setDescriptionText(CONFIRMATIONDELETION);
-    setHoldCallback(() => () => discardRecord(itemId));
-    setConfirmationOn(true);
+    confirm({
+      onSuccess: () => discardRecord(itemId)
+    })
   };
 
   const editReminder = (item) => {

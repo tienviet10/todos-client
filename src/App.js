@@ -14,7 +14,7 @@ import { AuthContext } from "./service/context/AuthService";
 import { PastReminderToggle } from "./components/reminderslist/PastReminderToggle";
 import { DetailOfAReminderContext } from "./service/context/DetailOfAReminderContext";
 import DetailOfAReminderWindow from "./components/shared/DisplayDetailReminders";
-import { ConfirmationContext } from "./service/context/ComfirmationToProceed";
+import { ConfirmationContext } from "./service/context/ConfirmationToProceedContext";
 import { Confirmation } from "./components/shared/Confirmation";
 
 function App() {

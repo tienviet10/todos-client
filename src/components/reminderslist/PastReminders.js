@@ -10,8 +10,7 @@ import Loader from "../shared/Loader";
 import { ReminderContext } from "../../service/context/ReminderContext";
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
 import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
-import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
-import { CONFIRMATIONDELETION } from "../config";
+import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
 
 export const PastReminders = () => {
   const { pastReminders, error, loading, discardRecord } =
@@ -22,8 +21,7 @@ export const PastReminders = () => {
     DetailOfAReminderContext
   );
 
-  const { setConfirmationOn, setDescriptionText, setHoldCallback } =
-    useContext(ConfirmationContext);
+  const { confirm } = useContext(ConfirmationContext);
 
   const handleDetailsScreen = (item) => {
     setReminderDetails(item);
@@ -31,9 +29,9 @@ export const PastReminders = () => {
   };
 
   const execDeletion = (itemId) => {
-    setDescriptionText(CONFIRMATIONDELETION);
-    setHoldCallback(() => () => discardRecord(itemId, true));
-    setConfirmationOn(true);
+    confirm({
+      onSuccess: () => discardRecord(itemId, true)
+    })
   };
 
   const restorePastReminder = (item) => {

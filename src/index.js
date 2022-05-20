@@ -8,7 +8,7 @@ import { AuthProvider } from "./service/context/AuthService";
 import { DetailOfAReminderProvider } from "./service/context/DetailOfAReminderContext";
 import { PastReminderProvider } from "./service/context/PastRemindersContext";
 import { ReminderProvider } from "./service/context/ReminderContext";
-import { ConfirmationProvider } from "./service/context/ComfirmationToProceed";
+import { ConfirmationProvider } from "./service/context/ConfirmationToProceedContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

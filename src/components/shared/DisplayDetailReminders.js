@@ -3,8 +3,7 @@ import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminde
 import { ReminderContext } from "../../service/context/ReminderContext";
 import { AiOutlineFileDone, AiFillDelete, AiFillCaretUp } from "react-icons/ai";
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
-import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
-import { CONFIRMATIONDELETION } from "../config";
+import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
 import { CloseButton } from "./CloseButton";
 
 const DetailOfAReminderWindow = ({ selectedTab }) => {
@@ -14,7 +13,7 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
   const { title, description } = reminderDetails;
 
-  const { setConfirmationOn, setDescriptionText, setHoldCallback } =
+  const { confirm } =
     useContext(ConfirmationContext);
 
   const editStatus = (item) => {
@@ -26,17 +25,12 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
   };
 
   const execDeletion = (reminderDetails) => {
-    if (reminderDetails.status === "active") {
-      setDescriptionText(CONFIRMATIONDELETION);
-      setHoldCallback(() => () => discardRecord(reminderDetails._id));
-      setConfirmationOn(true);
-    } else if (reminderDetails.status === "deactive") {
-      setDescriptionText(CONFIRMATIONDELETION);
-      setHoldCallback(
-        () => () => discardRecordPastReminder(reminderDetails._id, true)
-      );
-      setConfirmationOn(true);
-    }
+    confirm({
+      onSuccess: reminderDetails.status === 'active'
+        ? () => discardRecord(reminderDetails._id)
+        : () => discardRecord(reminderDetails._id, true)
+    })
+    
     setDetailOn(false);
   };
 
