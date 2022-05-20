@@ -13,6 +13,10 @@ import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminde
 import { ConfirmationContext } from "../../service/context/ComfirmationToProceed";
 import { CONFIRMATIONDELETION } from "../config";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 export const MainReminders = () => {
   const { reminders, updateRecord, discardRecord } =
     useContext(ReminderContext);
@@ -64,6 +68,11 @@ export const MainReminders = () => {
     });
   };
 
+  const saveNewChosenColor = (e, item) => {
+    let updatedCard = { ...item, color: e.target.value };
+    updateRecord(updatedCard, false);
+  };
+
   return (
     <>
       <h2 className="max-w-[1240px] w-full mx-auto pt-4 sm:pt-5 text-2xl font-bold px-4">
@@ -77,7 +86,26 @@ export const MainReminders = () => {
               className="flex justify-center"
               onDoubleClick={() => moveReminderToPast(item)}
             >
-              <div className="block px-6 py-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500">
+              <div
+                className={classNames(
+                  item.color === "blue"
+                    ? "bg-blue-100"
+                    : item.color === "red"
+                    ? "bg-red-200"
+                    : item.color === "orange"
+                    ? "bg-orange-200"
+                    : item.color === "yellow"
+                    ? "bg-yellow-200"
+                    : item.color === "lime"
+                    ? "bg-lime-200"
+                    : item.color === "purple"
+                    ? "bg-purple-200"
+                    : item.color === "pink"
+                    ? "bg-pink-100"
+                    : "bg-white",
+                  "block px-6 py-3 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500"
+                )}
+              >
                 <AiOutlineStar
                   className="hover:cursor-pointer float-right mr-[-5%]"
                   size={25}
@@ -96,7 +124,7 @@ export const MainReminders = () => {
                 >
                   {item.description}
                 </p>
-                <div className="flex gap-6 justify-center mt-7">
+                <div className="flex gap-6 justify-center mt-8">
                   <AiOutlineFileDone
                     className="hover:cursor-pointer"
                     color="#6366f1"
@@ -115,13 +143,35 @@ export const MainReminders = () => {
                     onClick={() => execDeletion(item._id)}
                   />
                 </div>
-                {/* <select id="nname" className="mt-4">
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
+                <select
+                  id="nname"
+                  className={classNames(
+                    item.color === "blue"
+                      ? "bg-blue-100"
+                      : item.color === "red"
+                      ? "bg-red-200"
+                      : item.color === "orange"
+                      ? "bg-orange-200"
+                      : item.color === "yellow"
+                      ? "bg-yellow-200"
+                      : item.color === "lime"
+                      ? "bg-lime-200"
+                      : item.color === "purple"
+                      ? "bg-purple-200"
+                      : item.color === "pink"
+                      ? "bg-pink-100"
+                      : "bg-white",
+                    "mt-3"
+                  )}
+                  onChange={(e) => saveNewChosenColor(e, item)}
+                  value={item.color ? item.color : "white"}
+                >
+                  <option value="white">White</option>
+                  <option value="blue">Blue</option>
                   <option value="mercedes">Merc</option>
                   <option value="audi">Audi</option>
-                </select> */}
-                <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">
+                </select>
+                <div className="py-1 px-6 border-t border-gray-400 text-gray-600 mt-4">
                   {moment(item.createdAt).fromNow()}
                 </div>
               </div>
