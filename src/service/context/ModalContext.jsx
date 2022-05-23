@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { REMINDER_STATUS } from "../../components/config";
 
 const ModalContext = createContext();
 
@@ -7,7 +8,7 @@ function ModalProvider({ children }) {
   const [newReminder, setNewReminder] = useState({
     title: "",
     description: "",
-    status: "active",
+    status: REMINDER_STATUS.ACTIVE,
     favorite: false,
     _id: "",
   });

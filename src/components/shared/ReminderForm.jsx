@@ -2,7 +2,7 @@ import React from "react";
 import { ReminderFormMain } from "./ReminderFormMain";
 import { ReminderFormShared } from "./ReminderFormShared";
 
-const ReminderForm = ({ selectedTab }) => {
+export const ReminderForm = ({ selectedTab }) => {
   return (
     <div>
       {selectedTab && selectedTab === "Reminder" ? (
@@ -15,5 +15,3 @@ const ReminderForm = ({ selectedTab }) => {
     </div>
   );
 };
-
-export default ReminderForm;

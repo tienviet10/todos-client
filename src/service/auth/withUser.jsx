@@ -38,7 +38,7 @@ function withUser(WrappedComponent) {
         }
       };
 
-      if (token) fetchData(`${API}/userauth`, token);
+      if (token) fetchData(`${API}/v1/user-auth`, token);
     }, [token]);
 
     return (

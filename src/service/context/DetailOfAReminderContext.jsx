@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { REMINDER_STATUS } from "../../components/config";
 
 const DetailOfAReminderContext = createContext();
 
@@ -7,7 +8,7 @@ function DetailOfAReminderProvider({ children }) {
   const [reminderDetails, setReminderDetails] = useState({
     title: "",
     description: "",
-    status: "active",
+    status: REMINDER_STATUS.ACTIVE,
     favorite: false,
     _id: "",
     createdAt: "",

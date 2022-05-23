@@ -1,6 +1,11 @@
 import { createContext, useRef, useState } from "react";
 
-import { CONFIRMATIONDELETION } from "../../components/config";
+const CONFIRMATION_DELETION = {
+  titleText: "Delete A Reminder",
+  displayText: "Are you sure you want to delete the reminder?",
+  confirmText: "Accept",
+  declineText: "Cancel",
+};
 
 const ConfirmationContext = createContext();
 
@@ -15,9 +20,9 @@ function ConfirmationProvider({ children }) {
 
   const confirmationFunction = useRef(() => undefined);
 
-  function confirm({ descriptionText = CONFIRMATIONDELETION, onSuccess }) {
+  function confirm({ descriptionText = CONFIRMATION_DELETION, onSuccess }) {
     confirmationFunction.current = () => {
-      onSuccess()
+      onSuccess();
       setConfirmationOn(false);
     };
     setDescriptionText(descriptionText);
@@ -30,7 +35,8 @@ function ConfirmationProvider({ children }) {
         confirmationOn,
         confirmationFunction: confirmationFunction.current,
         confirm,
-        descriptionText
+        descriptionText,
+        setConfirmationOn,
       }}
     >
       {children}

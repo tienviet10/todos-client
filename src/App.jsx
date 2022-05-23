@@ -8,12 +8,12 @@ import Setting from "./screens/Setting";
 import { Login } from "./screens/Login";
 import { Registration } from "./screens/Registration";
 import { Landing } from "./screens/Landing";
-import ReminderForm from "./components/shared/ReminderForm";
+import { ReminderForm } from "./components/shared/ReminderForm";
 import { ModalContext } from "./service/context/ModalContext";
-import { AuthContext } from "./service/context/AuthService";
-import { PastReminderToggle } from "./components/reminderslist/PastReminderToggle";
+import { AuthContext } from "./service/context/AuthServiceContext";
+import { PastReminderToggle } from "./components/reminders-list/PastReminderToggle";
 import { DetailOfAReminderContext } from "./service/context/DetailOfAReminderContext";
-import DetailOfAReminderWindow from "./components/shared/DisplayDetailReminders";
+import { DetailOfAReminderWindow } from "./components/shared/DisplayDetailReminders";
 import { ConfirmationContext } from "./service/context/ConfirmationToProceedContext";
 import { Confirmation } from "./components/shared/Confirmation";
 

@@ -3,6 +3,15 @@ import { ModalContext } from "../../service/context/ModalContext";
 import { ReminderContext } from "../../service/context/ReminderContext";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { CloseButton } from "./CloseButton";
+import { REMINDER_STATUS } from "../config";
+
+const createEmptyReminder = {
+  title: "",
+  description: "",
+  status: REMINDER_STATUS.ACTIVE,
+  favorite: false,
+  _id: "",
+};
 
 export const ReminderFormMain = () => {
   const { addRecord, updateRecord } = useContext(ReminderContext);
@@ -27,13 +36,7 @@ export const ReminderFormMain = () => {
   };
 
   const exitTheForm = () => {
-    setNewReminder({
-      title: "",
-      description: "",
-      status: "active",
-      favorite: false,
-      _id: "",
-    });
+    setNewReminder(createEmptyReminder);
     setModalOn(false);
   };
 
@@ -41,13 +44,7 @@ export const ReminderFormMain = () => {
     newReminder._id === ""
       ? addRecord(newReminder)
       : updateRecord(newReminder, false);
-    setNewReminder({
-      title: "",
-      description: "",
-      status: "active",
-      favorite: false,
-      _id: "",
-    });
+    setNewReminder(createEmptyReminder);
     setModalOn(false);
   };
   return (

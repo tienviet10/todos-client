@@ -15,7 +15,7 @@ export const Registration = () => {
     username: "",
     email: "",
     password: "",
-    reconfimedPassword: "",
+    reconfirmedPassword: "",
     error: "",
     success: "",
     buttonText: "Register Account",
@@ -25,53 +25,78 @@ export const Registration = () => {
     username,
     email,
     password,
-    reconfimedPassword,
+    reconfirmedPassword,
     error,
     success,
     buttonText,
   } = state;
 
   const handleChange = (name) => (e) => {
-    setState({
-      ...state,
+    setState((item) => ({
+      ...item,
       [name]: e.target.value,
       error: "",
       success: "",
       buttonText: "Register",
-    });
+    }));
   };
 
-  function register(e) {
+  async function register(e) {
     e.preventDefault();
     setLoading(true);
-    setState({ ...state, buttonText: "Registering..." });
+    setState((item) => ({ ...item, buttonText: "Registering..." }));
     const newUser = {
       username: username,
       email: email,
       password: password,
     };
 
-    if (password === reconfimedPassword) {
-      axios
-        .post(`${API}/register`, newUser)
-        .then((res) => {
-          setState({
-            ...state,
-            success: res.data.message,
-          });
+    if (password === reconfirmedPassword) {
+      try {
+        const response = await axios.post(`${API}/v1/register`, newUser);
+
+        if (response.status) {
+          const data = response.data;
+          setState((item) => ({
+            ...item,
+            success: data.message,
+          }));
           //setSuccess(res.data.message);
           setLoading(false);
           navigate("/login");
-        })
-        .catch((err) => {
-          setState({
-            ...state,
-            error: err.response.data.error,
-            buttonText: "Register",
-          });
+        } else {
+          throw new Error("Fetch request error");
+        }
+      } catch (err) {
+        setState((item) => ({
+          ...item,
+          error: err.response.data.error,
+          buttonText: "Register",
+        }));
 
-          setLoading(false);
-        });
+        setLoading(false);
+      }
+
+      // axios
+      //   .post(`${API}/v1/register`, newUser)
+      //   .then((res) => {
+      //     setState((item) => ({
+      //       ...item,
+      //       success: res.data.message,
+      //     }));
+      //     //setSuccess(res.data.message);
+      //     setLoading(false);
+      //     navigate("/login");
+      //   })
+      //   .catch((err) => {
+      //     setState((item) => ({
+      //       ...item,
+      //       error: err.response.data.error,
+      //       buttonText: "Register",
+      //     }));
+
+      //     setLoading(false);
+      //   });
     } else {
       setLoading(false);
     }
@@ -149,24 +174,24 @@ export const Registration = () => {
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
-                  Re-confimed Password
+                  Re-confirmed Password
                 </label>
                 <input
-                  id="reconfimedPassword"
-                  name="reconfimedPassword"
+                  id="reconfirmedPassword"
+                  name="reconfirmedPassword"
                   type="password"
-                  value={reconfimedPassword}
+                  value={reconfirmedPassword}
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Re-entered Password"
-                  onChange={handleChange("reconfimedPassword")}
+                  onChange={handleChange("reconfirmedPassword")}
                 />
               </div>
             </div>
 
             <div>
               <button
-                disabled={loading ? true : false}
+                disabled={loading}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">

@@ -1,12 +1,6 @@
 export const API = "http://localhost:8000/api";
 export const DOMAIN = "http://localhost:3000";
-export const CONFIRMATIONDELETION = {
-  titleText: "Delete A Reminder",
-  displayText: "Are you sure you want to delete the reminder?",
-  confirmText: "Accept",
-  declineText: "Cancel",
-};
-export const MAINPAGEEXAMPLE = [
+export const MAIN_PAGE_EXAMPLE = [
   {
     _id: "1",
     title: "Shopping List",
@@ -22,3 +16,7 @@ export const MAINPAGEEXAMPLE = [
     status: "deactive",
   },
 ];
+export const REMINDER_STATUS = {
+  ACTIVE: "active",
+  INACTIVE: "deactive",
+};

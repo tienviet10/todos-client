@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import { API } from "../../components/config";
+import { API, REMINDER_STATUS } from "../../components/config";
 import { getLocalStorage } from "../auth/auth";
-import { AuthContext } from "../context/AuthService";
+import { AuthContext } from "../context/AuthServiceContext";
 import {
   createAReminder,
   discardAReminder,
   getReminders,
   updateAReminder,
-} from "./restrequest";
+} from "./rest-request";
 
 export function useRestOperationReminder() {
   const isMounted = useRef(false);
@@ -23,15 +23,18 @@ export function useRestOperationReminder() {
     isMounted.current = true;
     async function init() {
       try {
-        const response = await getReminders(`${API}/getmainreminders`, token);
+        const response = await getReminders(
+          `${API}/v1/reminders/active`,
+          token
+        );
         if (response.status) {
           const json = response.data;
 
           if (isMounted.current) {
-            let favList = [];
-            let mainList = [];
+            const favList = [];
+            const mainList = [];
             for (const item of json) {
-              if (item.favorite === true) {
+              if (item.favorite) {
                 favList.push(item);
               } else {
                 mainList.push(item);
@@ -67,7 +70,7 @@ export function useRestOperationReminder() {
     let favRecord = [];
     for (const item of allReminders) {
       if (item._id === record._id) {
-        if (record.status !== "deactive") {
+        if (record.status !== REMINDER_STATUS.INACTIVE) {
           let itemToStore = {
             ...item,
             title: record.title,
@@ -78,20 +81,18 @@ export function useRestOperationReminder() {
           }
 
           newAllRecords.push(itemToStore);
-          record.favorite === true
+          record.favorite
             ? favRecord.unshift(itemToStore)
             : newRecords.unshift(itemToStore);
         }
       } else {
         newAllRecords.push(item);
-        item.favorite === true ? favRecord.push(item) : newRecords.push(item);
+        item.favorite ? favRecord.push(item) : newRecords.push(item);
       }
     }
 
     if (fromDiscardSection) {
-      record.favorite === true
-        ? favRecord.unshift(record)
-        : newRecords.unshift(record);
+      record.favorite ? favRecord.unshift(record) : newRecords.unshift(record);
     }
 
     async function execFunction() {
@@ -100,7 +101,7 @@ export function useRestOperationReminder() {
         setFavoriteReminders(favRecord);
         setAllReminders(newAllRecords);
         await updateAReminder(
-          `${API}/editreminder/${record._id}`,
+          `${API}/v1/reminder/${record._id}`,
           record,
           token
         );
@@ -118,13 +119,13 @@ export function useRestOperationReminder() {
     const originalRecords = [...reminders];
     const originalFavoriteRecords = [...favoriteReminders];
 
-    let newAllRecords = [];
-    let newRecords = [];
-    let favRecord = [];
+    const newAllRecords = [];
+    const newRecords = [];
+    const favRecord = [];
     for (const item of allReminders) {
       if (item._id !== itemID) {
         newAllRecords.push(item);
-        item.favorite === true ? favRecord.push(item) : newRecords.push(item);
+        item.favorite ? favRecord.push(item) : newRecords.push(item);
       }
     }
 
@@ -133,7 +134,7 @@ export function useRestOperationReminder() {
         setReminders(newRecords);
         setFavoriteReminders(favRecord);
         setAllReminders(newAllRecords);
-        await discardAReminder(`${API}/deletereminder/${itemID}`, token);
+        await discardAReminder(`${API}/v1/reminder/${itemID}`, token);
       } catch (error) {
         setReminders(originalRecords);
         setFavoriteReminders(originalFavoriteRecords);
@@ -148,25 +149,45 @@ export function useRestOperationReminder() {
     delete record._id;
     const originalRecords = [...reminders];
     const originalAllRecords = [...allReminders];
-    const originaFavRecords = [...favoriteReminders];
+    const originalFavRecords = [...favoriteReminders];
     async function execFunction() {
       try {
-        await createAReminder(`${API}/addreminder`, record, token).then(
-          (res) => {
-            if (res.data.favorite === true) {
-              setFavoriteReminders([res.data, ...favoriteReminders]);
-            } else {
-              setReminders([res.data, ...reminders]);
-            }
-
-            setAllReminders([res.data, ...allReminders]);
-            setLoading(false);
-          }
+        const response = await createAReminder(
+          `${API}/v1/reminder`,
+          record,
+          token
         );
+
+        if (response.status) {
+          const data = response.data;
+          if (data.favorite) {
+            setFavoriteReminders([data, ...favoriteReminders]);
+          } else {
+            setReminders([data, ...reminders]);
+          }
+
+          setAllReminders([data, ...allReminders]);
+          setLoading(false);
+        } else {
+          throw new Error("Fetch request error");
+        }
+
+        // await createAReminder(`${API}/v1/reminder`, record, token).then(
+        //   (res) => {
+        //     if (res.data.favorite === true) {
+        //       setFavoriteReminders([res.data, ...favoriteReminders]);
+        //     } else {
+        //       setReminders([res.data, ...reminders]);
+        //     }
+
+        //     setAllReminders([res.data, ...allReminders]);
+        //     setLoading(false);
+        //   }
+        // );
       } catch (error) {
         setReminders(originalRecords);
         setAllReminders(originalAllRecords);
-        setFavoriteReminders(originaFavRecords);
+        setFavoriteReminders(originalFavRecords);
         setLoading(false);
       }
     }
@@ -174,6 +195,7 @@ export function useRestOperationReminder() {
   }
 
   return {
+    allReminders,
     reminders,
     favoriteReminders,
     error,

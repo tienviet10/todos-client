@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { useRestPastReminder } from "../reminders/pastreminders";
+import { useRestPastReminder } from "../reminders/past-reminders";
 
 const PastRemindersContext = createContext();
 

@@ -5,11 +5,13 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import withUser from "../../service/auth/withUser";
 import { ModalContext } from "../../service/context/ModalContext";
-import { AuthContext } from "../../service/context/AuthService";
+import { AuthContext } from "../../service/context/AuthServiceContext";
 
 const tabsNav = [
   { name: "Reminder", href: "/dashboard", current: true },
   { name: "Share", href: "/team", current: false },
+  { name: "Profile", href: "/profile", current: false },
+  { name: "Setting", href: "/setting", current: false },
 ];
 
 function classNames(...classes) {
@@ -25,24 +27,17 @@ const Navbar = ({ setNavTab }) => {
 
   const changeCurrentSelection = (itemName) => {
     const newList = navigation.map((item) => {
-      if (item.current === true) {
-        const updatedItem = {
-          ...item,
-          current: !item.current,
-        };
-        return updatedItem;
-      }
-
       if (item.name === itemName) {
-        const updatedItem = {
+        return {
           ...item,
-          current: !item.current,
+          current: true,
         };
-
-        return updatedItem;
+      } else {
+        return {
+          ...item,
+          current: false,
+        };
       }
-
-      return item;
     });
 
     setNavigation(newList);
@@ -87,24 +82,28 @@ const Navbar = ({ setNavTab }) => {
                 <div className="hidden sm:block sm:ml-6 mt-1">
                   <div className="flex space-x-4">
                     {isAuth ? (
-                      navigation.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "px-3 py-2 rounded-md text-sm font-medium"
-                          )}
-                          onClick={() => {
-                            changeCurrentSelection(item.name);
-                            setNavTab(item.name);
-                          }}
-                        >
-                          {item.name}
-                        </Link>
-                      ))
+                      navigation.map(
+                        (item) =>
+                          item.name !== "Setting" &&
+                          item.name !== "Profile" && (
+                            <Link
+                              key={item.name}
+                              to={item.href}
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "px-3 py-2 rounded-md text-sm font-medium"
+                              )}
+                              onClick={() => {
+                                changeCurrentSelection(item.name);
+                                setNavTab(item.name);
+                              }}
+                            >
+                              {item.name}
+                            </Link>
+                          )
+                      )
                     ) : (
                       <Link
                         key="home"
@@ -168,6 +167,9 @@ const Navbar = ({ setNavTab }) => {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
+                              onClick={() => {
+                                changeCurrentSelection("Profile");
+                              }}
                             >
                               Your Profile
                             </Link>
@@ -182,6 +184,9 @@ const Navbar = ({ setNavTab }) => {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
+                              onClick={() => {
+                                changeCurrentSelection("Profile");
+                              }}
                             >
                               Settings
                             </Link>

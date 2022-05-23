@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ModalContext } from "../../service/context/ModalContext";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { MAINPAGEEXAMPLE } from "../components/config";
+import { MAIN_PAGE_EXAMPLE, REMINDER_STATUS } from "../config";
 
-export const Landing = () => {
-  const navigate = useNavigate();
+export const EmptyListDisplay = () => {
+  const { setModalOn } = useContext(ModalContext);
   return (
     <div className="max-w-[800px] w-full mx-auto text-center flex flex-col justify-center pt-4 sm:pt-20">
       <p
@@ -21,11 +21,11 @@ export const Landing = () => {
         </p>
       </div>
       <div className="grid sm:grid-cols-2 gap-4 sm:gap-8 sm:mt-10">
-        {MAINPAGEEXAMPLE.map((cart) => (
+        {MAIN_PAGE_EXAMPLE.map((cart) => (
           <div key={cart._id} className="flex justify-center">
             <div
               className={
-                cart.status === "active"
+                cart.status === REMINDER_STATUS.ACTIVE
                   ? "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500"
                   : "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-red-500"
               }
@@ -37,18 +37,18 @@ export const Landing = () => {
               <div className="flex gap-6 justify-center mt-7">
                 <AiOutlineFileDone
                   disabled
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-default"
                   color="#6366f1"
                   size={25}
                 />
                 <AiFillEdit
                   disabled
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-default"
                   size={25}
                 />
                 <AiFillDelete
                   disabled
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-default"
                   color="red"
                   size={25}
                 />
@@ -60,17 +60,14 @@ export const Landing = () => {
           </div>
         ))}
       </div>
-      <p className="text-[20px] mt-10">Join ReMe today!</p>
-
-      <button
-        onClick={() => navigate("/registration")}
-        className={`bg-red-500 hover:shadow-lg hover:bg-red-600 w-[200px] rounded-md font-bold mt-10 mb-3 mx-auto py-3 text-white`}
-      >
-        SIGN UP
-      </button>
-
-      <div className="text-center cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 pb-10 mx-auto">
-        <p onClick={() => navigate("/login")}>Already have an account!</p>
+      <p className="text-[20px] mt-10">Add your first Reminder below.</p>
+      <div className="pb-10">
+        <button
+          onClick={() => setModalOn(true)}
+          className={`bg-application-color hover:shadow-lg hover:bg-hover-color w-[200px] rounded-md font-bold my-6 mx-auto py-3 text-white`}
+        >
+          Add Reminder
+        </button>
       </div>
     </div>
   );

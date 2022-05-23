@@ -11,6 +11,7 @@ import { ReminderContext } from "../../service/context/ReminderContext";
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
 import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
 import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
+import { REMINDER_STATUS } from "../config";
 
 export const PastReminders = () => {
   const { pastReminders, error, loading, discardRecord } =
@@ -30,14 +31,13 @@ export const PastReminders = () => {
 
   const execDeletion = (itemId) => {
     confirm({
-      onSuccess: () => discardRecord(itemId, true)
-    })
+      onSuccess: () => discardRecord(itemId, true),
+    });
   };
 
   const restorePastReminder = (item) => {
-    item.status = "active";
     discardRecord(item._id, false);
-    updateRecord(item, true);
+    updateRecord({ ...item, status: REMINDER_STATUS.ACTIVE }, true);
   };
 
   if (loading)

@@ -4,11 +4,11 @@ import { EmptyListDisplay } from "../components/dashboard/EmptyListDisplay";
 
 import Loader from "../components/shared/Loader";
 import { ReminderContext } from "../service/context/ReminderContext";
-import DisplayReminderList from "../components/reminderslist/DisplayReminderList";
+import { DisplayReminderList } from "../components/reminders-list/DisplayReminderList";
 
 const Dashboard = () => {
   const {
-    reminders,
+    allReminders,
     loading: loadingReminders,
     error: errorGetReminders,
   } = useContext(ReminderContext);
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      {reminders && reminders.length === 0 ? (
+      {allReminders && allReminders.length === 0 ? (
         <EmptyListDisplay />
       ) : (
         <>

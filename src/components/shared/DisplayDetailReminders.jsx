@@ -5,32 +5,31 @@ import { AiOutlineFileDone, AiFillDelete, AiFillCaretUp } from "react-icons/ai";
 import { PastRemindersContext } from "../../service/context/PastRemindersContext";
 import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
 import { CloseButton } from "./CloseButton";
+import { REMINDER_STATUS } from "../config";
 
-const DetailOfAReminderWindow = ({ selectedTab }) => {
+export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { updateRecord, discardRecord } = useContext(ReminderContext);
   const { addRecordFromActive, discardRecord: discardRecordPastReminder } =
     useContext(PastRemindersContext);
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
   const { title, description } = reminderDetails;
 
-  const { confirm } =
-    useContext(ConfirmationContext);
+  const { confirm } = useContext(ConfirmationContext);
 
   const editStatus = (item) => {
-    const currentStatus = item.status;
-    currentStatus === "active"
-      ? (item.status = "deactive")
-      : (item.status = "active");
-    updateRecord(item, false);
+    item.status === REMINDER_STATUS.ACTIVE
+      ? updateRecord({ ...item, status: REMINDER_STATUS.INACTIVE }, false)
+      : updateRecord({ ...item, status: REMINDER_STATUS.ACTIVE }, false);
   };
 
   const execDeletion = (reminderDetails) => {
     confirm({
-      onSuccess: reminderDetails.status === 'active'
-        ? () => discardRecord(reminderDetails._id)
-        : () => discardRecord(reminderDetails._id, true)
-    })
-    
+      onSuccess:
+        reminderDetails.status === REMINDER_STATUS.ACTIVE
+          ? () => discardRecord(reminderDetails._id)
+          : () => discardRecord(reminderDetails._id, true),
+    });
+
     setDetailOn(false);
   };
 
@@ -41,9 +40,8 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
   };
 
   const restoreReminder = (reminderDetails) => {
-    const newUpdate = { ...reminderDetails, status: "active" };
-    discardRecordPastReminder(newUpdate._id, false);
-    updateRecord(newUpdate, true);
+    discardRecordPastReminder(reminderDetails._id, false);
+    updateRecord({ ...reminderDetails, status: REMINDER_STATUS.ACTIVE }, true);
     setDetailOn(false);
   };
 
@@ -83,7 +81,7 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
             </div>
             {/*footer*/}
             <div className="flex gap-16 justify-center my-7">
-              {reminderDetails.status === "active" ? (
+              {reminderDetails.status === REMINDER_STATUS.ACTIVE ? (
                 <AiOutlineFileDone
                   className="hover:cursor-pointer"
                   color="#6366f1"
@@ -113,5 +111,3 @@ const DetailOfAReminderWindow = ({ selectedTab }) => {
     </div>
   );
 };
-
-export default DetailOfAReminderWindow;
