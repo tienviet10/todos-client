@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import withUser from "../service/auth/withUser";
-import { EmptyListDisplay } from "../components/dashboard/EmptyListDisplay";
-
-import Loader from "../components/shared/Loader";
 import { ReminderContext } from "../service/context/ReminderContext";
-import { DisplayReminderList } from "../components/reminders-list/DisplayReminderList";
+import { EmptyListDisplay } from "../shared/components/dashboard/EmptyListDisplay";
+import Loader from "../shared/components/general/Loader";
+import { DisplayReminderList } from "../shared/components/reminders-list/DisplayReminderList";
 
 const Dashboard = () => {
   const {

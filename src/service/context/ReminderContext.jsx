@@ -6,8 +6,6 @@ const ReminderContext = createContext();
 function ReminderProvider({ children }) {
   const {
     allReminders,
-    reminders,
-    favoriteReminders,
     error,
     loading,
     discardRecord,
@@ -20,8 +18,6 @@ function ReminderProvider({ children }) {
     <ReminderContext.Provider
       value={{
         allReminders,
-        reminders,
-        favoriteReminders,
         error,
         loading,
         discardRecord,

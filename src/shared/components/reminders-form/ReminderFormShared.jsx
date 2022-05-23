@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ModalContext } from "../../service/context/ModalContext";
+import { ModalContext } from "../../../service/context/ModalContext";
 
 export const ReminderFormShared = () => {
   const { newReminder, setModalOn } = useContext(ModalContext);

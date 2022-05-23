@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
-import { ReminderContext } from "../../service/context/ReminderContext";
-import { AiOutlineFileDone, AiFillDelete, AiFillCaretUp } from "react-icons/ai";
-import { PastRemindersContext } from "../../service/context/PastRemindersContext";
-import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
+import { AiFillCaretUp, AiFillDelete, AiOutlineFileDone } from "react-icons/ai";
+import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
+import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
+import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
+import { ReminderContext } from "../../../service/context/ReminderContext";
+import { REMINDER_STATUS } from "../../constant/config";
 import { CloseButton } from "./CloseButton";
-import { REMINDER_STATUS } from "../config";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { updateRecord, discardRecord } = useContext(ReminderContext);

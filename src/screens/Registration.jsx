@@ -1,11 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { AiFillFire } from "react-icons/ai";
-import axios from "axios";
-import Error from "../components/shared/Error";
-import Loader from "../components/shared/Loader";
-import Success from "../components/shared/Success";
 import { useNavigate } from "react-router-dom";
-import { API } from "../components/config";
+import Error from "../shared/components/general/Error";
+import Loader from "../shared/components/general/Loader";
+import Success from "../shared/components/general/Success";
+import { API } from "../shared/constant/config";
 
 export const Registration = () => {
   const [loading, setLoading] = useState(false);

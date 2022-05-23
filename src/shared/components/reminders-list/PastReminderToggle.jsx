@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { PastReminders } from "./PastReminders";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
+import { PastReminders } from "./PastReminders";
 
 export const PastReminderToggle = () => {
   const [toglePastReminder, setTogglePastReminder] = useState(false);

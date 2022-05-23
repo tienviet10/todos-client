@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
-import { API } from "../../components/config";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthServiceContext";
 import axios from "axios";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { API } from "../../shared/constant/config";
+import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 
 export function useLogIn() {

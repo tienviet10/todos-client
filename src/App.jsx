@@ -1,21 +1,21 @@
 import { useContext, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./components/shared/Navbar";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./screens/Dashboard";
-import Team from "./screens/Team";
-import Profile from "./screens/Profile";
-import Setting from "./screens/Setting";
-import { Login } from "./screens/Login";
-import { Registration } from "./screens/Registration";
 import { Landing } from "./screens/Landing";
-import { ReminderForm } from "./components/shared/ReminderForm";
-import { ModalContext } from "./service/context/ModalContext";
+import { Login } from "./screens/Login";
+import Profile from "./screens/Profile";
+import { Registration } from "./screens/Registration";
+import Setting from "./screens/Setting";
+import Team from "./screens/Team";
 import { AuthContext } from "./service/context/AuthServiceContext";
-import { PastReminderToggle } from "./components/reminders-list/PastReminderToggle";
-import { DetailOfAReminderContext } from "./service/context/DetailOfAReminderContext";
-import { DetailOfAReminderWindow } from "./components/shared/DisplayDetailReminders";
 import { ConfirmationContext } from "./service/context/ConfirmationToProceedContext";
-import { Confirmation } from "./components/shared/Confirmation";
+import { DetailOfAReminderContext } from "./service/context/DetailOfAReminderContext";
+import { ModalContext } from "./service/context/ModalContext";
+import { Confirmation } from "./shared/components/general/Confirmation";
+import { DetailOfAReminderWindow } from "./shared/components/general/DisplayDetailReminders";
+import Navbar from "./shared/components/general/Navbar";
+import { ReminderForm } from "./shared/components/reminders-form/ReminderForm";
+import { PastReminderToggle } from "./shared/components/reminders-list/PastReminderToggle";
 
 function App() {
   const [selectedNavTab, setNavTab] = useState("Reminder");

@@ -1,7 +1,7 @@
 import React from "react";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { MAIN_PAGE_EXAMPLE, REMINDER_STATUS } from "../components/config";
+import { MAIN_PAGE_EXAMPLE, REMINDER_STATUS } from "../shared/constant/config";
 
 export const Landing = () => {
   const navigate = useNavigate();

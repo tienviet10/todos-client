@@ -1,14 +1,14 @@
 import React from "react";
 import {
-  AiFillLock,
-  AiFillFire,
   AiFillEye,
   AiFillEyeInvisible,
+  AiFillFire,
+  AiFillLock,
 } from "react-icons/ai";
-import Error from "../components/shared/Error";
-import Loader from "../components/shared/Loader";
-import Success from "../components/shared/Success";
 import { useLogIn } from "../service/auth/login";
+import Error from "../shared/components/general/Error";
+import Loader from "../shared/components/general/Loader";
+import Success from "../shared/components/general/Success";
 
 export const Login = () => {
   const {

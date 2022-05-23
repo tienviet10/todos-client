@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, useContext } from "react";
-import { API, REMINDER_STATUS } from "../../components/config";
+import { useContext, useEffect, useRef, useState } from "react";
+import { API, REMINDER_STATUS } from "../../shared/constant/config";
 import { getLocalStorage } from "../auth/auth";
 import { AuthContext } from "../context/AuthServiceContext";
 import { discardAReminder, getReminders } from "./rest-request";

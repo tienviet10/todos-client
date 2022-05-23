@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { ModalContext } from "../../service/context/ModalContext";
-import { ReminderContext } from "../../service/context/ReminderContext";
-import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-import { CloseButton } from "./CloseButton";
-import { REMINDER_STATUS } from "../config";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { ModalContext } from "../../../service/context/ModalContext";
+import { ReminderContext } from "../../../service/context/ReminderContext";
+import { REMINDER_STATUS } from "../../constant/config";
+import { CloseButton } from "../general/CloseButton";
 
 const createEmptyReminder = {
   title: "",

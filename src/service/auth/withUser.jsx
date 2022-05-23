@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-
 import axios from "axios";
-import { API } from "../../components/config";
+import React, { useEffect, useState } from "react";
+import { API } from "../../shared/constant/config";
 import { getLocalStorage, removeLocalStorage } from "./auth";
 
 function withUser(WrappedComponent) {

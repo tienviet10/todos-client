@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { REMINDER_STATUS } from "../../components/config";
+import { REMINDER_STATUS } from "../../shared/constant/config";
 
 const DetailOfAReminderContext = createContext();
 

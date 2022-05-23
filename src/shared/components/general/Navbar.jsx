@@ -1,11 +1,10 @@
-import React, { Fragment, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import React, { Fragment, useContext, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import withUser from "../../service/auth/withUser";
-import { ModalContext } from "../../service/context/ModalContext";
-import { AuthContext } from "../../service/context/AuthServiceContext";
+import { Link, useNavigate } from "react-router-dom";
+import withUser from "../../../service/auth/withUser";
+import { AuthContext } from "../../../service/context/AuthServiceContext";
+import { ModalContext } from "../../../service/context/ModalContext";
 
 const tabsNav = [
   { name: "Reminder", href: "/dashboard", current: true },
@@ -27,17 +26,15 @@ const Navbar = ({ setNavTab }) => {
 
   const changeCurrentSelection = (itemName) => {
     const newList = navigation.map((item) => {
-      if (item.name === itemName) {
-        return {
-          ...item,
-          current: true,
-        };
-      } else {
-        return {
-          ...item,
-          current: false,
-        };
-      }
+      return item.name === itemName
+        ? {
+            ...item,
+            current: true,
+          }
+        : {
+            ...item,
+            current: false,
+          };
     });
 
     setNavigation(newList);

@@ -1,17 +1,13 @@
+import { formatDistance } from "date-fns";
 import React, { useContext } from "react";
 //import { useRestPastReminder } from "../../service/reminders/pastreminders";
-import {
-  AiFillDelete,
-  AiFillCaretUp,
-  //AiOutlineStar,
-} from "react-icons/ai";
-import moment from "moment";
-import Loader from "../shared/Loader";
-import { ReminderContext } from "../../service/context/ReminderContext";
-import { PastRemindersContext } from "../../service/context/PastRemindersContext";
-import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
-import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
-import { REMINDER_STATUS } from "../config";
+import { AiFillCaretUp, AiFillDelete } from "react-icons/ai";
+import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
+import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
+import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
+import { ReminderContext } from "../../../service/context/ReminderContext";
+import { REMINDER_STATUS } from "../../constant/config";
+import Loader from "../general/Loader";
 
 export const PastReminders = () => {
   const { pastReminders, error, loading, discardRecord } =
@@ -92,7 +88,10 @@ export const PastReminders = () => {
                     />
                   </div>
                   <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">
-                    {moment(item.createdAt).fromNow()}
+                    {formatDistance(Date.parse(item.createdAt), new Date(), {
+                      addSuffix: true,
+                    })}
+                    {/* {moment(item.createdAt).fromNow()} */}
                   </div>
                 </div>
               </div>
