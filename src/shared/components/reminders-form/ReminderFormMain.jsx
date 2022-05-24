@@ -17,8 +17,9 @@ export const ReminderFormMain = () => {
   const { addRecord, updateRecord } = useContext(ReminderContext);
   const { newReminder, setNewReminder, setModalOn } = useContext(ModalContext);
   const { title, description, _id, favorite: favFromEdit } = newReminder;
-
   const [favorite, setFavorite] = useState(favFromEdit);
+
+  // const [value, onChange] = useState(new Date());
 
   const handleFavoriteChange = () => {
     setNewReminder({
@@ -47,6 +48,7 @@ export const ReminderFormMain = () => {
     setNewReminder(createEmptyReminder);
     setModalOn(false);
   };
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
@@ -92,11 +94,16 @@ export const ReminderFormMain = () => {
               <textarea
                 value={description}
                 rows={5}
-                className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-gray-700"
+                className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-gray-700 resize-none"
                 name="description"
                 onChange={handleChange("description")}
               />
             </form>
+            {/*Choose date for desktop*/}
+            {/* <div className="hidden md:flex flex-col mb-5 px-12 text-gray-600 font-medium">
+              <p>Remind At:</p>
+              <DateTimePicker onChange={onChange} value={value} />
+            </div> */}
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button

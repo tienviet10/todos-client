@@ -12,9 +12,9 @@ import { ConfirmationContext } from "./service/context/ConfirmationToProceedCont
 import { DetailOfAReminderContext } from "./service/context/DetailOfAReminderContext";
 import { ModalContext } from "./service/context/ModalContext";
 import { Confirmation } from "./shared/components/general/Confirmation";
-import { DetailOfAReminderWindow } from "./shared/components/general/DisplayDetailReminders";
 import Navbar from "./shared/components/general/Navbar";
 import { ReminderForm } from "./shared/components/reminders-form/ReminderForm";
+import { DetailOfAReminderWindow } from "./shared/components/reminders-list/DisplayDetailReminders";
 import { PastReminderToggle } from "./shared/components/reminders-list/PastReminderToggle";
 
 function App() {

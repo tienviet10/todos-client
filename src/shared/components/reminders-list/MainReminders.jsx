@@ -12,6 +12,8 @@ import { ModalContext } from "../../../service/context/ModalContext";
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
+import { classNames, returnAppropriateBgColor } from "./color-choice";
+import { ColorSelectionDropdown } from "./ColorSelectionDropdown";
 
 export const MainReminders = () => {
   const { allReminders, updateRecord, discardRecord } =
@@ -60,6 +62,10 @@ export const MainReminders = () => {
     });
   };
 
+  const saveNewChosenColor = (e, item) => {
+    updateRecord({ ...item, color: e.target.value }, false);
+  };
+
   return (
     <>
       {allReminders && allReminders.length > 0 && (
@@ -76,19 +82,30 @@ export const MainReminders = () => {
                   className="flex justify-center"
                   onDoubleClick={() => moveReminderToPast(item)}
                 >
-                  <div className="block px-6 py-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500">
-                    <AiOutlineStar
-                      className="hover:cursor-pointer float-right mr-[-5%]"
-                      size={25}
-                      onClick={() => editFavorite(item)}
-                    />
+                  <div
+                    className={classNames(
+                      returnAppropriateBgColor(item.color),
+                      "block px-6 py-3 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500"
+                    )}
+                  >
+                    <div className="flex w-full items-center justify-between">
+                      <ColorSelectionDropdown
+                        item={item}
+                        saveNewChosenColor={saveNewChosenColor}
+                      />
+                      <h5
+                        className="text-gray-900 text-xl font-medium mb-2 truncate max-w-[180px] sm:max-w-[220px]"
+                        onClick={() => handleDetailsScreen(item)}
+                      >
+                        {item.title}
+                      </h5>
+                      <AiOutlineStar
+                        className="hover:cursor-pointer"
+                        size={25}
+                        onClick={() => editFavorite(item)}
+                      />
+                    </div>
 
-                    <h5
-                      className="text-gray-900 text-xl font-medium mb-2 truncate max-w-[300px] sm:max-w-[330px]"
-                      onClick={() => handleDetailsScreen(item)}
-                    >
-                      {item.title}
-                    </h5>
                     <p
                       className="text-gray-700 text-base px-6 mb-4 truncate max-w-[300px] sm:max-w-[330px]"
                       onClick={() => handleDetailsScreen(item)}
@@ -114,6 +131,7 @@ export const MainReminders = () => {
                         onClick={() => execDeletion(item._id)}
                       />
                     </div>
+
                     <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">
                       {formatDistance(Date.parse(item.createdAt), new Date(), {
                         addSuffix: true,

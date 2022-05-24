@@ -5,7 +5,7 @@ import { DetailOfAReminderContext } from "../../../service/context/DetailOfARemi
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
-import { CloseButton } from "./CloseButton";
+import { CloseButton } from "../general/CloseButton";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { updateRecord, discardRecord } = useContext(ReminderContext);

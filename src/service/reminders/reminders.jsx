@@ -64,6 +64,7 @@ export function useRestOperationReminder() {
                   title: record.title,
                   description: record.description,
                   favorite: record.favorite,
+                  color: record.color,
                 }
               : reminder
           );
