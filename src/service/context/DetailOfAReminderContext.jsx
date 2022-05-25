@@ -13,6 +13,7 @@ function DetailOfAReminderProvider({ children }) {
     _id: "",
     createdAt: "",
     updatedAt: "",
+    remindedAt: null,
   });
   return (
     <DetailOfAReminderContext.Provider

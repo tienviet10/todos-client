@@ -6,11 +6,12 @@ const ModalContext = createContext();
 function ModalProvider({ children }) {
   const [modalOn, setModalOn] = useState(false);
   const [newReminder, setNewReminder] = useState({
+    _id: "",
     title: "",
     description: "",
     status: REMINDER_STATUS.ACTIVE,
     favorite: false,
-    _id: "",
+    remindedAt: null,
   });
   return (
     <ModalContext.Provider

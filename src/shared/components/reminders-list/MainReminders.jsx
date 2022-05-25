@@ -1,4 +1,4 @@
-import { formatDistance } from "date-fns";
+import { format, formatDistance } from "date-fns";
 import React, { useContext } from "react";
 import {
   AiFillDelete,
@@ -58,6 +58,7 @@ export const MainReminders = () => {
       description: item.description,
       status: REMINDER_STATUS.ACTIVE,
       favorite: item.favorite,
+      remindedAt: item.remindedAt ? new Date(item.remindedAt) : null,
       _id: item._id,
     });
   };
@@ -105,14 +106,26 @@ export const MainReminders = () => {
                         onClick={() => editFavorite(item)}
                       />
                     </div>
-
+                    <div
+                      className="font-semibold mb-8 text-sm"
+                      onClick={() => handleDetailsScreen(item)}
+                    >
+                      {"("}
+                      <span>
+                        {item.remindedAt
+                          ? format(new Date(item.remindedAt), "PPPPp")
+                          : "----No-Date----"}
+                      </span>
+                      {")"}
+                    </div>
                     <p
                       className="text-gray-700 text-base px-6 mb-4 truncate max-w-[300px] sm:max-w-[330px]"
                       onClick={() => handleDetailsScreen(item)}
                     >
                       {item.description}
                     </p>
-                    <div className="flex gap-6 justify-center mt-7">
+
+                    <div className="flex gap-6 justify-center mt-8">
                       <AiOutlineFileDone
                         className="hover:cursor-pointer"
                         color="#6366f1"

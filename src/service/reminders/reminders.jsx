@@ -27,7 +27,13 @@ export function useRestOperationReminder() {
         );
         if (response.status) {
           if (isMounted.current) {
-            setAllReminders(response.data);
+            const newUpdate = response.data.map((item) =>
+              item.remindedAt
+                ? { ...item, remindedAt: new Date(item.remindedAt) }
+                : item
+            );
+
+            setAllReminders(newUpdate);
           }
         } else {
           throw response;
@@ -65,6 +71,7 @@ export function useRestOperationReminder() {
                   description: record.description,
                   favorite: record.favorite,
                   color: record.color,
+                  remindedAt: record.remindedAt,
                 }
               : reminder
           );

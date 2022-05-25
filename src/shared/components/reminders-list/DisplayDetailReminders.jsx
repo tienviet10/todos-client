@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React, { useContext } from "react";
 import { AiFillCaretUp, AiFillDelete, AiOutlineFileDone } from "react-icons/ai";
 import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
@@ -12,7 +13,7 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { addRecordFromActive, discardRecord: discardRecordPastReminder } =
     useContext(PastRemindersContext);
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
-  const { title, description } = reminderDetails;
+  const { title, description, remindedAt } = reminderDetails;
 
   const { confirm } = useContext(ConfirmationContext);
 
@@ -66,6 +67,19 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
                   name="title"
                 >
                   {title}
+                </p>
+              </div>
+              <label className="text-gray-600 font-medium block mt-4">
+                Remind At
+              </label>
+              <div className="flex">
+                <p
+                  className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700 overflow-auto max-h-[100px] sm:max-h-[200px]"
+                  name="title"
+                >
+                  {remindedAt
+                    ? format(new Date(remindedAt), "PPPPp")
+                    : "----No-Date----"}
                 </p>
               </div>
 
