@@ -67,7 +67,7 @@ export const PastReminders = () => {
                   >
                     {item.title}
                   </h5>
-                  <div className="font-semibold mb-8 text-sm">
+                  <div className="font-medium mb-8 text-sm">
                     {"("}
                     <span>
                       {item.remindedAt

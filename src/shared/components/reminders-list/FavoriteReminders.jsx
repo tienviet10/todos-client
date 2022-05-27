@@ -97,7 +97,7 @@ export const FavoriteReminders = () => {
                         saveNewChosenColor={saveNewChosenColor}
                       />
                       <h5
-                        className="text-gray-900 text-xl leading-tight font-medium mb-2 truncate px-10 max-w-[300px] sm:max-w-[330px]"
+                        className="text-gray-900 text-xl leading-tight font-medium mb-2 truncate px-10 max-w-[180px] sm:max-w-[330px]"
                         onClick={() => handleDetailsScreen(item)}
                       >
                         {item.title}
@@ -109,7 +109,7 @@ export const FavoriteReminders = () => {
                       />
                     </div>
                     <div
-                      className="font-semibold mb-8 text-sm"
+                      className="font-medium mb-8 text-sm"
                       onClick={() => handleDetailsScreen(item)}
                     >
                       {"("}
@@ -120,12 +120,14 @@ export const FavoriteReminders = () => {
                       </span>
                       {")"}
                     </div>
-                    <p
-                      className="text-gray-700 text-base px-6 mb-4 truncate max-w-[300px] sm:max-w-[330px]"
-                      onClick={() => handleDetailsScreen(item)}
-                    >
-                      {item.description}
-                    </p>
+                    <div className="w-full flex justify-center mb-4">
+                      <p
+                        className="text-gray-700 text-base px-6 truncate max-w-[180px] sm:max-w-[280px]"
+                        onClick={() => handleDetailsScreen(item)}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
                     <div className="flex gap-6 justify-center mt-8">
                       <AiOutlineFileDone
                         className="hover:cursor-pointer"

@@ -16,6 +16,7 @@ const createEmptyReminder = {
 
 export const ReminderFormMain = () => {
   const { addRecord, updateRecord } = useContext(ReminderContext);
+
   const { newReminder, setNewReminder, setModalOn } = useContext(ModalContext);
   const {
     title,

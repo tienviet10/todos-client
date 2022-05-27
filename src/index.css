@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --application-color: #6366f1;
   --hover-color: #5559ed;

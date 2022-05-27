@@ -34,3 +34,17 @@ export async function createAReminder(inputURL, newReminder, token) {
     headers,
   });
 }
+
+export async function getAReminderRequest(inputURL, token) {
+  const headers = returnHeader(token);
+  return await axios.get(inputURL, {
+    headers,
+  });
+}
+
+export async function updateNotificationRead(inputURL, updatedData, token) {
+  const headers = returnHeader(token);
+  return await axios.put(inputURL, updatedData, {
+    headers,
+  });
+}

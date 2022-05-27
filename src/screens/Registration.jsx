@@ -61,7 +61,7 @@ export const Registration = () => {
             ...item,
             success: data.message,
           }));
-          //setSuccess(res.data.message);
+         
           setLoading(false);
           navigate("/login");
         } else {
@@ -77,26 +77,6 @@ export const Registration = () => {
         setLoading(false);
       }
 
-      // axios
-      //   .post(`${API}/v1/register`, newUser)
-      //   .then((res) => {
-      //     setState((item) => ({
-      //       ...item,
-      //       success: res.data.message,
-      //     }));
-      //     //setSuccess(res.data.message);
-      //     setLoading(false);
-      //     navigate("/login");
-      //   })
-      //   .catch((err) => {
-      //     setState((item) => ({
-      //       ...item,
-      //       error: err.response.data.error,
-      //       buttonText: "Register",
-      //     }));
-
-      //     setLoading(false);
-      //   });
     } else {
       setLoading(false);
     }

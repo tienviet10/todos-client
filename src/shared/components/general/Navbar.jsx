@@ -1,10 +1,11 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import React, { Fragment, useContext, useState } from "react";
-import { AiFillBell, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import withUser from "../../../service/auth/withUser";
 import { AuthContext } from "../../../service/context/AuthServiceContext";
 import { ModalContext } from "../../../service/context/ModalContext";
+import { BellNotification } from "./BellNotification";
 
 const tabsNav = [
   { name: "Reminder", href: "/dashboard", current: true },
@@ -21,7 +22,7 @@ const Navbar = ({ setNavTab }) => {
   const [navigation, setNavigation] = useState(tabsNav);
   const { setModalOn } = useContext(ModalContext);
   const { isAuth, logout } = useContext(AuthContext);
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const changeCurrentSelection = (itemName) => {
@@ -36,7 +37,7 @@ const Navbar = ({ setNavTab }) => {
             current: false,
           };
     });
-
+    setDropdownOpen(false);
     setNavigation(newList);
   };
 
@@ -50,7 +51,10 @@ const Navbar = ({ setNavTab }) => {
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div
+                className="absolute inset-y-0 left-0 flex items-center sm:hidden"
+                onClick={() => setDropdownOpen(false)}
+              >
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
@@ -70,7 +74,10 @@ const Navbar = ({ setNavTab }) => {
                   />
                   <h1
                     className={`hidden lg:block h-10 w-auto text-3xl px-5 text-application-color cursor-pointer`}
-                    onClick={() => navigate("/dashboard")}
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      navigate("/dashboard");
+                    }}
                   >
                     ReMe
                   </h1>
@@ -118,19 +125,19 @@ const Navbar = ({ setNavTab }) => {
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* Add new reminder */}
                   <button
-                    onClick={() => setModalOn(true)}
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      setModalOn(true);
+                    }}
                     className="bg-transparent sm:hover:bg-[#00df9a] text-[#00df9a] font-semibold sm:hover:text-white py-1 px-2 sm:px-4 border border-[#00df9a] sm:hover:border-transparent rounded-full mr-2 sm:mr-4 sm:block"
                   >
                     Add Reminder
                   </button>
                   {/* Notification Bell icon */}
-                  <button
-                    type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <AiFillBell className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                  <BellNotification
+                    dropdownOpen={dropdownOpen}
+                    setDropdownOpen={setDropdownOpen}
+                  />
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
                     <div>
@@ -140,6 +147,7 @@ const Navbar = ({ setNavTab }) => {
                           className="h-8 w-8 rounded-full"
                           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                           alt=""
+                          onClick={() => setDropdownOpen(false)}
                         />
                       </Menu.Button>
                     </div>
@@ -220,9 +228,8 @@ const Navbar = ({ setNavTab }) => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {isAuth ? (
                 navigation.map((item) => (
-                  <Link
+                  <Disclosure.Button
                     key={item.name}
-                    to={item.href}
                     className={classNames(
                       item.current
                         ? "bg-gray-900 text-white"
@@ -232,19 +239,22 @@ const Navbar = ({ setNavTab }) => {
                     onClick={() => {
                       changeCurrentSelection(item.name);
                       setNavTab(item.name);
+                      navigate(item.href);
                     }}
                   >
                     {item.name}
-                  </Link>
+                  </Disclosure.Button>
                 ))
               ) : (
-                <Link
+                <Disclosure.Button
                   key="home"
-                  to="/"
                   className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                  onClick={() => {
+                    navigate("/");
+                  }}
                 >
                   Home
-                </Link>
+                </Disclosure.Button>
               )}
             </div>
           </Disclosure.Panel>

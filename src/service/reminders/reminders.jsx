@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { API, REMINDER_STATUS } from "../../shared/constant/config";
 import { getLocalStorage } from "../auth/auth";
 import { AuthContext } from "../context/AuthServiceContext";
+import { NotificationContext } from "../context/NotificationContext";
 import {
   createAReminder,
   discardAReminder,
@@ -16,6 +17,7 @@ export function useRestOperationReminder() {
   const [loading, setLoading] = useState(true);
   const { isAuth } = useContext(AuthContext);
   const token = getLocalStorage();
+  const { refreshAllWhenUpdateReminder } = useContext(NotificationContext);
 
   useEffect(() => {
     isMounted.current = true;
@@ -78,11 +80,14 @@ export function useRestOperationReminder() {
           setAllReminders(newAllRecords);
         }
 
-        await updateAReminder(
+        const updateResponse = await updateAReminder(
           `${API}/v1/reminder/${record._id}`,
           record,
           token
         );
+        if (updateResponse.status) {
+          refreshAllWhenUpdateReminder();
+        }
       } catch (error) {
         setAllReminders(originalAllRecords);
       }
@@ -98,7 +103,13 @@ export function useRestOperationReminder() {
         setAllReminders((oldReminders) =>
           oldReminders.filter((reminder) => reminder._id !== itemID)
         );
-        await discardAReminder(`${API}/v1/reminder/${itemID}`, token);
+        const deleteResponse = await discardAReminder(
+          `${API}/v1/reminder/${itemID}`,
+          token
+        );
+        if (deleteResponse.status) {
+          refreshAllWhenUpdateReminder();
+        }
       } catch (error) {
         setAllReminders(originalAllRecords);
       }
@@ -122,6 +133,7 @@ export function useRestOperationReminder() {
           const data = response.data;
 
           setAllReminders([data, ...allReminders]);
+          refreshAllWhenUpdateReminder();
           setLoading(false);
         } else {
           throw new Error("Fetch request error");
