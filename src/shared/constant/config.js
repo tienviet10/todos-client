@@ -20,3 +20,14 @@ export const REMINDER_STATUS = {
   ACTIVE: "active",
   INACTIVE: "deactive",
 };
+
+export const COLOR_LIST = {
+  blue: "#93c5fd",
+  red: "#fca5a5",
+  orange: "#fdba74",
+  yellow: "#fde047",
+  lime: "#bef264",
+  purple: "#d8b4fe",
+  pink: "#f9a8d4",
+  white: "#e2e8f0",
+};

@@ -47,9 +47,9 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
   };
 
   return (
-    <div>
+    <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
-        <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[30%] max-h-[90%]">
+        <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[60%] max-h-[90%] shadow-2xl">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
@@ -122,6 +122,6 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
         </div>
       </div>
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-    </div>
+    </>
   );
 };

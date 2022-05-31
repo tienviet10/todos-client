@@ -37,18 +37,18 @@ export const Landing = () => {
               <div className="flex gap-6 justify-center mt-7">
                 <AiOutlineFileDone
                   disabled
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-default"
                   color="#6366f1"
                   size={25}
                 />
                 <AiFillEdit
                   disabled
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-default"
                   size={25}
                 />
                 <AiFillDelete
                   disabled
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-default"
                   color="red"
                   size={25}
                 />

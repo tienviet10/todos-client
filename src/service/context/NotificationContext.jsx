@@ -1,15 +1,14 @@
-import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { API } from "../../shared/constant/config";
 import { getLocalStorage } from "../auth/auth";
 import {
-  getAReminderRequest,
-  updateNotificationRead,
+  getARecordWithToken,
+  getRequestWithToken,
+  updateARecordWithToken,
 } from "../reminders/rest-request";
+import { AuthContext } from "./AuthServiceContext";
 import { DetailOfAReminderContext } from "./DetailOfAReminderContext";
 
 const NotificationContext = createContext();
-const token = getLocalStorage();
 
 function NotificationProvider({ children }) {
   const { setReminderDetails, setDetailOn } = useContext(
@@ -20,33 +19,29 @@ function NotificationProvider({ children }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [refreshAll, setRefreshAll] = useState(false);
+  const { isAuth } = useContext(AuthContext);
+  const token = getLocalStorage();
 
   useEffect(() => {
     const getNotification = async () => {
-      const res = await axios.get(`${API}/v1/notifications`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-          contentType: "application/json",
-        },
-      });
-
+      const res = await getRequestWithToken(`/v1/notifications`, token);
       setNotifications(res.data);
     };
 
-    getNotification();
-  }, [refreshAll]);
+    if (isAuth && token) getNotification();
+  }, [refreshAll, isAuth, token]);
 
   function getAReminder(reminderID) {
     setLoading(true);
     async function execFunction() {
       try {
-        const response = await getAReminderRequest(
-          `${API}/v1/reminder/${reminderID}`,
+        const response = await getARecordWithToken(
+          `/v1/reminder/${reminderID}`,
           token
         );
         if (response.status) {
-          await updateNotificationRead(
-            `${API}/v1/notification/${reminderID}`,
+          await updateARecordWithToken(
+            `/v1/notification/${reminderID}`,
             { seen: true },
             token
           );

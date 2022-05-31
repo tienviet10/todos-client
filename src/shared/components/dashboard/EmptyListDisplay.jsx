@@ -60,7 +60,12 @@ export const EmptyListDisplay = () => {
           </div>
         ))}
       </div>
-      <p className="text-[20px] mt-10">Add your first Reminder below.</p>
+      <p className="text-[20px] mt-10">
+        <span className="text-application-color font-semibold">ADD </span> your{" "}
+        <span className="text-application-color font-semibold">FIRST </span>
+        <span className="text-application-color font-semibold">REMINDER </span>
+        below.
+      </p>
       <div className="pb-10">
         <button
           onClick={() => setModalOn(true)}

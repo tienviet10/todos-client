@@ -3,11 +3,11 @@ import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { PastReminders } from "./PastReminders";
 
 export const PastReminderToggle = () => {
-  const [toglePastReminder, setTogglePastReminder] = useState(false);
+  const [togglePastReminder, setTogglePastReminder] = useState(false);
 
   return (
     <div>
-      {toglePastReminder ? (
+      {togglePastReminder ? (
         <div className="grid max-w-[1240px] w-full mx-auto text-left pb-10">
           <div
             className="flex gap-2 text-xl hover:cursor-pointer mx-auto text-center text-blue-600 font-bold pt-0 sm:pt-10"

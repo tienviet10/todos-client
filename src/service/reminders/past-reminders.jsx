@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { API, REMINDER_STATUS } from "../../shared/constant/config";
+import { REMINDER_STATUS } from "../../shared/constant/config";
 import { getLocalStorage } from "../auth/auth";
 import { AuthContext } from "../context/AuthServiceContext";
-import { discardAReminder, getReminders } from "./rest-request";
+import { discardARecordWithToken, getRequestWithToken } from "./rest-request";
 
 export function useRestPastReminder() {
   const isMounted = useRef(false);
@@ -16,7 +16,7 @@ export function useRestPastReminder() {
     isMounted.current = true;
     async function init() {
       try {
-        const response = await getReminders(`${API}/v1/reminders/past`, token);
+        const response = await getRequestWithToken(`/v1/reminders/past`, token);
         if (response.status) {
           const json = response.data;
 
@@ -49,7 +49,7 @@ export function useRestPastReminder() {
       try {
         setPastReminders(newRecords);
         if (typeOfDelete) {
-          await discardAReminder(`${API}/v1/reminder/${itemID}`, token);
+          await discardARecordWithToken(`/v1/reminder/${itemID}`, token);
         }
       } catch (error) {
         setPastReminders(originalRecords);

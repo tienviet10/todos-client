@@ -10,6 +10,7 @@ import { ModalProvider } from "./service/context/ModalContext";
 import { NotificationProvider } from "./service/context/NotificationContext";
 import { PastReminderProvider } from "./service/context/PastRemindersContext";
 import { ReminderProvider } from "./service/context/ReminderContext";
+import { SevenDaysSummaryProvider } from "./service/context/SevenDaysSummaryContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,7 +23,9 @@ root.render(
               <PastReminderProvider>
                 <ReminderProvider>
                   <ConfirmationProvider>
-                    <App />
+                    <SevenDaysSummaryProvider>
+                      <App />
+                    </SevenDaysSummaryProvider>
                   </ConfirmationProvider>
                 </ReminderProvider>
               </PastReminderProvider>

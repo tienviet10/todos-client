@@ -65,8 +65,8 @@ export const FavoriteReminders = () => {
     addRecordFromActive(item);
   };
 
-  const saveNewChosenColor = (e, item) => {
-    updateRecord({ ...item, color: e.target.value }, false);
+  const saveNewChosenColor = (color, item) => {
+    updateRecord({ ...item, color: color }, false);
   };
 
   return (

@@ -76,6 +76,7 @@ const Navbar = ({ setNavTab }) => {
                     className={`hidden lg:block h-10 w-auto text-3xl px-5 text-application-color cursor-pointer`}
                     onClick={() => {
                       setDropdownOpen(false);
+                      changeCurrentSelection("Reminder");
                       navigate("/dashboard");
                     }}
                   >

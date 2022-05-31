@@ -65,7 +65,7 @@ export const ReminderFormMain = () => {
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
-        <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[30%]">
+        <div className="relative my-6 mx-auto max-w-[800px] sm:w-[60%]">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
@@ -117,7 +117,7 @@ export const ReminderFormMain = () => {
               <p>Remind At:</p>
               <DateTimePicker
                 disableClock
-                minDate={new Date()}
+                //minDate={new Date()}
                 onChange={setReminderDate}
                 value={remindedAt}
                 name="remindedAt"

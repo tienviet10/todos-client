@@ -1,11 +1,13 @@
 import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 import { NotificationContext } from "../../../service/context/NotificationContext";
+import { SevenDaysSummaryContext } from "../../../service/context/SevenDaysSummaryContext";
 import { classNames } from "../reminders-list/color-choice";
 
 export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
   const { notifications, getAReminder } = useContext(NotificationContext);
   const [isNewNotification, setIsNewNotification] = useState(false);
+  const { getSevenDaysReminders } = useContext(SevenDaysSummaryContext);
 
   useEffect(() => {
     setIsNewNotification(false);
@@ -61,7 +63,7 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
                 notifications.map((notificationItem) => (
                   <div
                     key={notificationItem._id}
-                    className="flex justify-between px-4 border-b hover:bg-gray-100"
+                    className="flex justify-between px-4 border-b hover:bg-gray-100 hover:cursor-pointer"
                   >
                     <div
                       className="flex items-center py-3"
@@ -98,9 +100,13 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
             </div>
             <div
               href="#"
-              className="block bg-gray-800 text-white text-center font-bold py-2"
+              className="block bg-gray-800 text-white text-center font-bold py-2 hover:cursor-pointer"
+              onClick={() => {
+                setDropdownOpen(false);
+                getSevenDaysReminders();
+              }}
             >
-              7 Days Summary
+              Seven Days Summary
             </div>
           </div>
         ) : (
