@@ -117,7 +117,7 @@ export const ReminderFormMain = () => {
               <p>Remind At:</p>
               <DateTimePicker
                 disableClock
-                //minDate={new Date()}
+                minDate={new Date()}
                 onChange={setReminderDate}
                 value={remindedAt}
                 name="remindedAt"

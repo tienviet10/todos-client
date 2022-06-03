@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API } from "../../shared/constant/config";
+import { postLogIn } from "../../shared/service/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 
@@ -50,7 +50,7 @@ export function useLogIn() {
     };
 
     try {
-      const response = await axios.post(`${API}/v1/login`, user);
+      const response = await axios.post(postLogIn(), user);
 
       if (response.status) {
         const data = response.data;
@@ -80,34 +80,6 @@ export function useLogIn() {
 
       setLoading(false);
     }
-
-    // axios
-    //   .post(`${API}/v1/login`, user)
-    //   .then((res) => {
-    //     setState((item) => ({
-    //       ...item,
-    //       email: "",
-    //       password: "",
-    //       error: "",
-    //       success: res.data.message,
-    //       buttonText: "Sign In",
-    //     }));
-    //     storeAuthentication(res.data);
-    //     signInAuth();
-    //     setLoading(false);
-    //     navigate("/dashboard");
-    //   })
-    //   .catch((err) => {
-    //     setState((item) => ({
-    //       ...item,
-    //       password: "",
-    //       success: "",
-    //       error: err.response.data.error,
-    //       buttonText: "Sign In",
-    //     }));
-
-    //     setLoading(false);
-    //   });
   }
 
   return {

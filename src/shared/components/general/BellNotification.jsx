@@ -1,13 +1,19 @@
 import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
-import { NotificationContext } from "../../../service/context/NotificationContext";
 import { SevenDaysSummaryContext } from "../../../service/context/SevenDaysSummaryContext";
+import { useNotification } from "../../../service/notifications/notifications";
+import { getANotificationLink } from "../../service/url-link";
 import { classNames } from "../reminders-list/color-choice";
 
 export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
-  const { notifications, getAReminder } = useContext(NotificationContext);
+  const {
+    notificationsList: notifications,
+    mutate,
+    setAReminder,
+  } = useNotification();
   const [isNewNotification, setIsNewNotification] = useState(false);
-  const { getSevenDaysReminders } = useContext(SevenDaysSummaryContext);
+
+  const { refetchSevenDaysSummary } = useContext(SevenDaysSummaryContext);
 
   useEffect(() => {
     setIsNewNotification(false);
@@ -25,12 +31,12 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
 
   return (
     <div className="justify-center">
-      <div
-        //x-data="{ dropdownOpen: true }"
-        className="relative my-32"
-      >
+      <div className="relative my-32">
         <button
-          onClick={() => setDropdownOpen((prev) => !prev)}
+          onClick={() => {
+            //refetchNotifications();
+            setDropdownOpen((prev) => !prev);
+          }}
           //className="relative z-10 block rounded-md bg-white p-2 focus:outline-none"
           className={classNames(
             dropdownOpen
@@ -68,8 +74,14 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
                     <div
                       className="flex items-center py-3"
                       onClick={() => {
+                        setAReminder(notificationItem.reminderID);
                         setDropdownOpen(false);
-                        getAReminder(notificationItem.reminderID);
+                        mutate({
+                          data: { seen: true },
+                          url: getANotificationLink(
+                            `${notificationItem.reminderID}`
+                          ),
+                        });
                       }}
                     >
                       <img
@@ -103,7 +115,7 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
               className="block bg-gray-800 text-white text-center font-bold py-2 hover:cursor-pointer"
               onClick={() => {
                 setDropdownOpen(false);
-                getSevenDaysReminders();
+                refetchSevenDaysSummary();
               }}
             >
               Seven Days Summary
