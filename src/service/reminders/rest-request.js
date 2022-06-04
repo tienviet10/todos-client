@@ -23,7 +23,7 @@ function createARecordWithTokenFunction(newData) {
 }
 
 function getRecordsWithTokenFunction(urlLink) {
-  return request({ url: urlLink });
+  return request({ url: urlLink, method: "get" });
 }
 
 function updatedARecordWithTokenFunction(newData) {
@@ -50,10 +50,17 @@ export const useRQCreateARecord = (onSuccess, onError) => {
 };
 
 //Get a record or records
-export const useRQGetRecords = (cacheVar, urlLink, onSuccess, onError) => {
+export const useRQGetRecords = (
+  cacheVar,
+  urlLink,
+  typeDefault,
+  onSuccess,
+  onError
+) => {
   return useQuery(cacheVar, () => getRecordsWithTokenFunction(urlLink), {
     onSuccess,
     onError,
+    enabled: typeDefault,
   });
 };
 
@@ -93,30 +100,9 @@ function returnHeader(token) {
   };
 }
 
-export async function getRequestWithToken(inputCall, token) {
+export async function getRequestWithToken(urlLink, token) {
   const headers = returnHeader(token);
-  return await axios.get(`${API}` + inputCall, {
-    headers,
-  });
-}
-
-export async function discardARecordWithToken(inputCall, token) {
-  const headers = returnHeader(token);
-  return await axios.delete(`${API}` + inputCall, {
-    headers,
-  });
-}
-
-export async function updateARecordWithToken(inputCall, updatedData, token) {
-  const headers = returnHeader(token);
-  return await axios.put(`${API}` + inputCall, updatedData, {
-    headers,
-  });
-}
-
-export async function createARecordWithToken(inputCall, newReminder, token) {
-  const headers = returnHeader(token);
-  return await axios.post(`${API}` + inputCall, newReminder, {
+  return await axios.get(urlLink, {
     headers,
   });
 }

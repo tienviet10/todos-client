@@ -6,11 +6,13 @@ import { DetailOfAReminderContext } from "../../../service/context/DetailOfARemi
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
+import { reminderWithIDLink } from "../../service/url-link";
 import { CloseButton } from "../general/CloseButton";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
-  const { updateRecord, discardRecord } = useContext(ReminderContext);
-  const { addRecordFromActive, discardRecord: discardRecordPastReminder } =
+  const { updateRecord, discardRecord: discardRecordActiveReminder } =
+    useContext(ReminderContext);
+  const { discardRecord: discardRecordPastReminder } =
     useContext(PastRemindersContext);
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
   const { title, description, remindedAt } = reminderDetails;
@@ -19,16 +21,28 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
 
   const editStatus = (item) => {
     item.status === REMINDER_STATUS.ACTIVE
-      ? updateRecord({ ...item, status: REMINDER_STATUS.INACTIVE }, false)
-      : updateRecord({ ...item, status: REMINDER_STATUS.ACTIVE }, false);
+      ? updateRecord({
+          url: reminderWithIDLink(item._id),
+          data: { ...item, status: REMINDER_STATUS.INACTIVE },
+        })
+      : updateRecord({
+          url: reminderWithIDLink(item._id),
+          data: { ...item, status: REMINDER_STATUS.ACTIVE },
+        });
   };
 
   const execDeletion = (reminderDetails) => {
     confirm({
       onSuccess:
         reminderDetails.status === REMINDER_STATUS.ACTIVE
-          ? () => discardRecord(reminderDetails._id)
-          : () => discardRecord(reminderDetails._id, true),
+          ? () =>
+              discardRecordActiveReminder(
+                reminderWithIDLink(reminderDetails._id)
+              )
+          : () =>
+              discardRecordPastReminder(
+                reminderWithIDLink(reminderDetails._id)
+              ),
     });
 
     setDetailOn(false);
@@ -37,12 +51,12 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const moveReminderToPast = (reminderDetails) => {
     editStatus(reminderDetails);
     setDetailOn(false);
-    addRecordFromActive(reminderDetails);
+    //addRecordFromActive(reminderDetails);
   };
 
   const restoreReminder = (reminderDetails) => {
-    discardRecordPastReminder(reminderDetails._id, false);
-    updateRecord({ ...reminderDetails, status: REMINDER_STATUS.ACTIVE }, true);
+    //discardRecordPastReminder(reminderDetails._id, false);
+    //updateRecord({ ...reminderDetails, status: REMINDER_STATUS.ACTIVE }, true);
     setDetailOn(false);
   };
 

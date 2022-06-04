@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { getSevenRemindersSummary } from "../../shared/service/url-link";
+import { getSevenRemindersSummaryLink } from "../../shared/service/url-link";
 import { useRQGetARecordPause } from "../reminders/rest-request";
 
 const SevenDaysSummaryContext = createContext();
@@ -11,14 +11,13 @@ function SevenDaysSummaryProvider({ children }) {
 
   const { refetch: refetchSevenDaysSummary } = useRQGetARecordPause(
     "sevenRemindersSummary",
-    getSevenRemindersSummary(),
+    getSevenRemindersSummaryLink(),
     (data) => {
       data.response !== undefined &&
         data.response.status === 404 &&
         setError(data.message);
 
       if (data.data !== undefined) {
-        console.log(data.data);
         setSevenDaysReminders(data.data);
         setIsSummaryOn(true);
       }

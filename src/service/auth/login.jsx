@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postLogIn } from "../../shared/service/url-link";
+import { postLogInLink } from "../../shared/service/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 
@@ -50,7 +50,7 @@ export function useLogIn() {
     };
 
     try {
-      const response = await axios.post(postLogIn(), user);
+      const response = await axios.post(postLogInLink(), user);
 
       if (response.status) {
         const data = response.data;

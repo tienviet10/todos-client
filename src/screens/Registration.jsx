@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Error from "../shared/components/general/Error";
 import Loader from "../shared/components/general/Loader";
 import Success from "../shared/components/general/Success";
-import { postRegister } from "../shared/service/url-link";
+import { postRegisterLink } from "../shared/service/url-link";
 
 export const Registration = () => {
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ export const Registration = () => {
 
     if (password === reconfirmedPassword) {
       try {
-        const response = await axios.post(postRegister(), newUser);
+        const response = await axios.post(postRegisterLink(), newUser);
 
         if (response.status) {
           const data = response.data;

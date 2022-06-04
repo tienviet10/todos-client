@@ -5,15 +5,17 @@ import { AiFillCaretUp, AiFillDelete } from "react-icons/ai";
 import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
-import { ReminderContext } from "../../../service/context/ReminderContext";
-import { REMINDER_STATUS } from "../../constant/config";
-import Loader from "../general/Loader";
+import { reminderWithIDLink } from "../../service/url-link";
 
 export const PastReminders = () => {
-  const { pastReminders, error, loading, discardRecord } =
-    useContext(PastRemindersContext);
+  const {
+    pastReminders,
+    error,
+    //loading,
+    discardRecord: discardRecordPastReminder,
+  } = useContext(PastRemindersContext);
 
-  const { updateRecord } = useContext(ReminderContext);
+  //const { updateRecord } = useContext(ReminderContext);
   const { setReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
@@ -27,21 +29,21 @@ export const PastReminders = () => {
 
   const execDeletion = (itemId) => {
     confirm({
-      onSuccess: () => discardRecord(itemId, true),
+      onSuccess: () => discardRecordPastReminder(reminderWithIDLink(itemId)),
     });
   };
 
   const restorePastReminder = (item) => {
-    discardRecord(item._id, false);
-    updateRecord({ ...item, status: REMINDER_STATUS.ACTIVE }, true);
+    //discardRecord(item._id, false);
+    //updateRecord({ ...item, status: REMINDER_STATUS.ACTIVE }, true);
   };
 
-  if (loading)
-    return (
-      <div className="mt-10">
-        <Loader />
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className="mt-10">
+  //       <Loader />
+  //     </div>
+  //   );
 
   if (error)
     return <div className="mt-10 mx-auto">Something went wrong...</div>;
@@ -67,7 +69,10 @@ export const PastReminders = () => {
                   >
                     {item.title}
                   </h5>
-                  <div className="font-medium mb-8 text-sm">
+                  <div
+                    className="font-medium mb-8 text-sm"
+                    onClick={() => handleDetailsScreen(item)}
+                  >
                     {"("}
                     <span>
                       {item.remindedAt

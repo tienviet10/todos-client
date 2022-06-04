@@ -4,6 +4,10 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { ModalContext } from "../../../service/context/ModalContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
+import {
+  remindersGeneralLink,
+  reminderWithIDLink,
+} from "../../service/url-link";
 import { CloseButton } from "../general/CloseButton";
 
 const createEmptyReminder = {
@@ -48,9 +52,20 @@ export const ReminderFormMain = () => {
   };
 
   const saveOrAddReminder = () => {
-    newReminder._id === ""
-      ? addRecord(newReminder)
-      : updateRecord(newReminder, false);
+    if (newReminder._id === "") {
+      const reminderContentToAdd = { ...newReminder };
+      delete reminderContentToAdd._id;
+      addRecord({
+        data: reminderContentToAdd,
+        url: remindersGeneralLink(),
+      });
+    } else {
+      updateRecord({
+        url: reminderWithIDLink(newReminder._id),
+        data: newReminder,
+      });
+      //updateRecord(newReminder, false);
+    }
     setNewReminder(createEmptyReminder);
     setModalOn(false);
   };

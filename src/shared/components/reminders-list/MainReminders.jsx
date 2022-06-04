@@ -9,17 +9,20 @@ import {
 import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { ModalContext } from "../../../service/context/ModalContext";
-import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
+import { reminderWithIDLink } from "../../service/url-link";
 import { classNames, returnAppropriateBgColor } from "./color-choice";
 import { ColorSelectionDropdown } from "./ColorSelectionDropdown";
 
 export const MainReminders = () => {
-  const { allReminders, updateRecord, discardRecord } =
-    useContext(ReminderContext);
+  const {
+    allReminders,
+    updateRecord,
+    discardRecord: discardRecordActiveReminder,
+  } = useContext(ReminderContext);
   const { setModalOn, setNewReminder } = useContext(ModalContext);
-  const { addRecordFromActive } = useContext(PastRemindersContext);
+  //const { addRecordFromActive } = useContext(PastRemindersContext);
   const { setReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
@@ -27,12 +30,21 @@ export const MainReminders = () => {
 
   const editStatus = (item) => {
     item.status === REMINDER_STATUS.ACTIVE
-      ? updateRecord({ ...item, status: REMINDER_STATUS.INACTIVE }, false)
-      : updateRecord({ ...item, status: REMINDER_STATUS.ACTIVE }, false);
+      ? updateRecord({
+          url: reminderWithIDLink(item._id),
+          data: { ...item, status: REMINDER_STATUS.INACTIVE },
+        })
+      : updateRecord({
+          url: reminderWithIDLink(item._id),
+          data: { ...item, status: REMINDER_STATUS.ACTIVE },
+        });
   };
 
   const editFavorite = (item) => {
-    updateRecord({ ...item, favorite: true }, false);
+    updateRecord({
+      url: reminderWithIDLink(item._id),
+      data: { ...item, favorite: true },
+    });
   };
 
   const handleDetailsScreen = (item) => {
@@ -42,13 +54,13 @@ export const MainReminders = () => {
 
   const execDeletion = (itemId) => {
     confirm({
-      onSuccess: () => discardRecord(itemId),
+      onSuccess: () => discardRecordActiveReminder(reminderWithIDLink(itemId)),
     });
   };
 
   const moveReminderToPast = (item) => {
     editStatus(item);
-    addRecordFromActive(item);
+    //addRecordFromActive(item);
   };
 
   const editReminder = (item) => {
@@ -64,7 +76,10 @@ export const MainReminders = () => {
   };
 
   const saveNewChosenColor = (color, item) => {
-    updateRecord({ ...item, color: color }, false);
+    updateRecord({
+      url: reminderWithIDLink(item._id),
+      data: { ...item, color: color },
+    });
   };
 
   const mainRemindersList = allReminders.filter((item) => !item.favorite);

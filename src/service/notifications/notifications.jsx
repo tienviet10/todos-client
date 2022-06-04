@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
   getAllNotificationLink,
-  getAReminderLink,
+  reminderWithIDLink,
 } from "../../shared/service/url-link";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import {
@@ -24,6 +24,7 @@ export function useNotification() {
   useRQGetRecords(
     "notifications",
     getAllNotificationLink(),
+    true,
     (data) => {
       data.data !== undefined && setNotificationsList(data.data);
       data.response !== undefined &&
@@ -35,7 +36,7 @@ export function useNotification() {
 
   const { refetch: refetchAReminder } = useRQGetARecordPause(
     ["aReminder", aReminder],
-    getAReminderLink(aReminder),
+    reminderWithIDLink(aReminder),
     (data) => {
       if (data.data !== undefined) {
         setReminderDetails(data.data);
