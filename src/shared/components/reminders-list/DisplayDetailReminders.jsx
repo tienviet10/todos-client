@@ -8,6 +8,7 @@ import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
 import { reminderWithIDLink } from "../../service/url-link";
 import { CloseButton } from "../general/CloseButton";
+import LoaderFullscreen from "../general/LoaderFullscreen";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { updateRecord, discardRecord: discardRecordActiveReminder } =
@@ -16,20 +17,7 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
     useContext(PastRemindersContext);
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
   const { title, description, remindedAt } = reminderDetails;
-
   const { confirm } = useContext(ConfirmationContext);
-
-  const editStatus = (item) => {
-    item.status === REMINDER_STATUS.ACTIVE
-      ? updateRecord({
-          url: reminderWithIDLink(item._id),
-          data: { ...item, status: REMINDER_STATUS.INACTIVE },
-        })
-      : updateRecord({
-          url: reminderWithIDLink(item._id),
-          data: { ...item, status: REMINDER_STATUS.ACTIVE },
-        });
-  };
 
   const execDeletion = (reminderDetails) => {
     confirm({
@@ -49,14 +37,30 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
   };
 
   const moveReminderToPast = (reminderDetails) => {
-    editStatus(reminderDetails);
+    updateRecord({
+      from: "currentToPast",
+      url: reminderWithIDLink(reminderDetails._id),
+      data: { ...reminderDetails, status: REMINDER_STATUS.INACTIVE },
+    });
     setDetailOn(false);
-    //addRecordFromActive(reminderDetails);
   };
 
   const restoreReminder = (reminderDetails) => {
-    //discardRecordPastReminder(reminderDetails._id, false);
-    //updateRecord({ ...reminderDetails, status: REMINDER_STATUS.ACTIVE }, true);
+    const yesterdayEndDate = new Date(
+      new Date(new Date().setHours(23, 59, 59)).setDate(
+        new Date().getDate() - 1
+      )
+    );
+
+    updateRecord({
+      from: "past",
+      url: reminderWithIDLink(reminderDetails._id),
+      data: { ...reminderDetails, status: REMINDER_STATUS.ACTIVE },
+      remindedAt:
+        new Date(reminderDetails._id) < yesterdayEndDate
+          ? null
+          : reminderDetails.remindedAt,
+    });
     setDetailOn(false);
   };
 
@@ -72,66 +76,71 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
               <CloseButton takeAction={() => setDetailOn(false)} />
             </div>
             {/*body*/}
+            {title === "" && description === "" ? (
+              <LoaderFullscreen />
+            ) : (
+              <>
+                <div className="m-auto py-5 px-12 w-full">
+                  <label className="text-gray-600 font-medium">Title</label>
+                  <div className="flex">
+                    <p
+                      className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700 overflow-auto max-h-[100px] sm:max-h-[200px]"
+                      name="title"
+                    >
+                      {title}
+                    </p>
+                  </div>
+                  <label className="text-gray-600 font-medium block mt-4">
+                    Remind At
+                  </label>
+                  <div className="flex">
+                    <p
+                      className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700 overflow-auto max-h-[100px] sm:max-h-[200px]"
+                      name="title"
+                    >
+                      {remindedAt
+                        ? format(new Date(remindedAt), "PPPPp")
+                        : "----No-Date----"}
+                    </p>
+                  </div>
 
-            <div className="m-auto py-5 px-12 w-full">
-              <label className="text-gray-600 font-medium">Title</label>
-              <div className="flex">
-                <p
-                  className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700 overflow-auto max-h-[100px] sm:max-h-[200px]"
-                  name="title"
-                >
-                  {title}
-                </p>
-              </div>
-              <label className="text-gray-600 font-medium block mt-4">
-                Remind At
-              </label>
-              <div className="flex">
-                <p
-                  className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700 overflow-auto max-h-[100px] sm:max-h-[200px]"
-                  name="title"
-                >
-                  {remindedAt
-                    ? format(new Date(remindedAt), "PPPPp")
-                    : "----No-Date----"}
-                </p>
-              </div>
+                  <label className="text-gray-600 font-medium block mt-4">
+                    Description
+                  </label>
+                  <p
+                    className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-gray-700 overflow-auto max-h-[200px] sm:max-h-[500px]"
+                    name="description"
+                  >
+                    {description}
+                  </p>
+                </div>
+                {/*footer*/}
+                <div className="flex gap-16 justify-center my-7">
+                  {reminderDetails.status === REMINDER_STATUS.ACTIVE ? (
+                    <AiOutlineFileDone
+                      className="hover:cursor-pointer"
+                      color="#6366f1"
+                      size={25}
+                      onClick={() => moveReminderToPast(reminderDetails)}
+                    />
+                  ) : (
+                    <AiFillCaretUp
+                      className="hover:cursor-pointer"
+                      size={25}
+                      color="green"
+                      onClick={() => restoreReminder(reminderDetails)}
+                    />
+                  )}
 
-              <label className="text-gray-600 font-medium block mt-4">
-                Description
-              </label>
-              <p
-                className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-gray-700 overflow-auto max-h-[200px] sm:max-h-[500px]"
-                name="description"
-              >
-                {description}
-              </p>
-            </div>
-            {/*footer*/}
-            <div className="flex gap-16 justify-center my-7">
-              {reminderDetails.status === REMINDER_STATUS.ACTIVE ? (
-                <AiOutlineFileDone
-                  className="hover:cursor-pointer"
-                  color="#6366f1"
-                  size={25}
-                  onClick={() => moveReminderToPast(reminderDetails)}
-                />
-              ) : (
-                <AiFillCaretUp
-                  className="hover:cursor-pointer"
-                  size={25}
-                  color="green"
-                  onClick={() => restoreReminder(reminderDetails)}
-                />
-              )}
-
-              <AiFillDelete
-                className="hover:cursor-pointer"
-                color="red"
-                size={25}
-                onClick={() => execDeletion(reminderDetails)}
-              />
-            </div>
+                  <AiFillDelete
+                    className="hover:cursor-pointer"
+                    color="red"
+                    size={25}
+                    onClick={() => execDeletion(reminderDetails)}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

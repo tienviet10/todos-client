@@ -64,48 +64,43 @@ export const useRQGetRecords = (
   });
 };
 
-//Get a record/ records with pause to refetch
-export const useRQGetARecordPause = (cacheVar, urlLink, onSuccess, onError) => {
-  return useQuery(cacheVar, () => getRecordsWithTokenFunction(urlLink), {
-    onSuccess,
-    onError,
-    enabled: false,
-  });
-};
-
 //Update a record
-export const useRQUpdateARecord = (onSuccess, onError) => {
+export const useRQUpdateARecord = (onSuccess, onError, onMutate, onSettled) => {
   return useMutation((newData) => updatedARecordWithTokenFunction(newData), {
     onSuccess,
     onError,
+    onMutate,
+    onSettled,
   });
 };
 
 //Delete a record
-export const useRQDeleteARecord = (onSuccess, onError) => {
+export const useRQDeleteARecord = (onSuccess, onError, onMutate, onSettled) => {
   return useMutation(
     (deleteData) => deleteARecordWithTokenFunction(deleteData),
     {
       onSuccess,
       onError,
+      onMutate,
+      onSettled,
     }
   );
 };
 
 ////-------------------------------------------------------------------
-function returnHeader(token) {
-  return {
-    authorization: `Bearer ${token}`,
-    contentType: "application/json",
-  };
-}
+// function returnHeader(token) {
+//   return {
+//     authorization: `Bearer ${token}`,
+//     contentType: "application/json",
+//   };
+// }
 
-export async function getRequestWithToken(urlLink, token) {
-  const headers = returnHeader(token);
-  return await axios.get(urlLink, {
-    headers,
-  });
-}
+// export async function getRequestWithToken(urlLink, token) {
+//   const headers = returnHeader(token);
+//   return await axios.get(urlLink, {
+//     headers,
+//   });
+// }
 
 ///---------------------------------------------------------------------------
 

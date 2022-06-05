@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
+import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { SevenDaysSummaryContext } from "../../../service/context/SevenDaysSummaryContext";
 import { useNotification } from "../../../service/notifications/notifications";
 import { getANotificationLink } from "../../service/url-link";
@@ -12,6 +13,7 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
     setAReminder,
   } = useNotification();
   const [isNewNotification, setIsNewNotification] = useState(false);
+  const { setDetailOn } = useContext(DetailOfAReminderContext);
 
   const { refetchSevenDaysSummary } = useContext(SevenDaysSummaryContext);
 
@@ -31,13 +33,11 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
 
   return (
     <div className="justify-center">
-      <div className="relative my-32">
+      <div className="relative">
         <button
           onClick={() => {
-            //refetchNotifications();
             setDropdownOpen((prev) => !prev);
           }}
-          //className="relative z-10 block rounded-md bg-white p-2 focus:outline-none"
           className={classNames(
             dropdownOpen
               ? "bg-white focus:outline-none"
@@ -59,11 +59,7 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
         </button>
 
         {dropdownOpen ? (
-          <div
-            //x-show="dropdownOpen"
-            className="absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 w-[20rem]"
-            //style={{ width: "20rem" }}
-          >
+          <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 w-[20rem]">
             <div className="py-2">
               {notifications.length > 0 &&
                 notifications.map((notificationItem) => (
@@ -75,6 +71,7 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
                       className="flex items-center py-3"
                       onClick={() => {
                         setAReminder(notificationItem.reminderID);
+                        setDetailOn(true);
                         setDropdownOpen(false);
                         mutate({
                           data: { seen: true },

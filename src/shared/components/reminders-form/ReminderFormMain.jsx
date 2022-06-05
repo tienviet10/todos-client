@@ -61,10 +61,10 @@ export const ReminderFormMain = () => {
       });
     } else {
       updateRecord({
+        from: "current",
         url: reminderWithIDLink(newReminder._id),
         data: newReminder,
       });
-      //updateRecord(newReminder, false);
     }
     setNewReminder(createEmptyReminder);
     setModalOn(false);

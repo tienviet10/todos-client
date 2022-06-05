@@ -7,10 +7,11 @@ function PastReminderProvider({ children }) {
   const {
     pastReminders,
     error,
-    //loading,
+    loading,
     discardRecord,
     addRecordFromActive,
-    refetchPastReminders,
+    setIsPastRemindersOn,
+    isPastRemindersOn,
   } = useRestPastReminder();
 
   return (
@@ -18,10 +19,11 @@ function PastReminderProvider({ children }) {
       value={{
         pastReminders,
         error,
-        //loading,
+        loading,
         discardRecord,
         addRecordFromActive,
-        refetchPastReminders,
+        setIsPastRemindersOn,
+        isPastRemindersOn,
       }}
     >
       {children}

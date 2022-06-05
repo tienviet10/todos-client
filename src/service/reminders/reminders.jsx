@@ -16,7 +16,6 @@ import {
 export function useRestOperationReminder() {
   const [allReminders, setAllReminders] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { isAuth } = useContext(AuthContext);
   const queryClient = useQueryClient();
 
@@ -31,7 +30,7 @@ export function useRestOperationReminder() {
   );
 
   //Request for active reminders
-  useRQGetRecords(
+  const { isLoading: loading } = useRQGetRecords(
     "reminders",
     getActiveRemindersLink(),
     isAuth,
@@ -51,6 +50,7 @@ export function useRestOperationReminder() {
         for (const record of data.data) {
           if (record.remindedAt) {
             const currentRemindedAt = new Date(record.remindedAt);
+            //If the reminder past due date, move it to past-reminder section instead of showing in active-reminder
             if (currentRemindedAt < yesterdayEndDate) {
               pastDueRemindersTemp.push({
                 ...record,
@@ -70,7 +70,6 @@ export function useRestOperationReminder() {
         });
 
         setAllReminders(newUpdate);
-        setLoading(false);
       }
     },
     (data) => setError(data)
@@ -78,15 +77,31 @@ export function useRestOperationReminder() {
 
   //Delete a record
   const { mutate: discardRecord } = useRQDeleteARecord(
-    (data) => {
-      data.response !== undefined &&
-        data.response.status === 404 &&
-        setError(data.message);
-      if (data.data !== undefined) {
-        queryClient.invalidateQueries("reminders");
-      }
+    () => {},
+    (err, newReminder, context) => {
+      queryClient.setQueryData("reminders", context.previousReminders);
+      setError(err);
     },
-    (data) => setError(data)
+    async (data) => {
+      await queryClient.cancelQueries("reminders");
+      const previousReminders = queryClient.getQueryData("reminders");
+
+      //Optimistic update
+      queryClient.setQueryData("reminders", (old) => {
+        return {
+          ...old,
+          data: old.data.filter(
+            (reminder) => reminder._id !== data.split("/")[3]
+          ),
+        };
+      });
+
+      return { previousReminders };
+    },
+    () => {
+      queryClient.invalidateQueries("reminders");
+      queryClient.invalidateQueries("notifications");
+    }
   );
 
   //Add a record
@@ -97,6 +112,7 @@ export function useRestOperationReminder() {
         setError(data.message);
       if (data.data !== undefined) {
         queryClient.invalidateQueries("reminders");
+        queryClient.invalidateQueries("notifications");
       }
     },
     (data) => setError(data)
@@ -104,58 +120,84 @@ export function useRestOperationReminder() {
 
   //Update a record
   const { mutate: updateRecord } = useRQUpdateARecord(
-    (data) => {
-      data.response !== undefined &&
-        data.response.status === 404 &&
-        setError(data.message);
-      if (data.data !== undefined) {
-        queryClient.invalidateQueries("reminders");
-        //setAllReminders(newAllRecords);
-      }
+    () => {},
+    (err, newReminder, context) => {
+      queryClient.setQueryData("reminders", context.previousReminders);
+      queryClient.setQueryData("pastReminders", context.previousPastReminders);
+      setError(err);
     },
-    (data) => setError(data)
+    async (data) => {
+      await queryClient.cancelQueries("reminders");
+      await queryClient.cancelQueries("pastReminders");
+
+      const previousReminders = queryClient.getQueryData("reminders");
+      const previousPastReminders = queryClient.getQueryData("pastReminders");
+
+      ////Optimistic update
+      if (data.from === "past") {
+        //Add reminder sent from the "past-reminder" section
+        queryClient.setQueryData("reminders", (old) => {
+          return {
+            ...old,
+            data: [...old.data, data.data],
+          };
+        });
+        //Delete the reminder from the "past-reminder" section
+        queryClient.setQueryData("pastReminders", (old) => {
+          return {
+            ...old,
+            data: old.data.filter(
+              (reminder) => reminder._id !== data.url.split("/")[3]
+            ),
+          };
+        });
+      } else if (data.from === "currentToPast") {
+        //Delete the reminder from the "active-reminder" section
+        queryClient.setQueryData("reminders", (old) => {
+          return {
+            ...old,
+            data: old.data.filter(
+              (reminder) => reminder._id !== data.url.split("/")[3]
+            ),
+          };
+        });
+        //Add the reminder from the "active-reminder" section to the "past-reminder" section
+        queryClient.setQueryData("pastReminders", (old) => {
+          return {
+            ...old,
+            data: [...old.data, data.data],
+          };
+        });
+      } else {
+        //Update all other details from the reminder
+        queryClient.setQueryData("reminders", (old) => {
+          return {
+            ...old,
+            data: old.data.map((reminder) =>
+              reminder._id === data.data._id
+                ? {
+                    ...reminder,
+                    title: data.data.title,
+                    description: data.data.description,
+                    favorite: data.data.favorite,
+                    color: data.data.color,
+                    remindedAt: data.data.remindedAt,
+                  }
+                : reminder
+            ),
+          };
+        });
+      }
+
+      return { previousReminders, previousPastReminders };
+    },
+    () => {
+      queryClient.invalidateQueries("reminders");
+      queryClient.invalidateQueries("pastReminders");
+      queryClient.invalidateQueries("notifications");
+      queryClient.invalidateQueries("sevenRemindersSummary");
+    }
   );
-
-  ///////----------------------------------------------------------------------
-
-  // function updateRecord(record, fromDiscardSection) {
-  //   const originalAllRecords = [...allReminders];
-
-  //   async function execFunction() {
-  //     try {
-  //       if (fromDiscardSection) {
-  //         setAllReminders((oldReminders) => [record, ...oldReminders]);
-  //       } else if (record.status === REMINDER_STATUS.INACTIVE) {
-  //         setAllReminders((oldReminders) =>
-  //           oldReminders.filter((reminder) => reminder._id !== record._id)
-  //         );
-  //       } else {
-  //         const newAllRecords = allReminders.map((reminder) =>
-  //           reminder._id === record._id
-  //             ? {
-  //                 ...reminder,
-  //                 title: record.title,
-  //                 description: record.description,
-  //                 favorite: record.favorite,
-  //                 color: record.color,
-  //                 remindedAt: record.remindedAt,
-  //               }
-  //             : reminder
-  //         );
-  //         setAllReminders(newAllRecords);
-  //       }
-
-  //       await updateARecordWithToken(
-  //         reminderWithIDLinkOLD(record._id),
-  //         record,
-  //         token
-  //       );
-  //     } catch (error) {
-  //       setAllReminders(originalAllRecords);
-  //     }
-  //   }
-  //   execFunction();
-  // }
 
   return {
     allReminders,

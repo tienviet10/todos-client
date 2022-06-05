@@ -22,28 +22,14 @@ export const FavoriteReminders = () => {
     discardRecord: discardRecordActiveReminder,
   } = useContext(ReminderContext);
   const { setModalOn, setNewReminder } = useContext(ModalContext);
-  //const { addRecordFromActive } = useContext(PastRemindersContext);
   const { setReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
   const { confirm } = useContext(ConfirmationContext);
 
-  const editStatus = (item) => {
-    item.status === REMINDER_STATUS.ACTIVE
-      ? updateRecord({
-          url: reminderWithIDLink(item._id),
-          data: { ...item, status: REMINDER_STATUS.INACTIVE },
-        })
-      : updateRecord({
-          url: reminderWithIDLink(item._id),
-          data: { ...item, status: REMINDER_STATUS.ACTIVE },
-        });
-    //updateRecord(item, false);
-  };
-
   const editFavorite = (item) => {
-    //item.favorite = false;
     updateRecord({
+      from: "current",
       url: reminderWithIDLink(item._id),
       data: { ...item, favorite: false },
     });
@@ -61,24 +47,29 @@ export const FavoriteReminders = () => {
   };
 
   const editReminder = (item) => {
-    setModalOn(true);
     setNewReminder({
       title: item.title,
       description: item.description,
+      color: item.color,
       status: REMINDER_STATUS.ACTIVE,
       favorite: item.favorite,
       remindedAt: item.remindedAt ? new Date(item.remindedAt) : null,
       _id: item._id,
     });
+    setModalOn(true);
   };
 
   const moveReminderToPast = (item) => {
-    editStatus(item);
-    //addRecordFromActive(item);
+    updateRecord({
+      from: "currentToPast",
+      url: reminderWithIDLink(item._id),
+      data: { ...item, status: REMINDER_STATUS.INACTIVE },
+    });
   };
 
   const saveNewChosenColor = (color, item) => {
     updateRecord({
+      from: "current",
       url: reminderWithIDLink(item._id),
       data: { ...item, color: color },
     });
@@ -124,16 +115,19 @@ export const FavoriteReminders = () => {
                       />
                     </div>
                     <div
-                      className="font-medium mb-8 text-sm"
+                      className="font-medium text-sm text-gray-500"
                       onClick={() => handleDetailsScreen(item)}
                     >
-                      {"("}
-                      <span>
-                        {item.remindedAt
-                          ? format(new Date(item.remindedAt), "PPPPp")
-                          : "----No-Date----"}
-                      </span>
-                      {")"}
+                      {item.remindedAt
+                        ? format(new Date(item.remindedAt), "PPPP")
+                        : "----No-Date----"}
+                    </div>
+                    <div
+                      className="font-medium mb-5 text-sm text-gray-500"
+                      onClick={() => handleDetailsScreen(item)}
+                    >
+                      {item.remindedAt &&
+                        format(new Date(item.remindedAt), "p")}
                     </div>
                     <div className="w-full flex justify-center mb-4">
                       <p
@@ -166,7 +160,6 @@ export const FavoriteReminders = () => {
                       {formatDistance(Date.parse(item.createdAt), new Date(), {
                         addSuffix: true,
                       })}
-                      {/* {moment(item.createdAt).fromNow()} */}
                     </div>
                   </div>
                 </div>

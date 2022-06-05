@@ -5,16 +5,13 @@ import {
   reminderWithIDLink,
 } from "../../shared/service/url-link";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
-import {
-  useRQGetARecordPause,
-  useRQGetRecords,
-  useRQUpdateARecord,
-} from "../reminders/rest-request";
+import { useRQGetRecords, useRQUpdateARecord } from "../reminders/rest-request";
 
 export function useNotification() {
-  const { setReminderDetails, setDetailOn } = useContext(
-    DetailOfAReminderContext
-  );
+  const {
+    setReminderDetails,
+    //  setDetailOn
+  } = useContext(DetailOfAReminderContext);
   const queryClient = useQueryClient();
 
   const [aReminder, setAReminder] = useState();
@@ -34,20 +31,23 @@ export function useNotification() {
     (data) => setError(data)
   );
 
-  const { refetch: refetchAReminder } = useRQGetARecordPause(
+  const { refetch: refetchAReminder } = useRQGetRecords(
     ["aReminder", aReminder],
     reminderWithIDLink(aReminder),
+    false,
     (data) => {
       if (data.data !== undefined) {
         setReminderDetails(data.data);
-        setDetailOn(true);
+        //setDetailOn(true);
         queryClient.invalidateQueries("notifications");
       }
       data.response !== undefined &&
         data.response.status === 404 &&
         setError(data.message);
     },
-    (data) => setError(data)
+    (data) => {
+      setError(data);
+    }
   );
 
   const { mutate } = useRQUpdateARecord(
@@ -57,7 +57,9 @@ export function useNotification() {
         setError(data.message);
       refetchAReminder();
     },
-    (data) => setError(data)
+    (data) => {
+      setError(data);
+    }
   );
 
   return {

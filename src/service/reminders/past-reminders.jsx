@@ -1,63 +1,63 @@
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { pastRemindersLink } from "../../shared/service/url-link";
-import { useRQDeleteARecord, useRQGetARecordPause } from "./rest-request";
+import { useRQDeleteARecord, useRQGetRecords } from "./rest-request";
 
 export function useRestPastReminder() {
   const [pastReminders, setPastReminders] = useState(null);
   const [error, setError] = useState(null);
-  //const [loading, setLoading] = useState(false);
-
+  const [isPastRemindersOn, setIsPastRemindersOn] = useState(false);
   const queryClient = useQueryClient();
 
-  // //Get past reminders
-  // useRQGetRecords(
-  //   "pastReminders",
-  //   pastRemindersLink(),
-  //   isAuth,
-  //   (data) => {
-  //     data.data !== undefined && setPastReminders(data.data);
-  //     data.response !== undefined &&
-  //       data.response.status === 404 &&
-  //       setError(data.message);
-  //     // setLoading(false);
-  //   },
-  //   (data) => setError(data)
-  // );
-
   //Get past reminders
-  const { refetch: refetchPastReminders } = useRQGetARecordPause(
+  const { isLoading: loading } = useRQGetRecords(
     "pastReminders",
     pastRemindersLink(),
+    isPastRemindersOn,
     (data) => {
       data.data !== undefined && setPastReminders(data.data);
       data.response !== undefined &&
         data.response.status === 404 &&
         setError(data.message);
-      // setLoading(false);
     },
     (data) => setError(data)
   );
 
   //Delete a record
   const { mutate: discardRecord } = useRQDeleteARecord(
-    (data) => {
-      data.response !== undefined &&
-        data.response.status === 404 &&
-        setError(data.message);
-      if (data.data !== undefined) {
-        queryClient.invalidateQueries("pastReminders");
-      }
+    () => {},
+    (err, newReminder, context) => {
+      queryClient.setQueryData("pastReminders", context.previousReminders);
+      setError(err);
     },
-    (data) => setError(data)
+    async (data) => {
+      await queryClient.cancelQueries("pastReminders");
+      const previousReminders = queryClient.getQueryData("pastReminders");
+
+      //Optimistic update
+      queryClient.setQueryData("pastReminders", (old) => {
+        return {
+          ...old,
+          data: old.data.filter(
+            (reminder) => reminder._id !== data.split("/")[3]
+          ),
+        };
+      });
+
+      return { previousReminders };
+    },
+    () => {
+      queryClient.invalidateQueries("pastReminders");
+    }
   );
 
   return {
     pastReminders,
     error,
-    //loading,
+    loading,
     discardRecord,
-    refetchPastReminders,
+    setIsPastRemindersOn,
+    isPastRemindersOn,
   };
 }
 

@@ -22,26 +22,14 @@ export const MainReminders = () => {
     discardRecord: discardRecordActiveReminder,
   } = useContext(ReminderContext);
   const { setModalOn, setNewReminder } = useContext(ModalContext);
-  //const { addRecordFromActive } = useContext(PastRemindersContext);
   const { setReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
   const { confirm } = useContext(ConfirmationContext);
 
-  const editStatus = (item) => {
-    item.status === REMINDER_STATUS.ACTIVE
-      ? updateRecord({
-          url: reminderWithIDLink(item._id),
-          data: { ...item, status: REMINDER_STATUS.INACTIVE },
-        })
-      : updateRecord({
-          url: reminderWithIDLink(item._id),
-          data: { ...item, status: REMINDER_STATUS.ACTIVE },
-        });
-  };
-
   const editFavorite = (item) => {
     updateRecord({
+      from: "current",
       url: reminderWithIDLink(item._id),
       data: { ...item, favorite: true },
     });
@@ -59,24 +47,29 @@ export const MainReminders = () => {
   };
 
   const moveReminderToPast = (item) => {
-    editStatus(item);
-    //addRecordFromActive(item);
+    updateRecord({
+      from: "currentToPast",
+      url: reminderWithIDLink(item._id),
+      data: { ...item, status: REMINDER_STATUS.INACTIVE },
+    });
   };
 
   const editReminder = (item) => {
-    setModalOn(true);
     setNewReminder({
       title: item.title,
       description: item.description,
+      color: item.color,
       status: REMINDER_STATUS.ACTIVE,
       favorite: item.favorite,
       remindedAt: item.remindedAt ? new Date(item.remindedAt) : null,
       _id: item._id,
     });
+    setModalOn(true);
   };
 
   const saveNewChosenColor = (color, item) => {
     updateRecord({
+      from: "current",
       url: reminderWithIDLink(item._id),
       data: { ...item, color: color },
     });
@@ -122,20 +115,22 @@ export const MainReminders = () => {
                     />
                   </div>
                   <div
-                    className="font-medium mb-8 text-sm"
+                    className="font-medium text-sm text-gray-500"
                     onClick={() => handleDetailsScreen(item)}
                   >
-                    {"("}
-                    <span>
-                      {item.remindedAt
-                        ? format(new Date(item.remindedAt), "PPPPp")
-                        : "----No-Date----"}
-                    </span>
-                    {")"}
+                    {item.remindedAt
+                      ? format(new Date(item.remindedAt), "PPPP")
+                      : "----No-Date----"}
+                  </div>
+                  <div
+                    className="font-medium mb-5 text-sm h-4 text-gray-500"
+                    onClick={() => handleDetailsScreen(item)}
+                  >
+                    {item.remindedAt && format(new Date(item.remindedAt), "p")}
                   </div>
                   <div className="w-full flex justify-center mb-4">
                     <p
-                      className="text-gray-700 text-base px-6  truncate max-w-[180px] sm:max-w-[280px]"
+                      className="text-gray-700 text-base px-6 truncate max-w-[180px] sm:max-w-[280px]"
                       onClick={() => handleDetailsScreen(item)}
                     >
                       {item.description}
@@ -162,7 +157,7 @@ export const MainReminders = () => {
                     />
                   </div>
 
-                  <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">
+                  <div className="py-1 px-6 border-t border-gray-300 mt-4">
                     {formatDistance(Date.parse(item.createdAt), new Date(), {
                       addSuffix: true,
                     })}
