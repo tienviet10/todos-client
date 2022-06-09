@@ -1,17 +1,21 @@
 import { format, formatDistance } from "date-fns";
 import React, { useContext } from "react";
-//import { useRestPastReminder } from "../../service/reminders/pastreminders";
 import { AiFillCaretUp, AiFillDelete } from "react-icons/ai";
 import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
+import { reminderWithIDLink } from "../../service-link/url-link";
 import Loader from "../general/Loader";
 
 export const PastReminders = () => {
-  const { pastReminders, error, loading, discardRecord } =
-    useContext(PastRemindersContext);
+  const {
+    pastReminders,
+    error,
+    loading,
+    discardRecord: discardRecordPastReminder,
+  } = useContext(PastRemindersContext);
 
   const { updateRecord } = useContext(ReminderContext);
   const { setReminderDetails, setDetailOn } = useContext(
@@ -27,13 +31,27 @@ export const PastReminders = () => {
 
   const execDeletion = (itemId) => {
     confirm({
-      onSuccess: () => discardRecord(itemId, true),
+      onSuccess: () => discardRecordPastReminder(reminderWithIDLink(itemId)),
     });
   };
 
   const restorePastReminder = (item) => {
-    discardRecord(item._id, false);
-    updateRecord({ ...item, status: REMINDER_STATUS.ACTIVE }, true);
+    const yesterdayEndDate = new Date(
+      new Date(new Date().setHours(23, 59, 59)).setDate(
+        new Date().getDate() - 1
+      )
+    );
+
+    updateRecord({
+      from: "past",
+      url: reminderWithIDLink(item._id),
+      data: {
+        ...item,
+        status: REMINDER_STATUS.ACTIVE,
+        remindedAt:
+          new Date(item.remindedAt) < yesterdayEndDate ? null : item.remindedAt,
+      },
+    });
   };
 
   if (loading)
@@ -67,14 +85,19 @@ export const PastReminders = () => {
                   >
                     {item.title}
                   </h5>
-                  <div className="font-medium mb-8 text-sm">
-                    {"("}
-                    <span>
-                      {item.remindedAt
-                        ? format(new Date(item.remindedAt), "PPPPp")
-                        : "----No-Date----"}
-                    </span>
-                    {")"}
+                  <div
+                    className="font-medium text-sm text-gray-500"
+                    onClick={() => handleDetailsScreen(item)}
+                  >
+                    {item.remindedAt
+                      ? format(new Date(item.remindedAt), "PPPP")
+                      : "----No-Date----"}
+                  </div>
+                  <div
+                    className="font-medium mb-5 text-sm h-4 text-gray-500"
+                    onClick={() => handleDetailsScreen(item)}
+                  >
+                    {item.remindedAt && format(new Date(item.remindedAt), "p")}
                   </div>
                   <p
                     className="text-gray-700 text-base mb-4 truncate max-w-[300px] sm:max-w-[330px]"
@@ -100,7 +123,6 @@ export const PastReminders = () => {
                     {formatDistance(Date.parse(item.createdAt), new Date(), {
                       addSuffix: true,
                     })}
-                    {/* {moment(item.createdAt).fromNow()} */}
                   </div>
                 </div>
               </div>

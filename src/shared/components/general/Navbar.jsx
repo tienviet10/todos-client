@@ -19,10 +19,10 @@ function classNames(...classes) {
 }
 
 const Navbar = ({ setNavTab }) => {
-  const [navigation, setNavigation] = useState(tabsNav);
   const { setModalOn } = useContext(ModalContext);
   const { isAuth, logout } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [navigation, setNavigation] = useState(tabsNav);
   const navigate = useNavigate();
 
   const changeCurrentSelection = (itemName) => {
@@ -70,7 +70,7 @@ const Navbar = ({ setNavTab }) => {
                   <img
                     className="hidden sm:block h-8 sm:w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
+                    alt="ReMe"
                   />
                   <h1
                     className={`hidden lg:block h-10 w-auto text-3xl px-5 text-application-color cursor-pointer`}

@@ -1,11 +1,18 @@
 import React, { createContext } from "react";
-import { useRestPastReminder } from "../reminders/past-reminders";
+import { useRestPastReminder } from "../reminders-manage-request/past-reminders";
 
 const PastRemindersContext = createContext();
 
 function PastReminderProvider({ children }) {
-  const { pastReminders, error, loading, discardRecord, addRecordFromActive } =
-    useRestPastReminder();
+  const {
+    pastReminders,
+    error,
+    loading,
+    discardRecord,
+    addRecordFromActive,
+    setIsPastRemindersOn,
+    isPastRemindersOn,
+  } = useRestPastReminder();
 
   return (
     <PastRemindersContext.Provider
@@ -15,6 +22,8 @@ function PastReminderProvider({ children }) {
         loading,
         discardRecord,
         addRecordFromActive,
+        setIsPastRemindersOn,
+        isPastRemindersOn,
       }}
     >
       {children}

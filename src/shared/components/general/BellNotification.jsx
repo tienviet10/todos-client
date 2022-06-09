@@ -1,13 +1,21 @@
 import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
-import { NotificationContext } from "../../../service/context/NotificationContext";
+import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { SevenDaysSummaryContext } from "../../../service/context/SevenDaysSummaryContext";
-import { classNames } from "../reminders-list/color-choice";
+import { useNotification } from "../../../service/notifications/notifications";
+import { getANotificationLink } from "../../service-link/url-link";
+import { classNames } from "../active-reminders-list/color-choice";
 
 export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
-  const { notifications, getAReminder } = useContext(NotificationContext);
+  const {
+    notificationsList: notifications,
+    mutate,
+    setAReminder,
+  } = useNotification();
   const [isNewNotification, setIsNewNotification] = useState(false);
-  const { getSevenDaysReminders } = useContext(SevenDaysSummaryContext);
+  const { setDetailOn } = useContext(DetailOfAReminderContext);
+
+  const { refetchSevenDaysSummary } = useContext(SevenDaysSummaryContext);
 
   useEffect(() => {
     setIsNewNotification(false);
@@ -25,13 +33,11 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
 
   return (
     <div className="justify-center">
-      <div
-        //x-data="{ dropdownOpen: true }"
-        className="relative my-32"
-      >
+      <div className="relative">
         <button
-          onClick={() => setDropdownOpen((prev) => !prev)}
-          //className="relative z-10 block rounded-md bg-white p-2 focus:outline-none"
+          onClick={() => {
+            setDropdownOpen((prev) => !prev);
+          }}
           className={classNames(
             dropdownOpen
               ? "bg-white focus:outline-none"
@@ -53,11 +59,7 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
         </button>
 
         {dropdownOpen ? (
-          <div
-            //x-show="dropdownOpen"
-            className="absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 w-[20rem]"
-            //style={{ width: "20rem" }}
-          >
+          <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 w-[20rem]">
             <div className="py-2">
               {notifications.length > 0 &&
                 notifications.map((notificationItem) => (
@@ -68,8 +70,15 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
                     <div
                       className="flex items-center py-3"
                       onClick={() => {
+                        setAReminder(notificationItem.reminderID);
+                        setDetailOn(true);
                         setDropdownOpen(false);
-                        getAReminder(notificationItem.reminderID);
+                        mutate({
+                          data: { seen: true },
+                          url: getANotificationLink(
+                            `${notificationItem.reminderID}`
+                          ),
+                        });
                       }}
                     >
                       <img
@@ -103,7 +112,7 @@ export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
               className="block bg-gray-800 text-white text-center font-bold py-2 hover:cursor-pointer"
               onClick={() => {
                 setDropdownOpen(false);
-                getSevenDaysReminders();
+                refetchSevenDaysSummary();
               }}
             >
               Seven Days Summary

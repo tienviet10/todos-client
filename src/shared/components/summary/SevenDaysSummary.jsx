@@ -2,11 +2,11 @@ import { format } from "date-fns";
 import React, { useContext } from "react";
 import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { SevenDaysSummaryContext } from "../../../service/context/SevenDaysSummaryContext";
-import { CloseButton } from "../general/CloseButton";
 import {
   classNames,
   returnAppropriateBgColor,
-} from "../reminders-list/color-choice";
+} from "../active-reminders-list/color-choice";
+import { CloseButton } from "../general/CloseButton";
 
 export const SevenDaysSummary = () => {
   const { setIsSummaryOn, sevenDaysReminders } = useContext(

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Error from "../shared/components/general/Error";
 import Loader from "../shared/components/general/Loader";
 import Success from "../shared/components/general/Success";
-import { API } from "../shared/constant/config";
+import { postRegisterLink } from "../shared/service-link/url-link";
 
 export const Registration = () => {
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ export const Registration = () => {
 
     if (password === reconfirmedPassword) {
       try {
-        const response = await axios.post(`${API}/v1/register`, newUser);
+        const response = await axios.post(postRegisterLink(), newUser);
 
         if (response.status) {
           const data = response.data;
@@ -61,7 +61,7 @@ export const Registration = () => {
             ...item,
             success: data.message,
           }));
-         
+
           setLoading(false);
           navigate("/login");
         } else {
@@ -76,7 +76,6 @@ export const Registration = () => {
 
         setLoading(false);
       }
-
     } else {
       setLoading(false);
     }
@@ -90,7 +89,7 @@ export const Registration = () => {
             <img
               className="mx-auto h-12 w-auto"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-              alt="Workflow"
+              alt="ReMe"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Register new account

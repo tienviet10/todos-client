@@ -4,6 +4,10 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { ModalContext } from "../../../service/context/ModalContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
+import {
+  remindersGeneralLink,
+  reminderWithIDLink,
+} from "../../service-link/url-link";
 import { CloseButton } from "../general/CloseButton";
 
 const createEmptyReminder = {
@@ -24,6 +28,7 @@ export const ReminderFormMain = () => {
     _id,
     favorite: favFromEdit,
     remindedAt,
+    repeat,
   } = newReminder;
   const [favorite, setFavorite] = useState(favFromEdit);
 
@@ -48,9 +53,20 @@ export const ReminderFormMain = () => {
   };
 
   const saveOrAddReminder = () => {
-    newReminder._id === ""
-      ? addRecord(newReminder)
-      : updateRecord(newReminder, false);
+    if (newReminder._id === "") {
+      const reminderContentToAdd = { ...newReminder };
+      delete reminderContentToAdd._id;
+      addRecord({
+        data: reminderContentToAdd,
+        url: remindersGeneralLink(),
+      });
+    } else {
+      updateRecord({
+        from: "current",
+        url: reminderWithIDLink(newReminder._id),
+        data: newReminder,
+      });
+    }
     setNewReminder(createEmptyReminder);
     setModalOn(false);
   };
@@ -62,6 +78,15 @@ export const ReminderFormMain = () => {
     });
   };
 
+  const handleRepeatChange = (e) => {
+    setNewReminder((oldInfo) => {
+      return {
+        ...oldInfo,
+        repeat: e.target.value,
+      };
+    });
+  };
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
@@ -70,7 +95,9 @@ export const ReminderFormMain = () => {
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-2xl font-semibold">New Reminder</h3>
+              <h3 className="text-2xl font-semibold">
+                {_id ? "Edit Reminder" : "New Reminder"}
+              </h3>
               <CloseButton takeAction={() => exitTheForm()} />
             </div>
             {/*body*/}
@@ -113,7 +140,7 @@ export const ReminderFormMain = () => {
               />
             </form>
             {/*Choose date for desktop*/}
-            <div className="hidden md:flex flex-col mb-5 px-12 text-gray-600 font-medium">
+            <div className="hidden md:flex flex-col px-12 text-gray-600 font-medium">
               <p>Remind At:</p>
               <DateTimePicker
                 disableClock
@@ -123,6 +150,41 @@ export const ReminderFormMain = () => {
                 name="remindedAt"
               />
             </div>
+
+            {/* <div className="block px-12 mb-5 py-2">
+              <div className="mt-2">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 rounded"
+                    defaultChecked={repeat}
+                    onClick={handleRepeatChange}
+                  />
+                  <span className="ml-2">Repeated</span>
+                </label>
+              </div>
+            </div> */}
+
+            <div className="block px-12 mb-5 py-2">
+              <div className="mt-2">
+                <label className="inline-flex items-center">
+                  <span className="mr-3">Repeated: </span>
+                  <select
+                    id="repeat"
+                    value={repeat}
+                    onChange={handleRepeatChange}
+                  >
+                    <option value="none">None</option>
+                    <option value="hourly">Hourly</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button
