@@ -1,12 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { API, REMINDER_STATUS } from "../../shared/constant/config";
+import { REMINDER_STATUS } from "../../shared/constant/config";
 import { getLocalStorage } from "../auth/auth";
 import { AuthContext } from "../context/AuthServiceContext";
+import { NotificationContext } from "../context/NotificationContext";
 import {
-  createAReminder,
-  discardAReminder,
-  getReminders,
-  updateAReminder,
+  createARecordWithToken,
+  discardARecordWithToken,
+  getRequestWithToken,
+  updateARecordWithToken,
 } from "./rest-request";
 
 export function useRestOperationReminder() {
@@ -16,18 +17,56 @@ export function useRestOperationReminder() {
   const [loading, setLoading] = useState(true);
   const { isAuth } = useContext(AuthContext);
   const token = getLocalStorage();
+  const { refreshAllWhenUpdateReminder } = useContext(NotificationContext);
 
   useEffect(() => {
     isMounted.current = true;
     async function init() {
       try {
-        const response = await getReminders(
-          `${API}/v1/reminders/active`,
+        const response = await getRequestWithToken(
+          `/v1/reminders/active`,
           token
         );
         if (response.status) {
           if (isMounted.current) {
-            setAllReminders(response.data);
+            const newUpdate = [];
+            const pastDueReminders = [];
+            const yesterdayEndDate = new Date(
+              new Date(new Date().setHours(23, 59, 59)).setDate(
+                new Date().getDate() - 1
+              )
+            );
+            for (const record of response.data) {
+              if (record.remindedAt) {
+                const currentRemindedAt = new Date(record.remindedAt);
+                if (currentRemindedAt < yesterdayEndDate) {
+                  pastDueReminders.push({
+                    ...record,
+                    status: REMINDER_STATUS.INACTIVE,
+                  });
+                } else {
+                  newUpdate.push({ ...record, remindedAt: currentRemindedAt });
+                }
+              } else {
+                newUpdate.push(record);
+              }
+            }
+
+            await updateARecordWithToken(
+              `/v1/reminders/past`,
+              pastDueReminders,
+              token
+            );
+
+            setAllReminders(newUpdate);
+
+            // const newUpdate = response.data.map((item) =>
+            //   item.remindedAt
+            //     ? { ...item, remindedAt: new Date(item.remindedAt) }
+            //     : item
+            // );
+
+            // setAllReminders(newUpdate);
           }
         } else {
           throw response;
@@ -64,17 +103,22 @@ export function useRestOperationReminder() {
                   title: record.title,
                   description: record.description,
                   favorite: record.favorite,
+                  color: record.color,
+                  remindedAt: record.remindedAt,
                 }
               : reminder
           );
           setAllReminders(newAllRecords);
         }
 
-        await updateAReminder(
-          `${API}/v1/reminder/${record._id}`,
+        const updateResponse = await updateARecordWithToken(
+          `/v1/reminder/${record._id}`,
           record,
           token
         );
+        if (updateResponse.status) {
+          refreshAllWhenUpdateReminder();
+        }
       } catch (error) {
         setAllReminders(originalAllRecords);
       }
@@ -90,7 +134,13 @@ export function useRestOperationReminder() {
         setAllReminders((oldReminders) =>
           oldReminders.filter((reminder) => reminder._id !== itemID)
         );
-        await discardAReminder(`${API}/v1/reminder/${itemID}`, token);
+        const deleteResponse = await discardARecordWithToken(
+          `/v1/reminder/${itemID}`,
+          token
+        );
+        if (deleteResponse.status) {
+          refreshAllWhenUpdateReminder();
+        }
       } catch (error) {
         setAllReminders(originalAllRecords);
       }
@@ -104,8 +154,8 @@ export function useRestOperationReminder() {
     const originalAllRecords = [...allReminders];
     async function execFunction() {
       try {
-        const response = await createAReminder(
-          `${API}/v1/reminder`,
+        const response = await createARecordWithToken(
+          `/v1/reminder`,
           record,
           token
         );
@@ -114,6 +164,7 @@ export function useRestOperationReminder() {
           const data = response.data;
 
           setAllReminders([data, ...allReminders]);
+          refreshAllWhenUpdateReminder();
           setLoading(false);
         } else {
           throw new Error("Fetch request error");
@@ -163,7 +214,7 @@ export function useRestOperationReminder() {
 //     isMounted.current = true;
 //     async function init() {
 //       try {
-//         const response = await getReminders(
+//         const response = await getRequestWithToken(
 //           `${API}/v1/reminders/active`,
 //           token
 //         );

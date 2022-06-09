@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React, { useContext } from "react";
 import { AiFillCaretUp, AiFillDelete, AiOutlineFileDone } from "react-icons/ai";
 import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
@@ -5,14 +6,14 @@ import { DetailOfAReminderContext } from "../../../service/context/DetailOfARemi
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
-import { CloseButton } from "./CloseButton";
+import { CloseButton } from "../general/CloseButton";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { updateRecord, discardRecord } = useContext(ReminderContext);
   const { addRecordFromActive, discardRecord: discardRecordPastReminder } =
     useContext(PastRemindersContext);
   const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
-  const { title, description } = reminderDetails;
+  const { title, description, remindedAt } = reminderDetails;
 
   const { confirm } = useContext(ConfirmationContext);
 
@@ -46,9 +47,9 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
   };
 
   return (
-    <div>
+    <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
-        <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[30%] max-h-[90%]">
+        <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[60%] max-h-[90%] shadow-2xl">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
@@ -66,6 +67,19 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
                   name="title"
                 >
                   {title}
+                </p>
+              </div>
+              <label className="text-gray-600 font-medium block mt-4">
+                Remind At
+              </label>
+              <div className="flex">
+                <p
+                  className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700 overflow-auto max-h-[100px] sm:max-h-[200px]"
+                  name="title"
+                >
+                  {remindedAt
+                    ? format(new Date(remindedAt), "PPPPp")
+                    : "----No-Date----"}
                 </p>
               </div>
 
@@ -108,6 +122,6 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
         </div>
       </div>
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-    </div>
+    </>
   );
 };

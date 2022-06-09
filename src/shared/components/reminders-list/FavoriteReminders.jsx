@@ -1,4 +1,4 @@
-import { formatDistance } from "date-fns";
+import { format, formatDistance } from "date-fns";
 import React, { useContext } from "react";
 import {
   AiFillDelete,
@@ -12,6 +12,8 @@ import { ModalContext } from "../../../service/context/ModalContext";
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
+import { classNames, returnAppropriateBgColor } from "./color-choice";
+import { ColorSelectionDropdown } from "./ColorSelectionDropdown";
 
 export const FavoriteReminders = () => {
   const { allReminders, updateRecord, discardRecord } =
@@ -53,6 +55,7 @@ export const FavoriteReminders = () => {
       description: item.description,
       status: REMINDER_STATUS.ACTIVE,
       favorite: item.favorite,
+      remindedAt: item.remindedAt ? new Date(item.remindedAt) : null,
       _id: item._id,
     });
   };
@@ -60,6 +63,10 @@ export const FavoriteReminders = () => {
   const moveReminderToPast = (item) => {
     editStatus(item);
     addRecordFromActive(item);
+  };
+
+  const saveNewChosenColor = (color, item) => {
+    updateRecord({ ...item, color: color }, false);
   };
 
   return (
@@ -78,26 +85,50 @@ export const FavoriteReminders = () => {
                   className="flex justify-center"
                   onDoubleClick={() => moveReminderToPast(item)}
                 >
-                  <div className="block px-6 py-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500">
-                    <AiFillStar
-                      className="hover:cursor-pointer float-right mr-[-5%]"
-                      size={25}
-                      onClick={() => editFavorite(item)}
-                    />
-
-                    <h5
-                      className="text-gray-900 text-xl leading-tight font-medium mb-2 truncate px-10 max-w-[300px] sm:max-w-[330px]"
+                  <div
+                    className={classNames(
+                      returnAppropriateBgColor(item.color),
+                      "block px-6 py-3 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500"
+                    )}
+                  >
+                    <div className="flex w-full items-center justify-between">
+                      <ColorSelectionDropdown
+                        item={item}
+                        saveNewChosenColor={saveNewChosenColor}
+                      />
+                      <h5
+                        className="text-gray-900 text-xl leading-tight font-medium mb-2 truncate px-10 max-w-[180px] sm:max-w-[330px]"
+                        onClick={() => handleDetailsScreen(item)}
+                      >
+                        {item.title}
+                      </h5>
+                      <AiFillStar
+                        className="hover:cursor-pointer"
+                        size={25}
+                        onClick={() => editFavorite(item)}
+                      />
+                    </div>
+                    <div
+                      className="font-medium mb-8 text-sm"
                       onClick={() => handleDetailsScreen(item)}
                     >
-                      {item.title}
-                    </h5>
-                    <p
-                      className="text-gray-700 text-base px-6 mb-4 truncate max-w-[300px] sm:max-w-[330px]"
-                      onClick={() => handleDetailsScreen(item)}
-                    >
-                      {item.description}
-                    </p>
-                    <div className="flex gap-6 justify-center mt-7">
+                      {"("}
+                      <span>
+                        {item.remindedAt
+                          ? format(new Date(item.remindedAt), "PPPPp")
+                          : "----No-Date----"}
+                      </span>
+                      {")"}
+                    </div>
+                    <div className="w-full flex justify-center mb-4">
+                      <p
+                        className="text-gray-700 text-base px-6 truncate max-w-[180px] sm:max-w-[280px]"
+                        onClick={() => handleDetailsScreen(item)}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
+                    <div className="flex gap-6 justify-center mt-8">
                       <AiOutlineFileDone
                         className="hover:cursor-pointer"
                         color="#6366f1"

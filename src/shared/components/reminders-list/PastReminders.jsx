@@ -1,4 +1,4 @@
-import { formatDistance } from "date-fns";
+import { format, formatDistance } from "date-fns";
 import React, { useContext } from "react";
 //import { useRestPastReminder } from "../../service/reminders/pastreminders";
 import { AiFillCaretUp, AiFillDelete } from "react-icons/ai";
@@ -67,13 +67,22 @@ export const PastReminders = () => {
                   >
                     {item.title}
                   </h5>
+                  <div className="font-medium mb-8 text-sm">
+                    {"("}
+                    <span>
+                      {item.remindedAt
+                        ? format(new Date(item.remindedAt), "PPPPp")
+                        : "----No-Date----"}
+                    </span>
+                    {")"}
+                  </div>
                   <p
                     className="text-gray-700 text-base mb-4 truncate max-w-[300px] sm:max-w-[330px]"
                     onClick={() => handleDetailsScreen(item)}
                   >
                     {item.description}
                   </p>
-                  <div className="flex gap-6 justify-center mt-7">
+                  <div className="flex gap-6 justify-center mt-8">
                     <AiFillCaretUp
                       className="hover:cursor-pointer"
                       size={25}

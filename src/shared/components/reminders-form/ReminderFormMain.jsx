@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import DateTimePicker from "react-datetime-picker";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { ModalContext } from "../../../service/context/ModalContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
@@ -15,9 +16,15 @@ const createEmptyReminder = {
 
 export const ReminderFormMain = () => {
   const { addRecord, updateRecord } = useContext(ReminderContext);
-  const { newReminder, setNewReminder, setModalOn } = useContext(ModalContext);
-  const { title, description, _id, favorite: favFromEdit } = newReminder;
 
+  const { newReminder, setNewReminder, setModalOn } = useContext(ModalContext);
+  const {
+    title,
+    description,
+    _id,
+    favorite: favFromEdit,
+    remindedAt,
+  } = newReminder;
   const [favorite, setFavorite] = useState(favFromEdit);
 
   const handleFavoriteChange = () => {
@@ -47,16 +54,24 @@ export const ReminderFormMain = () => {
     setNewReminder(createEmptyReminder);
     setModalOn(false);
   };
+
+  const setReminderDate = (remindedAt) => {
+    setNewReminder({
+      ...newReminder,
+      remindedAt: new Date(remindedAt),
+    });
+  };
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
-        <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[30%]">
+        <div className="relative my-6 mx-auto max-w-[800px] sm:w-[60%]">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-2xl font-semibold">New Reminder</h3>
-              <CloseButton takeAction={() => setModalOn(false)} />
+              <CloseButton takeAction={() => exitTheForm()} />
             </div>
             {/*body*/}
 
@@ -92,11 +107,22 @@ export const ReminderFormMain = () => {
               <textarea
                 value={description}
                 rows={5}
-                className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-gray-700"
+                className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-gray-700 resize-none"
                 name="description"
                 onChange={handleChange("description")}
               />
             </form>
+            {/*Choose date for desktop*/}
+            <div className="hidden md:flex flex-col mb-5 px-12 text-gray-600 font-medium">
+              <p>Remind At:</p>
+              <DateTimePicker
+                disableClock
+                //minDate={new Date()}
+                onChange={setReminderDate}
+                value={remindedAt}
+                name="remindedAt"
+              />
+            </div>
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button

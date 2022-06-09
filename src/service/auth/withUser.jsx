@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { API } from "../../shared/constant/config";
+import { getRequestWithToken } from "../reminders/rest-request";
 import { getLocalStorage, removeLocalStorage } from "./auth";
 
 function withUser(WrappedComponent) {
@@ -16,12 +15,7 @@ function withUser(WrappedComponent) {
         setIsError(false);
 
         try {
-          const response = await axios.get(requestUrl, {
-            headers: {
-              authorization: `Bearer ${token}`,
-              contentType: "application/json",
-            },
-          });
+          const response = await getRequestWithToken(requestUrl, token);
 
           if (response.status) {
             const data = response.data.user;
@@ -37,7 +31,7 @@ function withUser(WrappedComponent) {
         }
       };
 
-      if (token) fetchData(`${API}/v1/user-auth`, token);
+      if (token) fetchData(`/v1/user-auth`, token);
     }, [token]);
 
     return (
