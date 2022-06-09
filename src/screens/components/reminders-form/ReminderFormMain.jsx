@@ -3,12 +3,12 @@ import DateTimePicker from "react-datetime-picker";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { ModalContext } from "../../../service/context/ModalContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
-import { REMINDER_STATUS } from "../../constant/config";
+import { CloseButton } from "../../../shared/components/CloseButton";
+import { REMINDER_STATUS } from "../../../shared/constant/config";
 import {
   remindersGeneralLink,
   reminderWithIDLink,
-} from "../../service-link/url-link";
-import { CloseButton } from "../general/CloseButton";
+} from "../../../shared/service-link/url-link";
 
 const createEmptyReminder = {
   title: "",

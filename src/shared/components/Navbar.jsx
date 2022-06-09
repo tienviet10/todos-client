@@ -2,9 +2,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import React, { Fragment, useContext, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import withUser from "../../../service/auth/withUser";
-import { AuthContext } from "../../../service/context/AuthServiceContext";
-import { ModalContext } from "../../../service/context/ModalContext";
+import withUser from "../../service/auth/withUser";
+import { AuthContext } from "../../service/context/AuthServiceContext";
+import { ModalContext } from "../../service/context/ModalContext";
 import { BellNotification } from "./BellNotification";
 
 const tabsNav = [

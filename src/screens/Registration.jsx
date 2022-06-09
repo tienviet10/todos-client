@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { AiFillFire } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import Error from "../shared/components/general/Error";
-import Loader from "../shared/components/general/Loader";
-import Success from "../shared/components/general/Success";
+import Error from "../shared/components/Error";
+import Loader from "../shared/components/Loader";
+import Success from "../shared/components/Success";
 import { postRegisterLink } from "../shared/service-link/url-link";
 
 export const Registration = () => {

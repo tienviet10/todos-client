@@ -1,5 +1,9 @@
 import { useContext, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { PastReminderToggle } from "./screens/components/past-reminders-list/PastReminderToggle";
+import { DetailOfAReminderWindow } from "./screens/components/reminders-display-details/DisplayDetailReminders";
+import { ReminderForm } from "./screens/components/reminders-form/ReminderForm";
+import { SevenDaysSummary } from "./screens/components/summary/SevenDaysSummary";
 import Dashboard from "./screens/Dashboard";
 import { Landing } from "./screens/Landing";
 import { Login } from "./screens/Login";
@@ -12,12 +16,8 @@ import { ConfirmationContext } from "./service/context/ConfirmationToProceedCont
 import { DetailOfAReminderContext } from "./service/context/DetailOfAReminderContext";
 import { ModalContext } from "./service/context/ModalContext";
 import { SevenDaysSummaryContext } from "./service/context/SevenDaysSummaryContext";
-import { Confirmation } from "./shared/components/general/Confirmation";
-import Navbar from "./shared/components/general/Navbar";
-import { PastReminderToggle } from "./shared/components/past-reminders-list/PastReminderToggle";
-import { DetailOfAReminderWindow } from "./shared/components/reminders-display-details/DisplayDetailReminders";
-import { ReminderForm } from "./shared/components/reminders-form/ReminderForm";
-import { SevenDaysSummary } from "./shared/components/summary/SevenDaysSummary";
+import { Confirmation } from "./shared/components/Confirmation";
+import Navbar from "./shared/components/Navbar";
 
 function App() {
   const [selectedNavTab, setNavTab] = useState("Reminder");

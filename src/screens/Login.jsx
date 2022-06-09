@@ -6,9 +6,9 @@ import {
   AiFillLock,
 } from "react-icons/ai";
 import { useLogIn } from "../service/auth/login";
-import Error from "../shared/components/general/Error";
-import Loader from "../shared/components/general/Loader";
-import Success from "../shared/components/general/Success";
+import Error from "../shared/components/Error";
+import Loader from "../shared/components/Loader";
+import Success from "../shared/components/Success";
 
 export const Login = () => {
   const {

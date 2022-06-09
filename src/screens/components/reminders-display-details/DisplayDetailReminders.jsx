@@ -5,10 +5,10 @@ import { ConfirmationContext } from "../../../service/context/ConfirmationToProc
 import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
-import { REMINDER_STATUS } from "../../constant/config";
-import { reminderWithIDLink } from "../../service-link/url-link";
-import { CloseButton } from "../general/CloseButton";
-import LoaderFullscreen from "../general/LoaderFullscreen";
+import { CloseButton } from "../../../shared/components/CloseButton";
+import LoaderFullscreen from "../../../shared/components/LoaderFullscreen";
+import { REMINDER_STATUS } from "../../../shared/constant/config";
+import { reminderWithIDLink } from "../../../shared/service-link/url-link";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
   const { updateRecord, discardRecord: discardRecordActiveReminder } =

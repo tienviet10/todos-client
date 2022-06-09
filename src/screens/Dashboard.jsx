@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import withUser from "../service/auth/withUser";
 import { ReminderContext } from "../service/context/ReminderContext";
 import { useManageRemindersState } from "../service/reminders-manage-state/manage-reminders-state";
-import { FavoriteReminders } from "../shared/components/active-reminders-list/FavoriteReminders";
-import { MainReminders } from "../shared/components/active-reminders-list/MainReminders";
-import { EmptyListDisplay } from "../shared/components/dashboard/EmptyListDisplay";
-import Loader from "../shared/components/general/Loader";
+import Loader from "../shared/components/Loader";
+import { FavoriteReminders } from "./components/active-reminders-list/FavoriteReminders";
+import { MainReminders } from "./components/active-reminders-list/MainReminders";
+import { EmptyListDisplay } from "./components/dashboard/EmptyListDisplay";
 
 const Dashboard = () => {
   const {
@@ -72,7 +72,7 @@ export default withUser(Dashboard);
 // import withUser from "../service/auth/withUser";
 // import { ReminderContext } from "../service/context/ReminderContext";
 // import { EmptyListDisplay } from "../shared/components/dashboard/EmptyListDisplay";
-// import Loader from "../shared/components/general/Loader";
+// import Loader from "../shared/components/Loader";
 // import { FavoriteReminders } from "../shared/components/reminders-list/FavoriteReminders";
 // import { MainReminders } from "../shared/components/reminders-list/MainReminders";
 
@@ -117,7 +117,7 @@ export default withUser(Dashboard);
 // import withUser from "../service/auth/withUser";
 // import { ReminderContext } from "../service/context/ReminderContext";
 // import { EmptyListDisplay } from "../shared/components/dashboard/EmptyListDisplay";
-// import Loader from "../shared/components/general/Loader";
+// import Loader from "../shared/components/Loader";
 // import { DisplayReminderList } from "../shared/components/reminders-list/DisplayReminderList";
 
 // const Dashboard = () => {

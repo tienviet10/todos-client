@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TwitterPicker } from "react-color";
-import { COLOR_LIST } from "../../constant/config";
+import { COLOR_LIST } from "../../../shared/constant/config";
 import { classNames, returnAppropriateBtnColor } from "./color-choice";
 
 export const ColorSelectionDropdown = ({ item, saveNewChosenColor }) => {

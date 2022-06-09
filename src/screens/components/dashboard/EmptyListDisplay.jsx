@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import { ModalContext } from "../../../service/context/ModalContext";
-import { MAIN_PAGE_EXAMPLE, REMINDER_STATUS } from "../../constant/config";
+import {
+  MAIN_PAGE_EXAMPLE,
+  REMINDER_STATUS,
+} from "../../../shared/constant/config";
 
 export const EmptyListDisplay = () => {
   const { setModalOn } = useContext(ModalContext);
