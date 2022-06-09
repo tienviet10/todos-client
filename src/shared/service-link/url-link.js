@@ -24,16 +24,20 @@ export const remindersGeneralLink = () => {
   return "/v1/reminder";
 };
 
+export const reminderWithIDLink = (reminderID) => {
+  return `/v1/reminder/${reminderID}`;
+};
+
+export const updateMultipleRemindersLink = () => {
+  return "/v1/reminders";
+};
+
 export const getActiveRemindersLink = () => {
   return "/v1/reminders/active";
 };
 
 export const pastRemindersLink = () => {
   return "/v1/reminders/past";
-};
-
-export const reminderWithIDLink = (reminderID) => {
-  return `/v1/reminder/${reminderID}`;
 };
 
 export const getSevenRemindersSummaryLink = () => {

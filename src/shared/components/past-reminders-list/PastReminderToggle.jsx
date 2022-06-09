@@ -8,7 +8,7 @@ export const PastReminderToggle = () => {
     useContext(PastRemindersContext);
 
   return (
-    <div>
+    <div className="pb-10">
       {isPastRemindersOn ? (
         <div className="grid max-w-[1240px] w-full mx-auto text-left pb-10">
           <div

@@ -4,7 +4,8 @@ import { REMINDER_STATUS } from "../../shared/constant/config";
 import {
   getActiveRemindersLink,
   pastRemindersLink,
-} from "../../shared/service/url-link";
+  updateMultipleRemindersLink,
+} from "../../shared/service-link/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
 import {
   useRQCreateARecord,
@@ -42,16 +43,62 @@ export function useRestOperationReminder() {
       if (data.data !== undefined) {
         const newUpdate = [];
         const pastDueRemindersTemp = [];
+        const updateRepeatReminders = [];
         const yesterdayEndDate = new Date(
           new Date(new Date().setHours(23, 59, 59)).setDate(
             new Date().getDate() - 1
           )
         );
+        const currentTimeDate = new Date();
         for (const record of data.data) {
           if (record.remindedAt) {
-            const currentRemindedAt = new Date(record.remindedAt);
+            let currentRemindedAt = new Date(record.remindedAt);
+
             //If the reminder past due date, move it to past-reminder section instead of showing in active-reminder
-            if (currentRemindedAt < yesterdayEndDate) {
+            if (
+              record.repeat &&
+              record.repeat !== "none" &&
+              currentRemindedAt < currentTimeDate
+            ) {
+              let count = 1; //This constant is using in Monthly repeat
+
+              while (currentRemindedAt < currentTimeDate) {
+                if (record.repeat === "hourly") {
+                  currentRemindedAt.setHours(currentRemindedAt.getHours() + 1);
+                } else if (record.repeat === "daily") {
+                  currentRemindedAt.setDate(currentRemindedAt.getDate() + 1);
+                } else if (record.repeat === "weekly") {
+                  currentRemindedAt.setDate(currentRemindedAt.getDate() + 7);
+                } else if (record.repeat === "monthly") {
+                  // Create a reference to change var and check date
+                  const newTempDate = new Date(currentRemindedAt);
+
+                  if (
+                    new Date(
+                      newTempDate.setMonth(newTempDate.getMonth() + count)
+                    ).getDate() === new Date(currentRemindedAt).getDate()
+                  ) {
+                    currentRemindedAt.setMonth(
+                      currentRemindedAt.getMonth() + count
+                    );
+                    break;
+                  }
+                  count++;
+                } else if (record.repeat === "yearly") {
+                  currentRemindedAt.setFullYear(
+                    currentRemindedAt.getFullYear() + 1
+                  );
+                }
+              }
+
+              const updateNewRecord = {
+                ...record,
+                remindedAt: currentRemindedAt,
+              };
+
+              updateRepeatReminders.push(updateNewRecord);
+              newUpdate.push(updateNewRecord);
+            } else if (currentRemindedAt < yesterdayEndDate) {
               pastDueRemindersTemp.push({
                 ...record,
                 status: REMINDER_STATUS.INACTIVE,
@@ -64,10 +111,19 @@ export function useRestOperationReminder() {
           }
         }
 
-        mutateUpdateDueReminder({
-          url: pastRemindersLink(),
-          data: pastDueRemindersTemp,
-        });
+        if (updateRepeatReminders.length > 0) {
+          updateMultipleRecords({
+            url: updateMultipleRemindersLink(),
+            data: updateRepeatReminders,
+          });
+        }
+
+        if (pastDueRemindersTemp.length > 0) {
+          mutateUpdateDueReminder({
+            url: pastRemindersLink(),
+            data: pastDueRemindersTemp,
+          });
+        }
 
         setAllReminders(newUpdate);
       }
@@ -101,6 +157,7 @@ export function useRestOperationReminder() {
     () => {
       queryClient.invalidateQueries("reminders");
       queryClient.invalidateQueries("notifications");
+      queryClient.invalidateQueries("sevenRemindersSummary");
     }
   );
 
@@ -182,6 +239,7 @@ export function useRestOperationReminder() {
                     favorite: data.data.favorite,
                     color: data.data.color,
                     remindedAt: data.data.remindedAt,
+                    repeat: data.data.repeat,
                   }
                 : reminder
             ),
@@ -194,6 +252,20 @@ export function useRestOperationReminder() {
     () => {
       queryClient.invalidateQueries("reminders");
       queryClient.invalidateQueries("pastReminders");
+      queryClient.invalidateQueries("notifications");
+      queryClient.invalidateQueries("sevenRemindersSummary");
+    }
+  );
+
+  //Update a record
+  const { mutate: updateMultipleRecords } = useRQUpdateARecord(
+    () => {},
+    (err, newReminder, context) => {
+      setError(err);
+    },
+    () => {},
+    () => {
+      queryClient.invalidateQueries("reminders");
       queryClient.invalidateQueries("notifications");
       queryClient.invalidateQueries("sevenRemindersSummary");
     }

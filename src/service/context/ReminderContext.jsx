@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { useRestOperationReminder } from "../reminders/reminders";
+import { useRestOperationReminder } from "../reminders-manage-request/reminders";
 
 const ReminderContext = createContext();
 

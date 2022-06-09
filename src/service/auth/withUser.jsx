@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import { getUserAuthenticationLink } from "../../shared/service/url-link";
+import { getUserAuthenticationLink } from "../../shared/service-link/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
-import { useRQGetRecords } from "../reminders/rest-request";
+import { useRQGetRecords } from "../reminders-manage-request/rest-request";
 
 function withUser(WrappedComponent) {
   const WithFetch = (props) => {
@@ -43,7 +43,7 @@ export default withUser;
 
 ////-----------------------------------------------------------------------
 // import React, { useEffect, useState } from "react";
-// import { getUserAuthenticationLink } from "../../shared/service/url-link";
+// import { getUserAuthenticationLink } from "../../shared/service-link/url-link";
 // import { getRequestWithToken } from "../reminders/rest-request";
 // import { getLocalStorage, removeLocalStorage } from "./auth";
 

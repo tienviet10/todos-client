@@ -12,6 +12,7 @@ function ModalProvider({ children }) {
     status: REMINDER_STATUS.ACTIVE,
     favorite: false,
     remindedAt: null,
+    repeat: "none",
   });
   return (
     <ModalContext.Provider

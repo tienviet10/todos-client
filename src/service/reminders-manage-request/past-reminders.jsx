@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { pastRemindersLink } from "../../shared/service/url-link";
+import { pastRemindersLink } from "../../shared/service-link/url-link";
 import { useRQDeleteARecord, useRQGetRecords } from "./rest-request";
 
 export function useRestPastReminder() {
@@ -68,7 +68,7 @@ export function useRestPastReminder() {
 // import {
 //   pastRemindersLink,
 //   reminderWithIDLinkOLD,
-// } from "../../shared/service/url-link";
+// } from "../../shared/service-link/url-link";
 // import { getLocalStorage } from "../auth/auth";
 // import { AuthContext } from "../context/AuthServiceContext";
 // import { discardARecordWithToken, getRequestWithToken } from "./rest-request";

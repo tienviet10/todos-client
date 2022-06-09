@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
-import { getSevenRemindersSummaryLink } from "../../shared/service/url-link";
-import { useRQGetRecords } from "../reminders/rest-request";
+import { getSevenRemindersSummaryLink } from "../../shared/service-link/url-link";
+import { useRQGetRecords } from "../reminders-manage-request/rest-request";
 
 const SevenDaysSummaryContext = createContext();
 

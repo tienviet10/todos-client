@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postLogInLink } from "../../shared/service/url-link";
+import { postLogInLink } from "../../shared/service-link/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 

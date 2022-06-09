@@ -3,15 +3,15 @@ import { useQueryClient } from "react-query";
 import {
   getAllNotificationLink,
   reminderWithIDLink,
-} from "../../shared/service/url-link";
+} from "../../shared/service-link/url-link";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
-import { useRQGetRecords, useRQUpdateARecord } from "../reminders/rest-request";
+import {
+  useRQGetRecords,
+  useRQUpdateARecord,
+} from "../reminders-manage-request/rest-request";
 
 export function useNotification() {
-  const {
-    setReminderDetails,
-    //  setDetailOn
-  } = useContext(DetailOfAReminderContext);
+  const { setReminderDetails } = useContext(DetailOfAReminderContext);
   const queryClient = useQueryClient();
 
   const [aReminder, setAReminder] = useState();
@@ -38,7 +38,7 @@ export function useNotification() {
     (data) => {
       if (data.data !== undefined) {
         setReminderDetails(data.data);
-        //setDetailOn(true);
+
         queryClient.invalidateQueries("notifications");
       }
       data.response !== undefined &&

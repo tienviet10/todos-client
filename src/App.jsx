@@ -14,9 +14,9 @@ import { ModalContext } from "./service/context/ModalContext";
 import { SevenDaysSummaryContext } from "./service/context/SevenDaysSummaryContext";
 import { Confirmation } from "./shared/components/general/Confirmation";
 import Navbar from "./shared/components/general/Navbar";
+import { PastReminderToggle } from "./shared/components/past-reminders-list/PastReminderToggle";
+import { DetailOfAReminderWindow } from "./shared/components/reminders-display-details/DisplayDetailReminders";
 import { ReminderForm } from "./shared/components/reminders-form/ReminderForm";
-import { DetailOfAReminderWindow } from "./shared/components/reminders-list/DisplayDetailReminders";
-import { PastReminderToggle } from "./shared/components/reminders-list/PastReminderToggle";
 import { SevenDaysSummary } from "./shared/components/summary/SevenDaysSummary";
 
 function App() {
@@ -40,7 +40,6 @@ function App() {
               element={
                 <>
                   <Dashboard />
-                  <br />
                   <PastReminderToggle />
                 </>
               }

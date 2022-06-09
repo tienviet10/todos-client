@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Error from "../shared/components/general/Error";
 import Loader from "../shared/components/general/Loader";
 import Success from "../shared/components/general/Success";
-import { postRegisterLink } from "../shared/service/url-link";
+import { postRegisterLink } from "../shared/service-link/url-link";
 
 export const Registration = () => {
   const [loading, setLoading] = useState(false);

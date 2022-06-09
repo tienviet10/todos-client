@@ -6,7 +6,7 @@ import { DetailOfAReminderContext } from "../../../service/context/DetailOfARemi
 import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { REMINDER_STATUS } from "../../constant/config";
-import { reminderWithIDLink } from "../../service/url-link";
+import { reminderWithIDLink } from "../../service-link/url-link";
 import { CloseButton } from "../general/CloseButton";
 import LoaderFullscreen from "../general/LoaderFullscreen";
 
