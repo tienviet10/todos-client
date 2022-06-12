@@ -140,9 +140,10 @@ export const ReminderFormMain = () => {
               />
             </form>
             {/*Choose date for desktop*/}
-            <div className="hidden md:flex flex-col px-12 text-gray-600 font-medium">
+            <div className="flex flex-col px-12 text-gray-600 font-medium">
               <p>Remind At:</p>
               <DateTimePicker
+                className="z-80"
                 disableClock
                 //minDate={new Date()}
                 onChange={setReminderDate}
@@ -151,20 +152,7 @@ export const ReminderFormMain = () => {
               />
             </div>
 
-            {/* <div className="block px-12 mb-5 py-2">
-              <div className="mt-2">
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 rounded"
-                    defaultChecked={repeat}
-                    onClick={handleRepeatChange}
-                  />
-                  <span className="ml-2">Repeated</span>
-                </label>
-              </div>
-            </div> */}
-
+            {/*Choose type of repeat*/}
             <div className="block px-12 mb-5 py-2">
               <div className="mt-2">
                 <label className="inline-flex items-center">
@@ -175,11 +163,11 @@ export const ReminderFormMain = () => {
                     onChange={handleRepeatChange}
                   >
                     <option value="none">None</option>
-                    <option value="hourly">Hourly</option>
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="yearly">Yearly</option>
+                    <option value="HOURLY">Hourly</option>
+                    <option value="DAILY">Daily</option>
+                    <option value="WEEKLY">Weekly</option>
+                    <option value="MONTHLY">Monthly</option>
+                    <option value="YEARLY">Yearly</option>
                   </select>
                 </label>
               </div>

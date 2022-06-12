@@ -45,6 +45,8 @@ const Navbar = ({ setNavTab }) => {
     navigate("login");
   };
 
+  //const { handleAuthClick } = useGoogleCalendar();
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (

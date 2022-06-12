@@ -14,6 +14,7 @@ const Dashboard = () => {
     error: errorGetReminders,
   } = useContext(ReminderContext);
 
+  //Manage all operation of the active reminder
   const {
     editFavorite,
     handleDetailsScreen,

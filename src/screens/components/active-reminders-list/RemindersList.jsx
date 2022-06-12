@@ -47,7 +47,7 @@ export const RemindersList = ({
                       saveNewChosenColor={saveNewChosenColor}
                     />
                     <div
-                      className="text-gray-900 text-xl font-medium truncate max-w-[180px] sm:max-w-[330px]"
+                      className="text-gray-900 text-xl font-medium truncate max-w-[180px] sm:max-w-[200px]"
                       onClick={() => handleDetailsScreen(item)}
                     >
                       {item.title}

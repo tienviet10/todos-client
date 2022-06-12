@@ -7,7 +7,7 @@ function AuthProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    const token = getLocalStorage();
+    const token = getLocalStorage("token");
     if (token) setIsAuth(true);
   }, []);
 
@@ -18,6 +18,7 @@ function AuthProvider({ children }) {
   const logout = () => {
     setIsAuth(false);
     removeLocalStorage("token");
+    removeLocalStorage("googleCalendar");
   };
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth, login, logout }}>

@@ -62,7 +62,7 @@ export function useLogIn() {
           success: data.message,
           buttonText: "Sign In",
         }));
-        storeAuthentication(data);
+        storeAuthentication("token", data.token);
         signInAuth();
         setLoading(false);
         navigate("/dashboard");

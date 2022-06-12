@@ -20,7 +20,6 @@ export const REMINDER_STATUS = {
   ACTIVE: "active",
   INACTIVE: "deactive",
 };
-
 export const COLOR_LIST = {
   blue: "#93c5fd",
   red: "#fca5a5",
@@ -31,3 +30,6 @@ export const COLOR_LIST = {
   pink: "#f9a8d4",
   white: "#e2e8f0",
 };
+export const DISCOVERY_DOC =
+  "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
+export const SCOPES = "https://www.googleapis.com/auth/calendar.events";

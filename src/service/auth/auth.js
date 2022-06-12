@@ -6,16 +6,16 @@ export const removeLocalStorage = (key) => {
   localStorage.removeItem(key);
 };
 
-export const getLocalStorage = () => {
-  if (localStorage.getItem("token")) {
-    return JSON.parse(localStorage.getItem("token"));
+export const getLocalStorage = (token) => {
+  if (localStorage.getItem(token)) {
+    return JSON.parse(localStorage.getItem(token));
   } else {
     return "";
   }
 };
 
-export const storeAuthentication = (response) => {
-  setLocalStorage("token", response.token);
+export const storeAuthentication = (token, accessToken) => {
+  setLocalStorage(token, accessToken);
 };
 
 // export const updateUser = (user, next) => {
