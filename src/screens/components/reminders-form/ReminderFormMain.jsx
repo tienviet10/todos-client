@@ -19,6 +19,7 @@ const createEmptyReminder = {
 };
 
 export const ReminderFormMain = () => {
+  //const { handleAuthClick } = useGoogleCalendar();
   const { addRecord, updateRecord } = useContext(ReminderContext);
 
   const { newReminder, setNewReminder, setModalOn } = useContext(ModalContext);
@@ -60,6 +61,13 @@ export const ReminderFormMain = () => {
         data: reminderContentToAdd,
         url: remindersGeneralLink(),
       });
+      // handleAuthClick({
+      //   summary: newReminder.title,
+      //   description: newReminder.description,
+      //   startTime: "2022-06-28T09:00:00-07:00",
+      //   endTime: "2022-06-28T09:05:00-07:00",
+      //   recurrence: "",
+      // });
     } else {
       updateRecord({
         from: "current",

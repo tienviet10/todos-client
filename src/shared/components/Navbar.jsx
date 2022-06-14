@@ -2,11 +2,11 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import React, { Fragment, useContext, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+import { useGoogleAuth } from "../../service/auth/google-auth";
 import withUser from "../../service/auth/withUser";
 import { AuthContext } from "../../service/context/AuthServiceContext";
 import { ModalContext } from "../../service/context/ModalContext";
 import { BellNotification } from "./BellNotification";
-
 const tabsNav = [
   { name: "Reminder", href: "/dashboard", current: true },
   { name: "Share", href: "/team", current: false },
@@ -19,6 +19,7 @@ function classNames(...classes) {
 }
 
 const Navbar = ({ setNavTab }) => {
+  const { handleAuthClick } = useGoogleAuth();
   const { setModalOn } = useContext(ModalContext);
   const { isAuth, logout } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -191,7 +192,9 @@ const Navbar = ({ setNavTab }) => {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                               onClick={() => {
-                                changeCurrentSelection("Profile");
+                                changeCurrentSelection("Setting");
+                                //runWebsite();
+                                handleAuthClick();
                               }}
                             >
                               Settings

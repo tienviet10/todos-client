@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useQueryClient } from "react-query";
 import { REMINDER_STATUS } from "../../shared/constant/config";
 import {
+  addReminderGoogleCalendarLink,
   getActiveRemindersLink,
   pastRemindersLink,
   updateMultipleRemindersLink,
@@ -15,7 +16,6 @@ import {
 } from "./rest-request";
 
 export function useRestOperationReminder() {
-  //const { handleAuthClick } = useGoogleCalendar();
   const [allReminders, setAllReminders] = useState(null);
   const [error, setError] = useState(null);
   const { isAuth } = useContext(AuthContext);
@@ -162,23 +162,37 @@ export function useRestOperationReminder() {
     }
   );
 
-  //Add a record
+  //Add a record to GoogleCalendar
+  const { mutate: addRecordToGoogleCalendar } = useRQCreateARecord(
+    (data) => {
+      data.response !== undefined &&
+        data.response.status === 404 &&
+        setError(data.message);
+    },
+    (data) => setError(data)
+  );
+
+  //Add a record to mongodb then to google calendar
   const { mutate: addRecord } = useRQCreateARecord(
     (data) => {
       data.response !== undefined &&
         data.response.status === 404 &&
         setError(data.message);
       if (data.data !== undefined) {
-        // const endTime = new Date(data.data.remindedAt);
-        // handleAuthClick({
-        //   summary: data.data.title,
-        //   description: data.data.description,
-        //   startTime: data.data.remindedAt.replace("Z", "+00:00"),
-        //   endTime: new Date(endTime.setMinutes(endTime.getMinutes() + 5))
-        //     .toISOString()
-        //     .replace("Z", "+00:00"),
-        //   recurrence: data.data.repeat,
-        // });
+        const endTime = new Date(data.data.remindedAt);
+        addRecordToGoogleCalendar({
+          url: addReminderGoogleCalendarLink(),
+          data: {
+            summary: data.data.title,
+            description: data.data.description,
+            startTime: data.data.remindedAt.replace("Z", "+00:00"),
+            endTime: new Date(endTime.setMinutes(endTime.getMinutes() + 5))
+              .toISOString()
+              .replace("Z", "+00:00"),
+            recurrence: data.data.repeat,
+            location: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          },
+        });
         queryClient.invalidateQueries("reminders");
         queryClient.invalidateQueries("notifications");
       }
