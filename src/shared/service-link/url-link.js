@@ -47,7 +47,3 @@ export const getSevenRemindersSummaryLink = () => {
 export const createGoogleTokensLink = () => {
   return "/v1/create-tokens";
 };
-
-export const addReminderGoogleCalendarLink = () => {
-  return "/v1/reminder/google-calendar";
-};

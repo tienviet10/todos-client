@@ -1,27 +1,19 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { ModalContext } from "../../../service/context/ModalContext";
 import { ReminderContext } from "../../../service/context/ReminderContext";
 import { CloseButton } from "../../../shared/components/CloseButton";
-import { REMINDER_STATUS } from "../../../shared/constant/config";
+import { CREATE_EMPTY_REMINDER } from "../../../shared/constant/config";
 import {
   remindersGeneralLink,
   reminderWithIDLink,
 } from "../../../shared/service-link/url-link";
 
-const createEmptyReminder = {
-  title: "",
-  description: "",
-  status: REMINDER_STATUS.ACTIVE,
-  favorite: false,
-  _id: "",
-};
+const createEmptyReminder = CREATE_EMPTY_REMINDER;
 
 export const ReminderFormMain = () => {
-  //const { handleAuthClick } = useGoogleCalendar();
   const { addRecord, updateRecord } = useContext(ReminderContext);
-
   const { newReminder, setNewReminder, setModalOn } = useContext(ModalContext);
   const {
     title,
@@ -55,19 +47,14 @@ export const ReminderFormMain = () => {
 
   const saveOrAddReminder = () => {
     if (newReminder._id === "") {
-      const reminderContentToAdd = { ...newReminder };
+      const reminderContentToAdd = {
+        ...newReminder,
+      };
       delete reminderContentToAdd._id;
       addRecord({
         data: reminderContentToAdd,
         url: remindersGeneralLink(),
       });
-      // handleAuthClick({
-      //   summary: newReminder.title,
-      //   description: newReminder.description,
-      //   startTime: "2022-06-28T09:00:00-07:00",
-      //   endTime: "2022-06-28T09:05:00-07:00",
-      //   recurrence: "",
-      // });
     } else {
       updateRecord({
         from: "current",
@@ -153,7 +140,7 @@ export const ReminderFormMain = () => {
               <DateTimePicker
                 className="z-80"
                 disableClock
-                //minDate={new Date()}
+                minDate={new Date()}
                 onChange={setReminderDate}
                 value={remindedAt}
                 name="remindedAt"

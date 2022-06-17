@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import withUser from "../service/auth/withUser";
 import { ReminderContext } from "../service/context/ReminderContext";
 import { useManageRemindersState } from "../service/reminders-manage-state/manage-reminders-state";
@@ -67,4 +67,3 @@ const Dashboard = () => {
 };
 
 export default withUser(Dashboard);
-/////--------------------------------------------------------------------------------------

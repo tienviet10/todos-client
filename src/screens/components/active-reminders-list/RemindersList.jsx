@@ -1,5 +1,4 @@
 import { format, formatDistance } from "date-fns";
-import React from "react";
 import {
   AiFillDelete,
   AiFillEdit,

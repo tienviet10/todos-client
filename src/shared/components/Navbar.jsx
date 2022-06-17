@@ -1,8 +1,7 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import React, { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import { useGoogleAuth } from "../../service/auth/google-auth";
 import withUser from "../../service/auth/withUser";
 import { AuthContext } from "../../service/context/AuthServiceContext";
 import { ModalContext } from "../../service/context/ModalContext";
@@ -19,7 +18,7 @@ function classNames(...classes) {
 }
 
 const Navbar = ({ setNavTab }) => {
-  const { handleAuthClick } = useGoogleAuth();
+  //const { handleAuthClick } = useGoogleAuth();
   const { setModalOn } = useContext(ModalContext);
   const { isAuth, logout } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -193,8 +192,8 @@ const Navbar = ({ setNavTab }) => {
                               )}
                               onClick={() => {
                                 changeCurrentSelection("Setting");
-                                //runWebsite();
-                                handleAuthClick();
+
+                                //handleAuthClick();
                               }}
                             >
                               Settings

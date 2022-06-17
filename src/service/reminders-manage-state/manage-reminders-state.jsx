@@ -44,14 +44,9 @@ export function useManageRemindersState() {
 
   const editReminder = (item) => {
     setNewReminder({
-      title: item.title,
-      repeat: item.repeat,
-      description: item.description,
-      color: item.color,
+      ...item,
       status: REMINDER_STATUS.ACTIVE,
-      favorite: item.favorite,
       remindedAt: item.remindedAt ? new Date(item.remindedAt) : null,
-      _id: item._id,
     });
     setModalOn(true);
   };

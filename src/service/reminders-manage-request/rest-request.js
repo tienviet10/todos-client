@@ -42,10 +42,12 @@ function deleteARecordWithTokenFunction(urlLink) {
 }
 
 //Create a record or records
-export const useRQCreateARecord = (onSuccess, onError) => {
+export const useRQCreateARecord = (onSuccess, onError, onMutate, onSettled) => {
   return useMutation((newData) => createARecordWithTokenFunction(newData), {
     onSuccess,
     onError,
+    onMutate,
+    onSettled,
   });
 };
 

@@ -32,4 +32,16 @@ export const COLOR_LIST = {
 };
 export const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
-export const SCOPES = "https://www.googleapis.com/auth/calendar.events";
+export const SCOPES =
+  "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/userinfo.profile";
+export const CREATE_EMPTY_REMINDER = {
+  title: "",
+  description: "",
+  status: REMINDER_STATUS.ACTIVE,
+  favorite: false,
+  _id: "",
+  remindedAt: null,
+  repeat: "none",
+  googleCalendarReminderID: "",
+  location: Intl.DateTimeFormat().resolvedOptions().timeZone,
+};

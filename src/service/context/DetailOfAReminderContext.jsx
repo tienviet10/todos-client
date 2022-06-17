@@ -1,21 +1,11 @@
-import React, { createContext, useState } from "react";
-import { REMINDER_STATUS } from "../../shared/constant/config";
+import { createContext, useState } from "react";
+import { CREATE_EMPTY_REMINDER } from "../../shared/constant/config";
 
 const DetailOfAReminderContext = createContext();
 
 function DetailOfAReminderProvider({ children }) {
   const [detailOn, setDetailOn] = useState(false);
-  const [reminderDetails, setReminderDetails] = useState({
-    title: "",
-    description: "",
-    status: REMINDER_STATUS.ACTIVE,
-    favorite: false,
-    _id: "",
-    createdAt: "",
-    updatedAt: "",
-    color: "white",
-    remindedAt: null,
-  });
+  const [reminderDetails, setReminderDetails] = useState(CREATE_EMPTY_REMINDER);
   return (
     <DetailOfAReminderContext.Provider
       value={{
