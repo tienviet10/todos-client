@@ -17,13 +17,22 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = ({ setNavTab }) => {
-  //const { handleAuthClick } = useGoogleAuth();
+const Navbar = ({ setNavTab, user }) => {
   const { setModalOn } = useContext(ModalContext);
   const { isAuth, logout } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [navigation, setNavigation] = useState(tabsNav);
   const navigate = useNavigate();
+
+  // const [profilePhoto, setProfilePhoto] = useState(
+  //   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  // );
+
+  // useEffect(() => {
+  //   if (user.user && user.user.picture && user.user.picture !== "") {
+  //     setProfilePhoto(user.user.picture);
+  //   }
+  // }, [user]);
 
   const changeCurrentSelection = (itemName) => {
     const newList = navigation.map((item) => {
@@ -44,8 +53,6 @@ const Navbar = ({ setNavTab }) => {
   const onClick = () => {
     navigate("login");
   };
-
-  //const { handleAuthClick } = useGoogleCalendar();
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -148,7 +155,13 @@ const Navbar = ({ setNavTab }) => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          src={
+                            user.user &&
+                            user.user.picture &&
+                            user.user.picture !== ""
+                              ? user.user.picture
+                              : "images/placeholder.jpg"
+                          }
                           alt=""
                           onClick={() => setDropdownOpen(false)}
                         />
