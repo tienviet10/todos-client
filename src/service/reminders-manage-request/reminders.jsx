@@ -15,7 +15,7 @@ import {
 } from "./rest-request";
 
 export function useRestOperationReminder() {
-  const [allReminders, setAllReminders] = useState(null);
+  const [allReminders, setAllReminders] = useState([]);
   const [error, setError] = useState(null);
   const { isAuth } = useContext(AuthContext);
   const queryClient = useQueryClient();

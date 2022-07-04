@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiFillFire } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import Error from "../shared/components/Error";
@@ -46,9 +46,9 @@ export const Registration = () => {
     setLoading(true);
     setState((item) => ({ ...item, buttonText: "Registering..." }));
     const newUser = {
-      username: username,
-      email: email,
-      password: password,
+      username,
+      email,
+      password,
     };
 
     if (password === reconfirmedPassword) {

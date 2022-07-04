@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import { SCOPES } from "../../shared/constant/config";
-import { createGoogleTokensLink } from "../../shared/service-link/url-link";
-import { useRQCreateARecord } from "../reminders-manage-request/rest-request";
+import {
+  createGoogleTokensLink,
+  deleteGoogleRefreshAccess,
+} from "../../shared/service-link/url-link";
+import {
+  useRQCreateARecord,
+  useRQDeleteARecord,
+} from "../reminders-manage-request/rest-request";
 
 let tokenClient;
 const google = window.google;
 
 export function useGoogleAuth() {
   const [error, setError] = useState(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     function gisLoaded() {
@@ -29,6 +37,19 @@ export function useGoogleAuth() {
       data.response !== undefined &&
         data.response.status === 404 &&
         setError(data.message);
+      queryClient.invalidateQueries("userDetail");
+    },
+    (data) => setError(data)
+  );
+
+  //Add a record to mongodb then to google calendar
+  const { mutate: deleteGoogleTokens } = useRQDeleteARecord(
+    (data) => {
+      data.response !== undefined &&
+        data.response.status === 404 &&
+        setError(data.message);
+
+      queryClient.invalidateQueries("userDetail");
     },
     (data) => setError(data)
   );
@@ -49,7 +70,11 @@ export function useGoogleAuth() {
     tokenClient.requestCode();
   }
 
-  return { handleAuthClick, error };
+  function handleGoogleLogout(userID) {
+    deleteGoogleTokens(deleteGoogleRefreshAccess(userID));
+  }
+
+  return { handleAuthClick, handleGoogleLogout, error };
 }
 
 /////////-------------------------------------------------------------------------

@@ -9,6 +9,7 @@ import { AuthProvider } from "./service/context/AuthServiceContext";
 import { ConfirmationProvider } from "./service/context/ConfirmationToProceedContext";
 import { DetailOfAReminderProvider } from "./service/context/DetailOfAReminderContext";
 import { ModalProvider } from "./service/context/ModalContext";
+import { PasswordConfirmationProfileProvider } from "./service/context/PasswordConfirmationProfileContext";
 import { PastReminderProvider } from "./service/context/PastRemindersContext";
 import { ReminderProvider } from "./service/context/ReminderContext";
 import { SevenDaysSummaryProvider } from "./service/context/SevenDaysSummaryContext";
@@ -23,15 +24,17 @@ root.render(
         <QueryClientProvider client={queryClient}>
           <ModalProvider>
             <DetailOfAReminderProvider>
-              <PastReminderProvider>
-                <ReminderProvider>
-                  <ConfirmationProvider>
-                    <SevenDaysSummaryProvider>
-                      <App />
-                    </SevenDaysSummaryProvider>
-                  </ConfirmationProvider>
-                </ReminderProvider>
-              </PastReminderProvider>
+              <PasswordConfirmationProfileProvider>
+                <PastReminderProvider>
+                  <ReminderProvider>
+                    <ConfirmationProvider>
+                      <SevenDaysSummaryProvider>
+                        <App />
+                      </SevenDaysSummaryProvider>
+                    </ConfirmationProvider>
+                  </ReminderProvider>
+                </PastReminderProvider>
+              </PasswordConfirmationProfileProvider>
             </DetailOfAReminderProvider>
           </ModalProvider>
           <ReactQueryDevtools />

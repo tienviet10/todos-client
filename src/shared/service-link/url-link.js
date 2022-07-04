@@ -45,5 +45,17 @@ export const getSevenRemindersSummaryLink = () => {
 };
 
 export const createGoogleTokensLink = () => {
-  return "/v1/create-tokens";
+  return "/v1/google-tokens";
+};
+
+export const deleteGoogleRefreshAccess = (_id) => {
+  return `/v1/google-tokens/${_id}`;
+};
+
+// export const passwordConfirmationLink = () => {
+//   return "/v1/password-confirmation";
+// };
+
+export const updateUserProfile = () => {
+  return "/v1/user-info";
 };

@@ -7,7 +7,7 @@ import { FavoriteReminders } from "./components/active-reminders-list/FavoriteRe
 import { MainReminders } from "./components/active-reminders-list/MainReminders";
 import { EmptyListDisplay } from "./components/dashboard/EmptyListDisplay";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Dashboard = ({ user }) => {
   const {
@@ -15,6 +15,7 @@ const Dashboard = ({ user }) => {
     loading: loadingReminders,
     error: errorGetReminders,
   } = useContext(ReminderContext);
+
   //Manage all operation of the active reminder
   const {
     editFavorite,
@@ -25,11 +26,6 @@ const Dashboard = ({ user }) => {
     saveNewChosenColor,
   } = useManageRemindersState();
 
-  // const [sayHi, setSayHi] = useState("Good day, ");
-  // const [imageForTheTime, setImageForTheTime] = useState(
-  //   "images/afternoon.png"
-  // );
-
   const [sayHi, setSayHi] = useState({
     statement: "Good day, ",
     image: "images/afternoon.png",
@@ -38,12 +34,12 @@ const Dashboard = ({ user }) => {
   useEffect(() => {
     const today = new Date();
     const curHr = today.getHours();
-    if (curHr < 12) {
+    if (curHr < 12 && curHr > 3) {
       setSayHi({
         statement: "Good morning, ",
         image: "images/morning.png",
       });
-    } else if (curHr < 18) {
+    } else if (curHr < 18 && curHr > 12) {
       setSayHi({
         statement: "Good afternoon, ",
         image: "images/afternoon.png",
@@ -74,10 +70,10 @@ const Dashboard = ({ user }) => {
         <EmptyListDisplay />
       ) : (
         <>
-          {user.user && user.user.givenName && user.user.givenName !== "" && (
+          {user.user && user.user.username && user.user.username !== "" && (
             <div className="flex max-w-[1240px] w-full mx-auto pt-4 font-bold px-4 mb-2 justify-center items-center text-2xl">
               <div>
-                {sayHi.statement} {user.user.givenName}
+                {sayHi.statement} {user.user.username}
               </div>
               <div>
                 <img className="w-9 h-9 ml-4" src={sayHi.image} alt=""></img>

@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { PasswordConfirmation } from "./screens/components/password-confirmation-profile/PasswordConfirmationProfile";
 import { PastReminderToggle } from "./screens/components/past-reminders-list/PastReminderToggle";
 import { DetailOfAReminderWindow } from "./screens/components/reminders-display-details/DisplayDetailReminders";
 import { ReminderForm } from "./screens/components/reminders-form/ReminderForm";
@@ -15,6 +16,7 @@ import { AuthContext } from "./service/context/AuthServiceContext";
 import { ConfirmationContext } from "./service/context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "./service/context/DetailOfAReminderContext";
 import { ModalContext } from "./service/context/ModalContext";
+import { PasswordConfirmationProfileContext } from "./service/context/PasswordConfirmationProfileContext";
 import { SevenDaysSummaryContext } from "./service/context/SevenDaysSummaryContext";
 import { Confirmation } from "./shared/components/Confirmation";
 import Navbar from "./shared/components/Navbar";
@@ -26,6 +28,9 @@ function App() {
   const { detailOn } = useContext(DetailOfAReminderContext);
   const { confirmationOn } = useContext(ConfirmationContext);
   const { isSummaryOn } = useContext(SevenDaysSummaryContext);
+  const { passConfirmationProfileToggle } = useContext(
+    PasswordConfirmationProfileContext
+  );
 
   return (
     <div className="App h-screen">
@@ -64,6 +69,7 @@ function App() {
       {detailOn && <DetailOfAReminderWindow selectedTab={selectedNavTab} />}
       {confirmationOn && <Confirmation />}
       {isSummaryOn && <SevenDaysSummary />}
+      {passConfirmationProfileToggle && <PasswordConfirmation />}
     </div>
   );
 }
