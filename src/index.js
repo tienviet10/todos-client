@@ -5,13 +5,15 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
+import { ReminderProvider } from "./service/context/ActiveRemindersContext";
+import { SharedReminderProvider } from "./service/context/ActiveSharedRemindersContext";
 import { AuthProvider } from "./service/context/AuthServiceContext";
 import { ConfirmationProvider } from "./service/context/ConfirmationToProceedContext";
 import { DetailOfAReminderProvider } from "./service/context/DetailOfAReminderContext";
-import { ModalProvider } from "./service/context/ModalContext";
 import { PasswordConfirmationProfileProvider } from "./service/context/PasswordConfirmationProfileContext";
 import { PastReminderProvider } from "./service/context/PastRemindersContext";
-import { ReminderProvider } from "./service/context/ReminderContext";
+import { PastSharedReminderProvider } from "./service/context/PastSharedRemindersContext";
+import { ReminderModalProvider } from "./service/context/ReminderModalContext";
 import { SevenDaysSummaryProvider } from "./service/context/SevenDaysSummaryContext";
 
 const queryClient = new QueryClient();
@@ -22,21 +24,25 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
-          <ModalProvider>
+          <ReminderModalProvider>
             <DetailOfAReminderProvider>
               <PasswordConfirmationProfileProvider>
                 <PastReminderProvider>
-                  <ReminderProvider>
-                    <ConfirmationProvider>
-                      <SevenDaysSummaryProvider>
-                        <App />
-                      </SevenDaysSummaryProvider>
-                    </ConfirmationProvider>
-                  </ReminderProvider>
+                  <PastSharedReminderProvider>
+                    <ReminderProvider>
+                      <SharedReminderProvider>
+                        <ConfirmationProvider>
+                          <SevenDaysSummaryProvider>
+                            <App />
+                          </SevenDaysSummaryProvider>
+                        </ConfirmationProvider>
+                      </SharedReminderProvider>
+                    </ReminderProvider>
+                  </PastSharedReminderProvider>
                 </PastReminderProvider>
               </PasswordConfirmationProfileProvider>
             </DetailOfAReminderProvider>
-          </ModalProvider>
+          </ReminderModalProvider>
           <ReactQueryDevtools />
         </QueryClientProvider>
       </AuthProvider>

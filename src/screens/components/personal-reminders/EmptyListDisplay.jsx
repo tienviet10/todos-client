@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
-import { ModalContext } from "../../../service/context/ModalContext";
+import { ReminderModalContext } from "../../../service/context/ReminderModalContext";
 import {
   MAIN_PAGE_EXAMPLE,
   REMINDER_STATUS,
 } from "../../../shared/constant/config";
 
+// When there is no reminders, display this placeholder
 export const EmptyListDisplay = () => {
-  const { setModalOn } = useContext(ModalContext);
+  const { setModalOn } = useContext(ReminderModalContext);
   return (
     <div className="max-w-[800px] w-full mx-auto text-center flex flex-col justify-center pt-4 sm:pt-20">
       <p

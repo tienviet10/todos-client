@@ -9,7 +9,6 @@ function PastReminderProvider({ children }) {
     error,
     loading,
     discardRecord,
-    addRecordFromActive,
     setIsPastRemindersOn,
     isPastRemindersOn,
   } = useRestPastReminder();
@@ -21,7 +20,6 @@ function PastReminderProvider({ children }) {
         error,
         loading,
         discardRecord,
-        addRecordFromActive,
         setIsPastRemindersOn,
         isPastRemindersOn,
       }}

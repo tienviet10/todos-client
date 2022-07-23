@@ -1,11 +1,5 @@
 import { format, formatDistance } from "date-fns";
-import {
-  AiFillDelete,
-  AiFillEdit,
-  AiFillStar,
-  AiOutlineFileDone,
-  AiOutlineStar,
-} from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import { IoRepeatOutline } from "react-icons/io5";
 import {
   classNames,
@@ -13,13 +7,12 @@ import {
 } from "../../../shared/components/color-picker/color-choice";
 import { ColorSelectionDropdown } from "../../../shared/components/color-picker/ColorSelectionDropdown";
 
-export const RemindersList = ({
+export const SharedRemindersList = ({
   title,
   remindersList,
   moveReminderToPast,
   saveNewChosenColor,
   handleDetailsScreen,
-  editFavorite,
   editReminder,
   execDeletion,
 }) => {
@@ -27,14 +20,13 @@ export const RemindersList = ({
     <>
       {remindersList.length > 0 && (
         <div className="mb-2">
-          {/* Favorite or Reminder */}
+          {/* Reminders */}
           <h2 className="max-w-[1240px] w-full mx-auto pt-4 sm:pt-5 text-2xl font-bold px-4">
             {title}:
           </h2>
-
-          {/* Card */}
           <div className="grid sm:grid-cols-3 max-w-[1240px] w-full mx-auto text-center">
             {remindersList.map((item) => (
+              // Card
               <div
                 key={item._id}
                 className="flex justify-center"
@@ -55,26 +47,14 @@ export const RemindersList = ({
 
                     {/* Reminder title */}
                     <div
-                      className="text-gray-900 text-xl font-medium truncate max-w-[180px] sm:max-w-[200px]"
+                      className="text-gray-900 text-xl font-medium truncate max-w-[180px] sm:max-w-[200px] mx-auto text-center"
                       onClick={() => handleDetailsScreen(item)}
                     >
                       {item.title}
                     </div>
 
-                    {/* Favorite (Star) button*/}
-                    {item.favorite ? (
-                      <AiFillStar
-                        className="hover:cursor-pointer"
-                        size={25}
-                        onClick={() => editFavorite(item, false)}
-                      />
-                    ) : (
-                      <AiOutlineStar
-                        className="hover:cursor-pointer"
-                        size={25}
-                        onClick={() => editFavorite(item, true)}
-                      />
-                    )}
+                    {/* Icons of shared people */}
+                    <div className="w-5"></div>
                   </div>
 
                   <div onClick={() => handleDetailsScreen(item)}>
@@ -99,7 +79,7 @@ export const RemindersList = ({
                     </div>
 
                     {/* Reminder description */}
-                    <div className="w-full flex justify-center">
+                    <div className="w-full flex justify-center mb-4">
                       <p className="text-gray-700 text-base px-6 truncate max-w-[180px] sm:max-w-[280px]">
                         {item.description}
                       </p>
@@ -127,7 +107,7 @@ export const RemindersList = ({
                     />
                   </div>
 
-                  {/* Time Elapse since the reminder was added */}
+                  {/* Time Elapse since the reminder was created */}
                   <div className="py-1 px-6 border-t border-gray-300 mt-4">
                     {formatDistance(Date.parse(item.createdAt), new Date(), {
                       addSuffix: true,

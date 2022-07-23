@@ -1,56 +1,23 @@
-import { useContext } from "react";
-import withUser from "../service/auth/withUser";
-import { ReminderContext } from "../service/context/ReminderContext";
-import { useManageRemindersState } from "../service/reminders-manage-state/manage-reminders-state";
-import Loader from "../shared/components/Loader";
-import { FavoriteReminders } from "./components/active-reminders-list/FavoriteReminders";
-import { MainReminders } from "./components/active-reminders-list/MainReminders";
-import { EmptyListDisplay } from "./components/dashboard/EmptyListDisplay";
+import withUser from "../../../service/auth/withUser";
+import { useManageRemindersState } from "../../../service/reminders-manage-state/manage-reminders-state";
+import Loader from "../../../shared/components/Loader";
+import { RemindersList } from "../active-reminders-list/RemindersList";
+import { EmptyListDisplay } from "./EmptyListDisplay";
 
-import { useEffect, useState } from "react";
-
-const Dashboard = ({ user }) => {
-  const {
-    allReminders,
-    loading: loadingReminders,
-    error: errorGetReminders,
-  } = useContext(ReminderContext);
-
+const PersonalReminder = ({ user }) => {
   //Manage all operation of the active reminder
   const {
+    allReminders,
+    loadingReminders,
+    errorGetReminders,
     editFavorite,
     handleDetailsScreen,
     execDeletion,
     moveReminderToPast,
     editReminder,
     saveNewChosenColor,
+    sayHi,
   } = useManageRemindersState();
-
-  const [sayHi, setSayHi] = useState({
-    statement: "Good day, ",
-    image: "images/afternoon.png",
-  });
-
-  useEffect(() => {
-    const today = new Date();
-    const curHr = today.getHours();
-    if (curHr < 12 && curHr > 3) {
-      setSayHi({
-        statement: "Good morning, ",
-        image: "images/morning.png",
-      });
-    } else if (curHr < 18 && curHr > 12) {
-      setSayHi({
-        statement: "Good afternoon, ",
-        image: "images/afternoon.png",
-      });
-    } else {
-      setSayHi({
-        statement: "Good evening, ",
-        image: "images/evening.png",
-      });
-    }
-  }, []);
 
   if (loadingReminders)
     return (
@@ -80,7 +47,8 @@ const Dashboard = ({ user }) => {
               </div>
             </div>
           )}
-          <FavoriteReminders
+          {/* Favorite List */}
+          <RemindersList
             remindersList={favRemindersList}
             moveReminderToPast={moveReminderToPast}
             saveNewChosenColor={saveNewChosenColor}
@@ -88,8 +56,10 @@ const Dashboard = ({ user }) => {
             editFavorite={editFavorite}
             editReminder={editReminder}
             execDeletion={execDeletion}
+            title="Favorite"
           />
-          <MainReminders
+          {/* Main List */}
+          <RemindersList
             remindersList={mainRemindersList}
             moveReminderToPast={moveReminderToPast}
             saveNewChosenColor={saveNewChosenColor}
@@ -97,6 +67,7 @@ const Dashboard = ({ user }) => {
             editFavorite={editFavorite}
             editReminder={editReminder}
             execDeletion={execDeletion}
+            title="Reminders"
           />
         </>
       )}
@@ -104,4 +75,4 @@ const Dashboard = ({ user }) => {
   );
 };
 
-export default withUser(Dashboard);
+export default withUser(PersonalReminder);

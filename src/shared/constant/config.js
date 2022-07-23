@@ -13,12 +13,12 @@ export const MAIN_PAGE_EXAMPLE = [
     title: "Homework",
     description: "Math, English, Chem",
     days: "5 days ago",
-    status: "deactive",
+    status: "inactive",
   },
 ];
 export const REMINDER_STATUS = {
   ACTIVE: "active",
-  INACTIVE: "deactive",
+  INACTIVE: "inactive",
 };
 export const COLOR_LIST = {
   blue: "#93c5fd",
@@ -44,4 +44,16 @@ export const CREATE_EMPTY_REMINDER = {
   repeat: "none",
   googleCalendarReminderID: "",
   location: Intl.DateTimeFormat().resolvedOptions().timeZone,
+};
+export const CREATE_EMPTY_SHARED_REMINDER = {
+  title: "",
+  description: "",
+  status: REMINDER_STATUS.ACTIVE,
+  _id: "",
+  remindedAt: null,
+  repeat: "none",
+  googleCalendarReminderID: [],
+  location: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  groupUsers: { admin: [], editor: [], viewer: [] },
+  users: [],
 };

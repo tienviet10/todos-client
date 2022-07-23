@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { updateUserProfile } from "../../shared/service-link/url-link";
+import { updateUserProfileLink } from "../../shared/service-link/url-link";
 import { useRQUpdateARecord } from "../reminders-manage-request/rest-request";
 
 const PasswordConfirmationProfileContext = createContext();
@@ -32,7 +32,7 @@ function PasswordConfirmationProfileProvider({ children }) {
 
   const confirmationRequest = (password) => {
     confirmPasswordRequest({
-      url: updateUserProfile(),
+      url: updateUserProfileLink(),
       data: {
         password,
         ...newPasswordUpdate,

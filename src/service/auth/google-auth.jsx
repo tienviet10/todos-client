@@ -3,11 +3,11 @@ import { useQueryClient } from "react-query";
 import { SCOPES } from "../../shared/constant/config";
 import {
   createGoogleTokensLink,
-  deleteGoogleRefreshAccess,
+  deleteGoogleRefreshAccessLink,
 } from "../../shared/service-link/url-link";
 import {
-  useRQCreateARecord,
   useRQDeleteARecord,
+  useRQPostARecord,
 } from "../reminders-manage-request/rest-request";
 
 let tokenClient;
@@ -32,7 +32,7 @@ export function useGoogleAuth() {
   }, []);
 
   //Add a record to mongodb then to google calendar
-  const { mutate: createAGoogleCalendarToken } = useRQCreateARecord(
+  const { mutate: createAGoogleCalendarToken } = useRQPostARecord(
     (data) => {
       data.response !== undefined &&
         data.response.status === 404 &&
@@ -71,7 +71,7 @@ export function useGoogleAuth() {
   }
 
   function handleGoogleLogout(userID) {
-    deleteGoogleTokens(deleteGoogleRefreshAccess(userID));
+    deleteGoogleTokens(deleteGoogleRefreshAccessLink(userID));
   }
 
   return { handleAuthClick, handleGoogleLogout, error };

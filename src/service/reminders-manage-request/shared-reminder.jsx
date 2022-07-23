@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { useQueryClient } from "react-query";
 import { REMINDER_STATUS } from "../../shared/constant/config";
 import {
-  getActiveRemindersLink,
-  pastRemindersLink,
+  getActiveSharedRemindersLink,
+  pastSharedRemindersLink,
   updateMultipleRemindersLink,
 } from "../../shared/service-link/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
@@ -14,8 +14,8 @@ import {
   useRQUpdateARecord,
 } from "./rest-request";
 
-export function useRestOperationReminder() {
-  const [allReminders, setAllReminders] = useState([]);
+export function useRestOperationSharedReminder() {
+  const [allSharedReminders, setAllSharedReminders] = useState([]);
   const [error, setError] = useState(null);
   const { isAuth } = useContext(AuthContext);
   const queryClient = useQueryClient();
@@ -32,8 +32,8 @@ export function useRestOperationReminder() {
 
   //Request for active reminders
   const { isLoading: loading } = useRQGetRecords(
-    "reminders",
-    getActiveRemindersLink(),
+    "sharedReminders",
+    getActiveSharedRemindersLink(),
     isAuth,
     (data) => {
       data.response !== undefined &&
@@ -50,6 +50,7 @@ export function useRestOperationReminder() {
           )
         );
         const currentTimeDate = new Date();
+
         for (const record of data.data) {
           if (record.remindedAt) {
             let currentRemindedAt = new Date(record.remindedAt);
@@ -118,29 +119,29 @@ export function useRestOperationReminder() {
         }
         if (pastDueRemindersTemp.length > 0) {
           mutateUpdateDueReminder({
-            url: pastRemindersLink(),
+            url: pastSharedRemindersLink(),
             data: pastDueRemindersTemp,
           });
         }
-        setAllReminders(newUpdate);
+        setAllSharedReminders(newUpdate);
       }
     },
     (data) => setError(data)
   );
 
   //Delete a record
-  const { mutate: discardRecord } = useRQDeleteARecord(
+  const { mutate: discardSharedRecord } = useRQDeleteARecord(
     () => {},
     (err, newReminder, context) => {
-      queryClient.setQueryData("reminders", context.previousReminders);
+      queryClient.setQueryData("sharedReminders", context.previousReminders);
       setError(err);
     },
     async (data) => {
-      await queryClient.cancelQueries("reminders");
-      const previousReminders = queryClient.getQueryData("reminders");
+      await queryClient.cancelQueries("sharedReminders");
+      const previousReminders = queryClient.getQueryData("sharedReminders");
 
       //Optimistic update
-      queryClient.setQueryData("reminders", (old) => {
+      queryClient.setQueryData("sharedReminders", (old) => {
         return {
           ...old,
           data: old.data.filter(
@@ -152,22 +153,22 @@ export function useRestOperationReminder() {
       return { previousReminders };
     },
     () => {
-      queryClient.invalidateQueries("reminders");
+      queryClient.invalidateQueries("sharedReminders");
       queryClient.invalidateQueries("notifications");
       queryClient.invalidateQueries("sevenRemindersSummary");
     }
   );
 
   //Add a record to mongodb then to google calendar
-  const { mutate: addRecord } = useRQPostARecord(
+  const { mutate: addSharedRecord } = useRQPostARecord(
     () => {},
     (err, reminder, context) => {
-      queryClient.setQueryData("reminders", context.previousReminders);
+      queryClient.setQueryData("sharedReminders", context.previousReminders);
       setError(err);
     },
     async (data) => {
-      await queryClient.cancelQueries("reminders");
-      const previousReminders = queryClient.getQueryData("reminders");
+      await queryClient.cancelQueries("sharedReminders");
+      const previousReminders = queryClient.getQueryData("sharedReminders");
 
       const newReminderToAdd = {
         ...data.data,
@@ -178,7 +179,7 @@ export function useRestOperationReminder() {
       };
 
       //Optimistic update
-      queryClient.setQueryData("reminders", (old) => {
+      queryClient.setQueryData("sharedReminders", (old) => {
         return {
           ...old,
           data: [newReminderToAdd, ...old.data],
@@ -188,37 +189,42 @@ export function useRestOperationReminder() {
       return { previousReminders };
     },
     () => {
-      queryClient.invalidateQueries("reminders");
+      queryClient.invalidateQueries("sharedReminders");
       queryClient.invalidateQueries("notifications");
     }
   );
 
   //Update a record
-  const { mutate: updateRecord } = useRQUpdateARecord(
+  const { mutate: updateSharedRecord } = useRQUpdateARecord(
     () => {},
     (err, newReminder, context) => {
-      queryClient.setQueryData("reminders", context.previousReminders);
-      queryClient.setQueryData("pastReminders", context.previousPastReminders);
+      queryClient.setQueryData("sharedReminders", context.previousReminders);
+      queryClient.setQueryData(
+        "sharedPastReminders",
+        context.previousPastReminders
+      );
       setError(err);
     },
     async (data) => {
-      await queryClient.cancelQueries("reminders");
-      await queryClient.cancelQueries("pastReminders");
+      await queryClient.cancelQueries("sharedReminders");
+      await queryClient.cancelQueries("sharedPastReminders");
 
-      const previousReminders = queryClient.getQueryData("reminders");
-      const previousPastReminders = queryClient.getQueryData("pastReminders");
+      const previousReminders = queryClient.getQueryData("sharedReminders");
+      const previousPastReminders = queryClient.getQueryData(
+        "sharedPastReminders"
+      );
 
       ////Optimistic update
       if (data.from === "past") {
         //Add reminder sent from the "past-reminder" section
-        queryClient.setQueryData("reminders", (old) => {
+        queryClient.setQueryData("sharedReminders", (old) => {
           return {
             ...old,
             data: [...old.data, data.data],
           };
         });
         //Delete the reminder from the "past-reminder" section
-        queryClient.setQueryData("pastReminders", (old) => {
+        queryClient.setQueryData("sharedPastReminders", (old) => {
           return {
             ...old,
             data: old.data.filter(
@@ -228,7 +234,7 @@ export function useRestOperationReminder() {
         });
       } else if (data.from === "currentToPast") {
         //Delete the reminder from the "active-reminder" section
-        queryClient.setQueryData("reminders", (old) => {
+        queryClient.setQueryData("sharedReminders", (old) => {
           return {
             ...old,
             data: old.data.filter(
@@ -237,7 +243,7 @@ export function useRestOperationReminder() {
           };
         });
         //Add the reminder from the "active-reminder" section to the "past-reminder" section
-        queryClient.setQueryData("pastReminders", (old) => {
+        queryClient.setQueryData("sharedPastReminders", (old) => {
           const pastDueData = old
             ? {
                 ...old,
@@ -248,7 +254,7 @@ export function useRestOperationReminder() {
         });
       } else {
         //Update all other details from the reminder
-        queryClient.setQueryData("reminders", (old) => {
+        queryClient.setQueryData("sharedReminders", (old) => {
           return {
             ...old,
             data: old.data.map((reminder) =>
@@ -271,14 +277,14 @@ export function useRestOperationReminder() {
       return { previousReminders, previousPastReminders };
     },
     () => {
-      queryClient.invalidateQueries("reminders");
-      queryClient.invalidateQueries("pastReminders");
+      queryClient.invalidateQueries("sharedReminders");
+      queryClient.invalidateQueries("sharedPastReminders");
       queryClient.invalidateQueries("notifications");
       queryClient.invalidateQueries("sevenRemindersSummary");
     }
   );
 
-  //Update a record
+  //Update multiple records
   const { mutate: updateMultipleRecords } = useRQUpdateARecord(
     () => {},
     (err, newReminder, context) => {
@@ -286,18 +292,18 @@ export function useRestOperationReminder() {
     },
     () => {},
     () => {
-      queryClient.invalidateQueries("reminders");
+      queryClient.invalidateQueries("sharedReminders");
       queryClient.invalidateQueries("notifications");
       queryClient.invalidateQueries("sevenRemindersSummary");
     }
   );
 
   return {
-    allReminders,
+    allSharedReminders,
     error,
     loading,
-    discardRecord,
-    addRecord,
-    updateRecord,
+    discardSharedRecord,
+    addSharedRecord,
+    updateSharedRecord,
   };
 }

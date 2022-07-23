@@ -9,7 +9,6 @@ function ReminderProvider({ children }) {
     error,
     loading,
     discardRecord,
-    //updateStatusRecord,
     addRecord,
     updateRecord,
   } = useRestOperationReminder();
@@ -21,7 +20,6 @@ function ReminderProvider({ children }) {
         error,
         loading,
         discardRecord,
-        //updateStatusRecord,
         addRecord,
         updateRecord,
       }}

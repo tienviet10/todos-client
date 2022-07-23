@@ -1,58 +1,31 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Fragment, useContext, useState } from "react";
+import { Fragment } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
-import withUser from "../../service/auth/withUser";
-import { AuthContext } from "../../service/context/AuthServiceContext";
-import { ModalContext } from "../../service/context/ModalContext";
-import { BellNotification } from "./BellNotification";
-const tabsNav = [
-  { name: "Reminder", href: "/dashboard", current: true },
-  { name: "Share", href: "/team", current: false },
-  { name: "Profile", href: "/profile", current: false },
-  { name: "Setting", href: "/setting", current: false },
-];
+import { Link } from "react-router-dom";
+import withUser from "../../../service/auth/withUser";
+import { useManageNavbarState } from "../../../service/reminders-manage-state/manage-navbar-state";
+import { BellNotification } from "../BellNotification";
+import { classNames } from "../color-picker/color-choice";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 const Navbar = ({ setNavTab, user }) => {
-  const { setModalOn } = useContext(ModalContext);
-  const { isAuth, logout } = useContext(AuthContext);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [navigation, setNavigation] = useState(tabsNav);
-  const navigate = useNavigate();
-
-  // const [profilePhoto, setProfilePhoto] = useState(
-  //   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-  // );
-
-  // useEffect(() => {
-  //   if (user.user && user.user.picture && user.user.picture !== "") {
-  //     setProfilePhoto(user.user.picture);
-  //   }
-  // }, [user]);
-
-  const changeCurrentSelection = (itemName) => {
-    const newList = navigation.map((item) => {
-      return item.name === itemName
-        ? {
-            ...item,
-            current: true,
-          }
-        : {
-            ...item,
-            current: false,
-          };
-    });
-    setDropdownOpen(false);
-    setNavigation(newList);
-  };
-
-  const onClick = () => {
-    navigate("login");
-  };
+  const {
+    setDropdownOpen,
+    sendToHomeScreenFromLogo,
+    isAuth,
+    navigation,
+    changeTabs,
+    toggleAddReminder,
+    dropdownOpen,
+    changeCurrentSelection,
+    logout,
+    changeTabsInMobile,
+    navigate,
+    onClick,
+  } = useManageNavbarState(setNavTab);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -60,11 +33,11 @@ const Navbar = ({ setNavTab, user }) => {
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
+              {/* Mobile menu button*/}
               <div
                 className="absolute inset-y-0 left-0 flex items-center sm:hidden"
                 onClick={() => setDropdownOpen(false)}
               >
-                {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -74,6 +47,8 @@ const Navbar = ({ setNavTab, user }) => {
                   )}
                 </Disclosure.Button>
               </div>
+
+              {/* Logo symbols and words */}
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   <img
@@ -83,16 +58,13 @@ const Navbar = ({ setNavTab, user }) => {
                   />
                   <h1
                     className={`hidden lg:block h-10 w-auto text-3xl px-5 text-application-color cursor-pointer`}
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      changeCurrentSelection("Reminder");
-                      navigate("/dashboard");
-                    }}
+                    onClick={() => sendToHomeScreenFromLogo()}
                   >
                     ReMe
                   </h1>
                 </div>
 
+                {/* Visible choices on large screen (desktop) */}
                 <div className="hidden sm:block sm:ml-6 mt-1">
                   <div className="flex space-x-4">
                     {isAuth ? (
@@ -109,10 +81,7 @@ const Navbar = ({ setNavTab, user }) => {
                                   : "text-gray-300 hover:bg-gray-700 hover:text-white",
                                 "px-3 py-2 rounded-md text-sm font-medium"
                               )}
-                              onClick={() => {
-                                changeCurrentSelection(item.name);
-                                setNavTab(item.name);
-                              }}
+                              onClick={() => changeTabs(item.name)}
                             >
                               {item.name}
                             </Link>
@@ -135,19 +104,18 @@ const Navbar = ({ setNavTab, user }) => {
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* Add new reminder */}
                   <button
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      setModalOn(true);
-                    }}
+                    onClick={() => toggleAddReminder()}
                     className="bg-transparent sm:hover:bg-[#00df9a] text-[#00df9a] font-semibold sm:hover:text-white py-1 px-2 sm:px-4 border border-[#00df9a] sm:hover:border-transparent rounded-full mr-2 sm:mr-4 sm:block"
                   >
                     Add Reminder
                   </button>
+
                   {/* Notification Bell icon */}
                   <BellNotification
                     dropdownOpen={dropdownOpen}
                     setDropdownOpen={setDropdownOpen}
                   />
+
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
                     <div>
@@ -186,11 +154,24 @@ const Navbar = ({ setNavTab, user }) => {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
-                              onClick={() => {
-                                changeCurrentSelection("Profile");
-                              }}
+                              onClick={() => changeCurrentSelection("Profile")}
                             >
                               Your Profile
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              key="friends"
+                              to="/friends"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                              onClick={() => changeCurrentSelection("Friends")}
+                            >
+                              Friends
                             </Link>
                           )}
                         </Menu.Item>
@@ -203,11 +184,7 @@ const Navbar = ({ setNavTab, user }) => {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
-                              onClick={() => {
-                                changeCurrentSelection("Setting");
-
-                                //handleAuthClick();
-                              }}
+                              onClick={() => changeCurrentSelection("Setting")}
                             >
                               Settings
                             </Link>
@@ -242,6 +219,7 @@ const Navbar = ({ setNavTab, user }) => {
             </div>
           </div>
 
+          {/* Opened tab in mobile mode */}
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {isAuth ? (
@@ -254,11 +232,7 @@ const Navbar = ({ setNavTab, user }) => {
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
                       "block px-3 py-2 rounded-md text-base font-medium"
                     )}
-                    onClick={() => {
-                      changeCurrentSelection(item.name);
-                      setNavTab(item.name);
-                      navigate(item.href);
-                    }}
+                    onClick={() => changeTabsInMobile(item)}
                   >
                     {item.name}
                   </Disclosure.Button>
@@ -267,9 +241,7 @@ const Navbar = ({ setNavTab, user }) => {
                 <Disclosure.Button
                   key="home"
                   className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                  onClick={() => {
-                    navigate("/");
-                  }}
+                  onClick={() => navigate("/")}
                 >
                   Home
                 </Disclosure.Button>

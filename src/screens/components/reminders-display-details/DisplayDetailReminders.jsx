@@ -1,86 +1,41 @@
 import { format } from "date-fns";
-import React, { useContext } from "react";
+import React from "react";
 import { AiFillCaretUp, AiFillDelete, AiOutlineFileDone } from "react-icons/ai";
-import { ConfirmationContext } from "../../../service/context/ConfirmationToProceedContext";
-import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
-import { PastRemindersContext } from "../../../service/context/PastRemindersContext";
-import { ReminderContext } from "../../../service/context/ReminderContext";
+import { useManageDisplayDetailRemindersState } from "../../../service/reminders-manage-state/manage-display-detail-reminders";
 import { CloseButton } from "../../../shared/components/CloseButton";
 import LoaderFullscreen from "../../../shared/components/LoaderFullscreen";
 import { REMINDER_STATUS } from "../../../shared/constant/config";
-import { reminderWithIDLink } from "../../../shared/service-link/url-link";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
-  const { updateRecord, discardRecord: discardRecordActiveReminder } =
-    useContext(ReminderContext);
-  const { discardRecord: discardRecordPastReminder } =
-    useContext(PastRemindersContext);
-  const { reminderDetails, setDetailOn } = useContext(DetailOfAReminderContext);
-  const { title, description, remindedAt } = reminderDetails;
-  const { confirm } = useContext(ConfirmationContext);
-
-  const execDeletion = (reminderDetails) => {
-    confirm({
-      onSuccess:
-        reminderDetails.status === REMINDER_STATUS.ACTIVE
-          ? () =>
-              discardRecordActiveReminder(
-                reminderWithIDLink(reminderDetails._id)
-              )
-          : () =>
-              discardRecordPastReminder(
-                reminderWithIDLink(reminderDetails._id)
-              ),
-    });
-
-    setDetailOn(false);
-  };
-
-  const moveReminderToPast = (reminderDetails) => {
-    updateRecord({
-      from: "currentToPast",
-      url: reminderWithIDLink(reminderDetails._id),
-      data: { ...reminderDetails, status: REMINDER_STATUS.INACTIVE },
-    });
-    setDetailOn(false);
-  };
-
-  const restoreReminder = (reminderDetails) => {
-    const yesterdayEndDate = new Date(
-      new Date(new Date().setHours(23, 59, 59)).setDate(
-        new Date().getDate() - 1
-      )
-    );
-
-    updateRecord({
-      from: "past",
-      url: reminderWithIDLink(reminderDetails._id),
-      data: { ...reminderDetails, status: REMINDER_STATUS.ACTIVE },
-      remindedAt:
-        new Date(reminderDetails._id) < yesterdayEndDate
-          ? null
-          : reminderDetails.remindedAt,
-    });
-    setDetailOn(false);
-  };
+  const {
+    setDetailOn,
+    title,
+    description,
+    remindedAt,
+    reminderDetails,
+    moveReminderToPast,
+    restoreReminder,
+    execDeletion,
+  } = useManageDisplayDetailRemindersState();
 
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
-        <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[60%] max-h-[90%] shadow-2xl">
-          {/*content*/}
+        <div className="relative my-6 mx-auto max-w-[800px] sm:w-[60%] max-h-[75%] shadow-2xl">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-2xl font-semibold">Details Reminder</h3>
               <CloseButton takeAction={() => setDetailOn(false)} />
             </div>
+
             {/*body*/}
             {title === "" && description === "" ? (
               <LoaderFullscreen />
             ) : (
               <>
                 <div className="m-auto py-5 px-12 w-full">
+                  {/* Title */}
                   <label className="text-gray-600 font-medium">Title</label>
                   <div className="flex">
                     <p
@@ -90,6 +45,8 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
                       {title}
                     </p>
                   </div>
+
+                  {/* Remind time */}
                   <label className="text-gray-600 font-medium block mt-4">
                     Remind At
                   </label>
@@ -104,6 +61,7 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
                     </p>
                   </div>
 
+                  {/* Description */}
                   <label className="text-gray-600 font-medium block mt-4">
                     Description
                   </label>
@@ -114,7 +72,8 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
                     {description}
                   </p>
                 </div>
-                {/*footer*/}
+
+                {/* Button Choices */}
                 <div className="flex gap-16 justify-center my-7">
                   {reminderDetails.status === REMINDER_STATUS.ACTIVE ? (
                     <AiOutlineFileDone

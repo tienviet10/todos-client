@@ -5,10 +5,7 @@ import {
   reminderWithIDLink,
 } from "../../shared/service-link/url-link";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
-import {
-  useRQGetRecords,
-  useRQUpdateARecord,
-} from "../reminders-manage-request/rest-request";
+import { useRQGetRecords, useRQUpdateARecord } from "./rest-request";
 
 export function useNotification() {
   const { setReminderDetails } = useContext(DetailOfAReminderContext);

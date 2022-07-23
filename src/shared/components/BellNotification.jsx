@@ -1,10 +1,10 @@
 import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
-import { classNames } from "../../screens/components/active-reminders-list/color-choice";
 import { DetailOfAReminderContext } from "../../service/context/DetailOfAReminderContext";
 import { SevenDaysSummaryContext } from "../../service/context/SevenDaysSummaryContext";
-import { useNotification } from "../../service/notifications/notifications";
+import { useNotification } from "../../service/reminders-manage-request/notifications";
 import { getANotificationLink } from "../service-link/url-link";
+import { classNames } from "./color-picker/color-choice";
 
 export const BellNotification = ({ dropdownOpen, setDropdownOpen }) => {
   const {

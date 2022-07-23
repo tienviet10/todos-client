@@ -65,7 +65,7 @@ export function useLogIn() {
         storeAuthentication("token", data.token);
         signInAuth();
         setLoading(false);
-        navigate("/dashboard");
+        navigate("/personal-reminders");
       } else {
         throw new Error("Fetch request error");
       }

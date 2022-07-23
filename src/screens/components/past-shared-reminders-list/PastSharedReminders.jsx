@@ -1,18 +1,18 @@
 import { format, formatDistance } from "date-fns";
 import React from "react";
 import { AiFillCaretUp, AiFillDelete } from "react-icons/ai";
-import { useManagePastRemindersState } from "../../../service/reminders-manage-state/manage-past-reminders-state";
+import { useManageSharedPastRemindersState } from "../../../service/reminders-manage-state/manage-shared-past-reminders-state";
 import Loader from "../../../shared/components/Loader";
 
-export const PastReminders = () => {
+export const PastSharedReminders = () => {
   const {
-    pastReminders,
-    error,
     loading,
+    error,
+    pastSharedReminders,
     restorePastReminder,
     handleDetailsScreen,
     execDeletion,
-  } = useManagePastRemindersState();
+  } = useManageSharedPastRemindersState();
 
   if (loading)
     return (
@@ -26,13 +26,13 @@ export const PastReminders = () => {
 
   return (
     <div>
-      {pastReminders && pastReminders.length > 0 ? (
+      {pastSharedReminders && pastSharedReminders.length > 0 ? (
         <>
           <h2 className="max-w-[1240px] w-full mx-auto pt-10 sm:pt-5 text-2xl font-bold px-4">
             Past Reminders:
           </h2>
           <div className="grid sm:grid-cols-3 max-w-[1240px] w-full mx-auto text-center">
-            {pastReminders.map((item) => (
+            {pastSharedReminders.map((item) => (
               // Card
               <div
                 key={item._id}
@@ -42,7 +42,10 @@ export const PastReminders = () => {
                 <div className="block px-6 py-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-red-500">
                   <div onClick={() => handleDetailsScreen(item)}>
                     {/* Reminder title */}
-                    <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2 max-w-[300px] truncate px-8 sm:max-w-[330px]">
+                    <h5
+                      className="text-gray-900 text-xl leading-tight font-medium mb-2 max-w-[300px] truncate px-8 sm:max-w-[330px]"
+                      onClick={() => handleDetailsScreen(item)}
+                    >
                       {item.title}
                     </h5>
                     {/* Date time of the reminder */}
@@ -55,7 +58,6 @@ export const PastReminders = () => {
                       {item.remindedAt &&
                         format(new Date(item.remindedAt), "p")}
                     </div>
-
                     {/* Reminder description */}
                     <p className="text-gray-700 text-base mb-4 truncate max-w-[300px] sm:max-w-[330px]">
                       {item.description}

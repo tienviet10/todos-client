@@ -6,7 +6,7 @@ import { CloseButton } from "../../../shared/components/CloseButton";
 import {
   classNames,
   returnAppropriateBgColor,
-} from "../active-reminders-list/color-choice";
+} from "../../../shared/components/color-picker/color-choice";
 
 export const SevenDaysSummary = () => {
   const { setIsSummaryOn, sevenDaysReminders } = useContext(
@@ -37,6 +37,7 @@ export const SevenDaysSummary = () => {
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none mx-4 mb-10 sm:mb-6">
         <div className="relative my-6 mx-auto max-w-[1000px] w-[90%] sm:w-[80%] max-h-[90%]">
           <div className="relative bg-white rounded-lg shadow">
+            {/* Title and close button */}
             <div className="flex justify-between items-start p-4 rounded-t border-b border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900">
                 Seven Days Summary
@@ -45,6 +46,7 @@ export const SevenDaysSummary = () => {
             </div>
 
             <div className="p-6">
+              {/* Today reminders */}
               <div>
                 <div className="font-semibold">Today: </div>
                 <section className="container px-6 p-2 mx-auto">
@@ -78,6 +80,8 @@ export const SevenDaysSummary = () => {
                   </div>
                 </section>
               </div>
+
+              {/* Next week reminders */}
               <div>
                 <div className="font-semibold">This week: </div>
                 <section className="container px-6 p-2 mx-auto">

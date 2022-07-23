@@ -1,4 +1,4 @@
-import { COLOR_LIST } from "../../../shared/constant/config";
+import { COLOR_LIST } from "../../constant/config";
 
 export const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");

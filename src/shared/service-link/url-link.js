@@ -28,6 +28,14 @@ export const reminderWithIDLink = (reminderID) => {
   return `/v1/reminder/${reminderID}`;
 };
 
+export const sharedRemindersGeneralLink = () => {
+  return "/v1/shared-reminder";
+};
+
+export const sharedReminderWithIDLink = (reminderID) => {
+  return `/v1/shared-reminder/${reminderID}`;
+};
+
 export const updateMultipleRemindersLink = () => {
   return "/v1/reminders";
 };
@@ -44,11 +52,23 @@ export const getSevenRemindersSummaryLink = () => {
   return "/v1/reminders/seven-days-reminders";
 };
 
+export const getActiveSharedRemindersLink = () => {
+  return "/v1/shared-reminders/active";
+};
+
+export const updateMultipleSharedRemindersLink = () => {
+  return "/v1/shared-reminders";
+};
+
+export const pastSharedRemindersLink = () => {
+  return "/v1/shared-reminders/past";
+};
+
 export const createGoogleTokensLink = () => {
   return "/v1/google-tokens";
 };
 
-export const deleteGoogleRefreshAccess = (_id) => {
+export const deleteGoogleRefreshAccessLink = (_id) => {
   return `/v1/google-tokens/${_id}`;
 };
 
@@ -56,6 +76,18 @@ export const deleteGoogleRefreshAccess = (_id) => {
 //   return "/v1/password-confirmation";
 // };
 
-export const updateUserProfile = () => {
+export const updateUserProfileLink = () => {
   return "/v1/user-info";
+};
+
+export const friendsLink = () => {
+  return "/v1/friends";
+};
+
+export const acceptFriendsLink = () => {
+  return "/v1/friends/accepted";
+};
+
+export const pendingFriendsLink = () => {
+  return "/v1/friends/pending";
 };

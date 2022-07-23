@@ -1,22 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { REMINDER_STATUS } from "../../shared/constant/config";
-import { reminderWithIDLink } from "../../shared/service-link/url-link";
-import { ReminderContext } from "../context/ActiveRemindersContext";
+import { sharedReminderWithIDLink } from "../../shared/service-link/url-link";
+import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
 import { ConfirmationContext } from "../context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { ReminderModalContext } from "../context/ReminderModalContext";
 
-export function useManageRemindersState() {
+export function useManageSharedRemindersState() {
   const {
-    allReminders,
-    updateRecord,
-    discardRecord: discardRecordActiveReminder,
-    loading: loadingReminders,
-    error: errorGetReminders,
-  } = useContext(ReminderContext);
+    allSharedReminders,
+    updateSharedRecord,
+    discardSharedRecord: discardSharedRecordActiveReminder,
+    loading: loadingSharedReminders,
+    error: errorGetSharedReminders,
+  } = useContext(SharedReminderContext);
 
-  const { setModalOn, setNewReminder } = useContext(ReminderModalContext);
-  const { setReminderDetails, setDetailOn } = useContext(
+  const { setModalOn, setNewSharedReminder } = useContext(ReminderModalContext);
+
+  const { setSharedReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
   const { confirm } = useContext(ConfirmationContext);
@@ -47,35 +48,28 @@ export function useManageRemindersState() {
     }
   }, []);
 
-  const editFavorite = (item, fav) => {
-    updateRecord({
-      from: "current",
-      url: reminderWithIDLink(item._id),
-      data: { ...item, favorite: fav },
-    });
-  };
-
   const handleDetailsScreen = (item) => {
-    setReminderDetails(item);
+    setSharedReminderDetails(item);
     setDetailOn(true);
   };
 
   const execDeletion = (itemId) => {
     confirm({
-      onSuccess: () => discardRecordActiveReminder(reminderWithIDLink(itemId)),
+      onSuccess: () =>
+        discardSharedRecordActiveReminder(sharedReminderWithIDLink(itemId)),
     });
   };
 
   const moveReminderToPast = (item) => {
-    updateRecord({
+    updateSharedRecord({
       from: "currentToPast",
-      url: reminderWithIDLink(item._id),
+      url: sharedReminderWithIDLink(item._id),
       data: { ...item, status: REMINDER_STATUS.INACTIVE },
     });
   };
 
   const editReminder = (item) => {
-    setNewReminder({
+    setNewSharedReminder({
       ...item,
       status: REMINDER_STATUS.ACTIVE,
       remindedAt: item.remindedAt ? new Date(item.remindedAt) : null,
@@ -84,18 +78,17 @@ export function useManageRemindersState() {
   };
 
   const saveNewChosenColor = (color, item) => {
-    updateRecord({
+    updateSharedRecord({
       from: "current",
-      url: reminderWithIDLink(item._id),
+      url: sharedReminderWithIDLink(item._id),
       data: { ...item, color: color },
     });
   };
 
   return {
-    allReminders,
-    loadingReminders,
-    errorGetReminders,
-    editFavorite,
+    allSharedReminders,
+    loadingSharedReminders,
+    errorGetSharedReminders,
     handleDetailsScreen,
     execDeletion,
     moveReminderToPast,

@@ -1,92 +1,24 @@
-import { useContext, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { ModalContext } from "../../../service/context/ModalContext";
-import { ReminderContext } from "../../../service/context/ReminderContext";
+import { useManageAddReminderFormState } from "../../../service/reminders-manage-state/manage-add-reminder-form";
 import { CloseButton } from "../../../shared/components/CloseButton";
-import { CREATE_EMPTY_REMINDER } from "../../../shared/constant/config";
-import {
-  remindersGeneralLink,
-  reminderWithIDLink,
-} from "../../../shared/service-link/url-link";
-
-const createEmptyReminder = CREATE_EMPTY_REMINDER;
 
 export const ReminderFormMain = () => {
-  const { addRecord, updateRecord } = useContext(ReminderContext);
-  const { newReminder, setNewReminder, setModalOn } = useContext(ModalContext);
   const {
-    title,
-    description,
-    _id,
-    favorite: favFromEdit,
-    remindedAt,
-    repeat,
-  } = newReminder;
-  const [favorite, setFavorite] = useState(favFromEdit);
-
-  const handleFavoriteChange = () => {
-    setNewReminder({
-      ...newReminder,
-      favorite: !favorite,
-    });
-    setFavorite(!favorite);
-  };
-
-  const handleChange = (name) => (e) => {
-    setNewReminder({
-      ...newReminder,
-      [name]: e.target.value,
-    });
-  };
-
-  const exitTheForm = () => {
-    setNewReminder(createEmptyReminder);
-    setModalOn(false);
-  };
-
-  const saveOrAddReminder = () => {
-    if (newReminder._id === "") {
-      const reminderContentToAdd = {
-        ...newReminder,
-      };
-      delete reminderContentToAdd._id;
-      addRecord({
-        data: reminderContentToAdd,
-        url: remindersGeneralLink(),
-      });
-    } else {
-      updateRecord({
-        from: "current",
-        url: reminderWithIDLink(newReminder._id),
-        data: newReminder,
-      });
-    }
-    setNewReminder(createEmptyReminder);
-    setModalOn(false);
-  };
-
-  const setReminderDate = (remindedAt) => {
-    setNewReminder({
-      ...newReminder,
-      remindedAt: new Date(remindedAt),
-    });
-  };
-
-  const handleRepeatChange = (e) => {
-    setNewReminder((oldInfo) => {
-      return {
-        ...oldInfo,
-        repeat: e.target.value,
-      };
-    });
-  };
+    newReminder,
+    exitTheForm,
+    handleChange,
+    favorite,
+    handleFavoriteChange,
+    setReminderDate,
+    saveOrAddReminder,
+  } = useManageAddReminderFormState();
+  const { title, description, _id, remindedAt, repeat } = newReminder;
 
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
         <div className="relative my-6 mx-auto max-w-[800px] sm:w-[60%]">
-          {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
@@ -95,8 +27,8 @@ export const ReminderFormMain = () => {
               </h3>
               <CloseButton takeAction={() => exitTheForm()} />
             </div>
-            {/*body*/}
 
+            {/*body*/}
             <form className="m-auto py-5 px-12 w-full">
               <label className="text-gray-600 font-medium">Title</label>
               <div className="flex">
@@ -134,6 +66,7 @@ export const ReminderFormMain = () => {
                 onChange={handleChange("description")}
               />
             </form>
+
             {/*Choose date for desktop*/}
             <div className="flex flex-col px-12 text-gray-600 font-medium">
               <p>Remind At:</p>
@@ -155,7 +88,7 @@ export const ReminderFormMain = () => {
                   <select
                     id="repeat"
                     value={repeat}
-                    onChange={handleRepeatChange}
+                    onChange={handleChange("repeat")}
                   >
                     <option value="none">None</option>
                     <option value="HOURLY">Hourly</option>
@@ -168,7 +101,7 @@ export const ReminderFormMain = () => {
               </div>
             </div>
 
-            {/*footer*/}
+            {/* Button Choices */}
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button
                 className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
