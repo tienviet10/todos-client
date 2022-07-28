@@ -1,18 +1,25 @@
+import { useContext, useEffect } from "react";
 import withUser from "../service/auth/withUser";
-import { useManageFriendsState } from "../service/reminders-manage-state/manage-friends";
+import { ResponseFriendsContext } from "../service/context/ResponseFriendsContext";
 import { CurrentFriends } from "./components/friends/current-friends/CurrentFriends";
 import { ResponseFriendsRequestMainPage } from "./components/friends/response-friends-request/ResponseFriendsRequestMainPage";
 import { SearchFriendsMainPage } from "./components/friends/search-friends/SearchFriendsMainPage";
 import { TabsComponent } from "./components/friends/TabsComponent";
 
 const Friends = ({ user }) => {
-  const { listFriends, openTab, changeTab } = useManageFriendsState();
+  const { listFriends, openTab, changeTab, refetchFriendList } = useContext(
+    ResponseFriendsContext
+  );
+
+  useEffect(() => {
+    refetchFriendList();
+  }, [refetchFriendList]);
 
   return (
-    <div className="flex max-w-[1240px] w-full mx-auto pt-4 font-bold mb-2">
-      <div className="my-12 w-full justify-center items-center overflow-hidden md:max-w-md mx-auto py-5 px-2">
+    <div className="flex max-w-[1240px] w-full mx-auto sm:pt-6 font-bold mb-2">
+      <div className="w-full justify-center items-center overflow-hidden md:max-w-md mx-auto sm:my-14 px-2">
         <ul
-          className="flex flex-row mb-0 list-none flex-wrap pt-3 pb-4"
+          className="flex flex-row mb-0 list-none flex-wrap py-4"
           role="tablist"
         >
           {["Search", "Request", "Friends"].map((tabName, index) => (
@@ -31,9 +38,10 @@ const Friends = ({ user }) => {
               <SearchFriendsMainPage user={user} />
             </div>
             <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-              {listFriends && listFriends.pendingFriendsRequest && (
+              {listFriends && (
                 <ResponseFriendsRequestMainPage
                   pendingFriendsRequest={listFriends.pendingFriendsRequest}
+                  sentFriendRequest={listFriends.sentFriendRequests}
                 />
               )}
             </div>

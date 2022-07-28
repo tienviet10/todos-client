@@ -1,6 +1,6 @@
 import React from "react";
 import { useManageSharedRemindersState } from "../../../service/reminders-manage-state/manage-shared-reminders-state";
-import Loader from "../../../shared/components/Loader";
+import Loader from "../../../shared/components/loading-spinner/CenterLoader";
 import { EmptyListDisplay } from "../personal-reminders/EmptyListDisplay";
 import { SharedRemindersList } from "./SheredRemindersList";
 

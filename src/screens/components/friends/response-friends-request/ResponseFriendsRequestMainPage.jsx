@@ -1,59 +1,89 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import { useRestResponseFriends } from "../../../../service/reminders-manage-request/response-friends";
+import { useManageResponseFriendState } from "../../../../service/reminders-manage-state/manage-response-friends";
 import { DisableButtonWithColorAndText } from "../../../../shared/components/DisableButtonWithColorAndText";
 import { ImageUsernameEmailCard } from "../../../../shared/components/ImageUsernameEmailCard";
-import { acceptFriendsLink } from "../../../../shared/service-link/url-link";
 
-export const ResponseFriendsRequestMainPage = ({ pendingFriendsRequest }) => {
-  const { acceptFriendRequest } = useRestResponseFriends();
-  const [toggleOnOff, setToggleOnOff] = useState("");
+export const ResponseFriendsRequestMainPage = ({
+  pendingFriendsRequest,
+  sentFriendRequest,
+}) => {
+  const { toggleOnOff, acceptAFriend, declineAFriend } =
+    useManageResponseFriendState();
+
   return (
     <>
-      {pendingFriendsRequest && pendingFriendsRequest.length > 0 ? (
+      {pendingFriendsRequest &&
+        pendingFriendsRequest.length > 0 &&
         pendingFriendsRequest.map((friendInfo) => (
-          <ImageUsernameEmailCard
-            username={friendInfo?.username}
-            picture={friendInfo?.picture}
-            email={friendInfo?.email}
-          >
-            {toggleOnOff === "" ? (
-              <>
-                <AiFillCloseCircle
-                  className="mr-2 fill-red-400 hover:fill-red-300 hover:cursor-pointer"
-                  size={50}
-                  onClick={() => setToggleOnOff("declined")}
+          <div key={friendInfo?.username}>
+            <ImageUsernameEmailCard
+              username={friendInfo?.username}
+              picture={friendInfo?.picture}
+              email={friendInfo?.email}
+            >
+              {toggleOnOff === "accepted" && (
+                <DisableButtonWithColorAndText
+                  buttonColor="bg-hover-color"
+                  buttonText="Accepted"
+                  id="accept"
                 />
-                <AiFillCheckCircle
-                  className="mr-2 fill-green-600 hover:fill-green-500 hover:cursor-pointer"
-                  size={50}
-                  onClick={() => {
-                    setToggleOnOff("accepted");
-                    acceptFriendRequest({
-                      url: acceptFriendsLink(),
-                      data: { email: friendInfo.email },
-                    });
-                  }}
+              )}
+              {toggleOnOff === "declined" && (
+                <DisableButtonWithColorAndText
+                  buttonColor="bg-red-300"
+                  buttonText="Declined"
+                  id="decline"
                 />
-              </>
-            ) : toggleOnOff === "accepted" ? (
+              )}
+              {toggleOnOff === "" && (
+                <>
+                  <AiFillCloseCircle
+                    className="mr-2 fill-red-400 hover:fill-red-300 hover:cursor-pointer"
+                    size={50}
+                    onClick={() => declineAFriend(friendInfo?.email)}
+                  />
+                  <AiFillCheckCircle
+                    className="mr-2 fill-application-color hover:fill-hover-color hover:cursor-pointer"
+                    size={50}
+                    onClick={() => acceptAFriend(friendInfo?.email)}
+                  />
+                </>
+              )}
+            </ImageUsernameEmailCard>
+          </div>
+        ))}
+      {sentFriendRequest &&
+        sentFriendRequest.length > 0 &&
+        sentFriendRequest.map((friendInfo) => (
+          <div key={friendInfo?.username}>
+            <ImageUsernameEmailCard
+              username={friendInfo?.username}
+              picture={friendInfo?.picture}
+              email={friendInfo?.email}
+            >
               <DisableButtonWithColorAndText
-                buttonColor="green-500"
-                buttonText="Accepted"
+                buttonColor="bg-indigo-300"
+                buttonText="Sent"
+                id="sent"
               />
-            ) : (
-              <DisableButtonWithColorAndText
-                buttonColor="red-300"
-                buttonText="Declined"
-              />
-            )}
-          </ImageUsernameEmailCard>
-        ))
-      ) : (
-        <div className="px-4 py-5 shadow-lg">
-          <div>No friend requests!</div>
-        </div>
-      )}
+            </ImageUsernameEmailCard>
+          </div>
+        ))}
+      {sentFriendRequest &&
+        sentFriendRequest.length < 1 &&
+        pendingFriendsRequest &&
+        pendingFriendsRequest.length < 1 && (
+          <div className="px-4 py-5 shadow-lg">
+            <div>No friend requests!</div>
+          </div>
+        )}
     </>
   );
 };
+
+// : (
+//   <div className="px-4 py-5 shadow-lg">
+//     <div>No friend requests!</div>
+//   </div>
+// )

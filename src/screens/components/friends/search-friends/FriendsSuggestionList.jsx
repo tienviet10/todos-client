@@ -15,6 +15,7 @@ export const FriendsSuggestionList = ({
             (friendInfo) =>
               friendInfo.email !== email && (
                 <ImageUsernameEmailCard
+                  key={friendInfo?.username}
                   username={friendInfo?.username}
                   picture={friendInfo?.picture}
                   email={friendInfo?.email}

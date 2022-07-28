@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { NAV_TABS } from "../../shared/constant/config";
 import { postLogInLink } from "../../shared/service-link/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
@@ -65,7 +66,7 @@ export function useLogIn() {
         storeAuthentication("token", data.token);
         signInAuth();
         setLoading(false);
-        navigate("/personal-reminders");
+        navigate(NAV_TABS[0].href);
       } else {
         throw new Error("Fetch request error");
       }

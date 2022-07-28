@@ -3,7 +3,7 @@ import React from "react";
 export const TabsComponent = ({ openTab, changeTab, tabNumber, tabName }) => {
   return (
     // Tabs at the top for switching in Friends section
-    <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+    <li className="flex-auto -mb-px mr-2 last:mr-0 text-center">
       <a
         className={
           "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +

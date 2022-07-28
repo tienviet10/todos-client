@@ -12,7 +12,7 @@ export const PastReminderToggle = () => {
       {isPastRemindersOn ? (
         <div className="grid max-w-[1240px] w-full mx-auto text-left pb-10">
           <div
-            className="flex gap-2 text-xl hover:cursor-pointer mx-auto text-center text-blue-600 font-bold pt-0 sm:pt-10"
+            className="flex gap-2 text-xl mx-auto text-center text-blue-600 font-bold pt-0 hover:cursor-pointer sm:pt-10"
             onClick={() => setIsPastRemindersOn(false)}
           >
             <p>Close Past Reminders</p>
@@ -25,7 +25,7 @@ export const PastReminderToggle = () => {
       ) : (
         <div className="grid max-w-[500px] w-full mx-auto text-center pb-10">
           <div
-            className="flex gap-2 text-xl hover:cursor-pointer mx-auto text-center text-blue-600 font-bold pt-0 sm:pt-10"
+            className="flex gap-2 text-xl mx-auto text-center text-blue-600 font-bold pt-0 hover:cursor-pointer sm:pt-10"
             onClick={() => {
               setIsPastRemindersOn(true);
             }}

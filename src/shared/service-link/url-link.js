@@ -85,9 +85,17 @@ export const friendsLink = () => {
 };
 
 export const acceptFriendsLink = () => {
-  return "/v1/friends/accepted";
+  return "/v1/accepted-friends";
+};
+
+export const declineFriendsLink = () => {
+  return "/v1/declined-friends";
 };
 
 export const pendingFriendsLink = () => {
-  return "/v1/friends/pending";
+  return "/v1/pending-friends";
+};
+
+export const getSuggestedCollaboratorsLink = () => {
+  return "/v1/suggested-friends";
 };

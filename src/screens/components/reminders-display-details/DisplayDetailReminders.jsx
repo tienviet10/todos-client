@@ -3,7 +3,7 @@ import React from "react";
 import { AiFillCaretUp, AiFillDelete, AiOutlineFileDone } from "react-icons/ai";
 import { useManageDisplayDetailRemindersState } from "../../../service/reminders-manage-state/manage-display-detail-reminders";
 import { CloseButton } from "../../../shared/components/CloseButton";
-import LoaderFullscreen from "../../../shared/components/LoaderFullscreen";
+import LoaderFullscreen from "../../../shared/components/loading-spinner/LoaderFullscreen";
 import { REMINDER_STATUS } from "../../../shared/constant/config";
 
 export const DetailOfAReminderWindow = ({ selectedTab }) => {
@@ -20,9 +20,9 @@ export const DetailOfAReminderWindow = ({ selectedTab }) => {
 
   return (
     <>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
+      <div className="fixed inset-0 flex justify-center items-center overflow-x-hidden overflow-y-auto mx-4 outline-none focus:outline-none z-50">
         <div className="relative my-6 mx-auto max-w-[800px] sm:w-[60%] max-h-[75%] shadow-2xl">
-          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <div className="relative flex flex-col border-0 rounded-lg shadow-lg w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-2xl font-semibold">Details Reminder</h3>

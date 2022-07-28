@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PasswordConfirmation } from "./screens/components/password-confirmation-profile/PasswordConfirmationProfile";
 import { DetailOfAReminderWindow } from "./screens/components/reminders-display-details/DisplayDetailReminders";
@@ -20,10 +20,11 @@ import { ReminderModalContext } from "./service/context/ReminderModalContext";
 import { SevenDaysSummaryContext } from "./service/context/SevenDaysSummaryContext";
 import { Confirmation } from "./shared/components/Confirmation";
 import Navbar from "./shared/components/navbar/Navbar";
+import { NAV_TABS } from "./shared/constant/config";
 
 function App() {
-  const [selectedNavTab, setNavTab] = useState("Reminder");
-  const { modalOn } = useContext(ReminderModalContext);
+  const { modalOn, selectedNavTab, setNavTab } =
+    useContext(ReminderModalContext);
   const { isAuth } = useContext(AuthContext);
   const { detailOn } = useContext(DetailOfAReminderContext);
   const { confirmationOn } = useContext(ConfirmationContext);
@@ -35,27 +36,31 @@ function App() {
   return (
     <div className="App h-screen">
       <div>
-        <Navbar isAuth={isAuth} setNavTab={setNavTab} />
+        <Navbar
+          isAuth={isAuth}
+          setNavTab={setNavTab}
+          selectedNavTab={selectedNavTab}
+        />
       </div>
       <Routes>
         {isAuth ? (
           <>
-            <Route path="/personal-reminders" element={<MainReminders />} />
-            <Route path="/shared-reminders" element={<SharedReminders />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/friends" element={<Friends />} />
-            <Route path="/setting" element={<Setting />} />
+            <Route path={NAV_TABS[0].href} element={<MainReminders />} />
+            <Route path={NAV_TABS[1].href} element={<SharedReminders />} />
+            <Route path={NAV_TABS[2].href} element={<Profile />} />
+            <Route path={NAV_TABS[4].href} element={<Friends />} />
+            <Route path={NAV_TABS[3].href} element={<Setting />} />
           </>
         ) : (
           <>
             <Route path="/" element={<Landing />} />
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/login" element={<Login />} />
+            <Route path={NAV_TABS[5].href} element={<Registration />} />
+            <Route path={NAV_TABS[6].href} element={<Login />} />
           </>
         )}
         <Route
           path="*"
-          element={<Navigate to={isAuth ? "/personal-reminders" : "/"} />}
+          element={<Navigate to={isAuth ? NAV_TABS[0].href : "/"} />}
         />
       </Routes>
       {modalOn && <ReminderForm selectedTab={selectedNavTab} />}

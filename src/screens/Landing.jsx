@@ -1,12 +1,16 @@
 import React from "react";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { MAIN_PAGE_EXAMPLE, REMINDER_STATUS } from "../shared/constant/config";
+import {
+  MAIN_PAGE_EXAMPLE,
+  NAV_TABS,
+  REMINDER_STATUS,
+} from "../shared/constant/config";
 
 export const Landing = () => {
   const navigate = useNavigate();
   return (
-    <div className="max-w-[800px] w-full mx-auto text-center flex flex-col justify-center pt-4 sm:pt-20">
+    <div className="flex flex-col max-w-[800px] w-full mx-auto text-center justify-center pt-4 sm:pt-20">
       <p
         className={`text-application-color font-bold p-2 text-[0.8rem] sm:text-[1.3rem]`}
       >
@@ -63,14 +67,16 @@ export const Landing = () => {
       <p className="text-[20px] mt-10">Join ReMe today!</p>
 
       <button
-        onClick={() => navigate("/registration")}
+        onClick={() => navigate(NAV_TABS[5].href)}
         className={`bg-red-500 hover:shadow-lg hover:bg-red-600 w-[200px] rounded-md font-bold mt-10 mb-3 mx-auto py-3 text-white`}
       >
         SIGN UP
       </button>
 
       <div className="text-center cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 pb-10 mx-auto">
-        <p onClick={() => navigate("/login")}>Already have an account!</p>
+        <p onClick={() => navigate(NAV_TABS[6].href)}>
+          Already have an account!
+        </p>
       </div>
     </div>
   );

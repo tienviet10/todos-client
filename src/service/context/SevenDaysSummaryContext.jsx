@@ -12,7 +12,8 @@ function SevenDaysSummaryProvider({ children }) {
   const { refetch: refetchSevenDaysSummary } = useRQGetRecords(
     "sevenRemindersSummary",
     getSevenRemindersSummaryLink(),
-    isSummaryOn,
+    //isSummaryOn,
+    false,
     (data) => {
       data.response !== undefined &&
         data.response.status === 404 &&

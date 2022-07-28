@@ -4,13 +4,14 @@ import { useRQGetRecords } from "./rest-request";
 
 export function useRestFriendList() {
   const [listFriends, setListFriends] = useState(null);
+
   const [error, setError] = useState(null);
   const [loading, setIsLoading] = useState(false);
 
-  useRQGetRecords(
+  const { refetch: refetchFriendList } = useRQGetRecords(
     "userFriends",
     friendsLink(),
-    true,
+    false,
     (data) => {
       setIsLoading(true);
 
@@ -33,5 +34,6 @@ export function useRestFriendList() {
     listFriends,
     loading,
     error,
+    refetchFriendList,
   };
 }

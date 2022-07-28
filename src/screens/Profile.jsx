@@ -1,43 +1,18 @@
-import { useContext, useEffect } from "react";
-import { useGoogleAuth } from "../service/auth/google-auth";
 import withUser from "../service/auth/withUser";
-import { PasswordConfirmationProfileContext } from "../service/context/PasswordConfirmationProfileContext";
+import { useManageProfileState } from "../service/reminders-manage-state/manage-profile-state";
 import { GoogleLogIn } from "./components/google-login-button/GoogleLogIn";
 import { GoogleLogout } from "./components/google-logout-button/GoogleLogout";
 
 const Profile = ({ user }) => {
   const {
-    setPassConfirmationProfileToggle,
-    setNewPasswordUpdate,
-    newPasswordUpdate,
-  } = useContext(PasswordConfirmationProfileContext);
-
-  const { username, newPassword, newPasswordConfirmation } = newPasswordUpdate;
-
-  const { handleAuthClick, handleGoogleLogout } = useGoogleAuth();
-
-  useEffect(() => {
-    if (user && user.user) {
-      setNewPasswordUpdate((item) => ({
-        ...item,
-        username: user.user.username,
-        email: user.user.email,
-      }));
-    }
-  }, [user, setNewPasswordUpdate]);
-
-  const handleFieldChange = (name) => (e) => {
-    setNewPasswordUpdate((item) => ({
-      ...item,
-      [name]: e.target.value,
-    }));
-  };
-
-  const handleSummit = () => {
-    if (newPassword === newPasswordConfirmation) {
-      setPassConfirmationProfileToggle(true);
-    }
-  };
+    username,
+    newPassword,
+    newPasswordConfirmation,
+    handleAuthClick,
+    handleGoogleLogout,
+    handleFieldChange,
+    handleSummit,
+  } = useManageProfileState(user);
 
   return (
     <div className="flex max-w-[1240px] w-full mx-auto pt-4 font-bold px-4 mb-2">
@@ -120,7 +95,6 @@ const Profile = ({ user }) => {
             </div>
           </div>
           <button
-            //disabled={loading}
             className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 mt-14"
             onClick={() => handleSummit()}
           >

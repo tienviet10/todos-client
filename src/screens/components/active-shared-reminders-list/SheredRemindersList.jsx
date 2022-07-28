@@ -79,7 +79,7 @@ export const SharedRemindersList = ({
                     </div>
 
                     {/* Reminder description */}
-                    <div className="w-full flex justify-center mb-4">
+                    <div className="flex w-full justify-center mb-4">
                       <p className="text-gray-700 text-base px-6 truncate max-w-[180px] sm:max-w-[280px]">
                         {item.description}
                       </p>

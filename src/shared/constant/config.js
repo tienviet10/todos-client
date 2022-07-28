@@ -57,3 +57,12 @@ export const CREATE_EMPTY_SHARED_REMINDER = {
   groupUsers: { admin: [], editor: [], viewer: [] },
   users: [],
 };
+export const NAV_TABS = [
+  { name: "reminder", href: "/personal-reminders", displayName: "Reminder" },
+  { name: "share", href: "/shared-reminders", displayName: "Share" },
+  { name: "profile", href: "/profile", displayName: "Profile" },
+  { name: "setting", href: "/setting", displayName: "Setting" },
+  { name: "friends", href: "/friends", displayName: "Friends" },
+  { name: "registration", href: "/registration", displayName: "Registration" },
+  { name: "login", href: "/login", displayName: "Login" },
+];

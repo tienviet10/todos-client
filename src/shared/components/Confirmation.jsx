@@ -7,7 +7,7 @@ export const Confirmation = () => {
     useContext(ConfirmationContext);
   return (
     <div>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
+      <div className="fixed inset-0 flex justify-center items-center mx-4 overflow-x-hidden overflow-y-auto outline-none focus:outline-none z-50">
         <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[30%] max-h-[90%]">
           <div className="relative bg-white rounded-lg shadow">
             <div className="flex justify-between items-start p-4 rounded-t border-b border-gray-600">

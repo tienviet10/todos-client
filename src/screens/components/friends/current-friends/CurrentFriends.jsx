@@ -7,6 +7,7 @@ export const CurrentFriends = ({ acceptedFriends }) => {
       {acceptedFriends && acceptedFriends.length > 0 ? (
         acceptedFriends.map((friendInfo) => (
           <ImageUsernameEmailCard
+            key={friendInfo?.username}
             username={friendInfo?.username}
             picture={friendInfo?.picture}
             email={friendInfo?.email}

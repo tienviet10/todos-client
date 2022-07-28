@@ -7,8 +7,9 @@ import {
 } from "react-icons/ai";
 import { useLogIn } from "../service/auth/login";
 import Error from "../shared/components/Error";
-import Loader from "../shared/components/Loader";
+import Loader from "../shared/components/loading-spinner/CenterLoader";
 import Success from "../shared/components/Success";
+import { NAV_TABS } from "../shared/constant/config";
 
 export const Login = () => {
   const {
@@ -27,7 +28,7 @@ export const Login = () => {
 
   return (
     <div className="grid place-items-center h-screen">
-      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <img
@@ -60,12 +61,12 @@ export const Login = () => {
                   value={email}
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm outline-none"
+                  className="relative appearance-none rounded-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm outline-none"
                   placeholder="Email address"
                   onChange={handleChange("email")}
                 />
               </div>
-              <div className="flex flex-wrap items-stretch w-full relative border border-gray-300 rounded-b-md">
+              <div className="relative flex flex-wrap items-stretch w-full border border-gray-300 rounded-b-md">
                 <input
                   type={open === false ? "password" : "text"}
                   id="password"
@@ -92,9 +93,9 @@ export const Login = () => {
             <div>
               <button
                 disabled={loading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="group relative flex w-full justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                <span className="absolute flex left-0 inset-y-0 items-center pl-3">
                   <AiFillLock
                     className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
                     aria-hidden="true"
@@ -108,12 +109,12 @@ export const Login = () => {
             <button
               disabled={loading}
               type="button"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative flex w-full justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={() => {
-                navigate("/registration");
+                navigate(NAV_TABS[5].href);
               }}
             >
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+              <span className="absolute flex left-0 inset-y-0 items-center pl-3">
                 <AiFillFire
                   className="h-5 w-5 text-red-400 group-hover:text-red-300"
                   aria-hidden="true"

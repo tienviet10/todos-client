@@ -14,6 +14,7 @@ import { PasswordConfirmationProfileProvider } from "./service/context/PasswordC
 import { PastReminderProvider } from "./service/context/PastRemindersContext";
 import { PastSharedReminderProvider } from "./service/context/PastSharedRemindersContext";
 import { ReminderModalProvider } from "./service/context/ReminderModalContext";
+import { ResponseFriendsProvider } from "./service/context/ResponseFriendsContext";
 import { SevenDaysSummaryProvider } from "./service/context/SevenDaysSummaryContext";
 
 const queryClient = new QueryClient();
@@ -33,7 +34,9 @@ root.render(
                       <SharedReminderProvider>
                         <ConfirmationProvider>
                           <SevenDaysSummaryProvider>
-                            <App />
+                            <ResponseFriendsProvider>
+                              <App />
+                            </ResponseFriendsProvider>
                           </SevenDaysSummaryProvider>
                         </ConfirmationProvider>
                       </SharedReminderProvider>

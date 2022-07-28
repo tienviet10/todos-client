@@ -2,7 +2,7 @@ import { format, formatDistance } from "date-fns";
 import React from "react";
 import { AiFillCaretUp, AiFillDelete } from "react-icons/ai";
 import { useManagePastRemindersState } from "../../../service/reminders-manage-state/manage-past-reminders-state";
-import Loader from "../../../shared/components/Loader";
+import Loader from "../../../shared/components/loading-spinner/CenterLoader";
 
 export const PastReminders = () => {
   const {

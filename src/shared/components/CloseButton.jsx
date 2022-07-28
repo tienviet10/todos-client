@@ -4,7 +4,7 @@ export const CloseButton = ({ takeAction }) => {
   return (
     <button
       type="button"
-      className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+      className="inline-flex items-center text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto hover:bg-gray-200 hover:text-gray-900"
       data-modal-toggle="defaultModal"
       onClick={() => takeAction()}
     >

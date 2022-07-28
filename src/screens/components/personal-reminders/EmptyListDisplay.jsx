@@ -10,7 +10,7 @@ import {
 export const EmptyListDisplay = () => {
   const { setModalOn } = useContext(ReminderModalContext);
   return (
-    <div className="max-w-[800px] w-full mx-auto text-center flex flex-col justify-center pt-4 sm:pt-20">
+    <div className="flex flex-col max-w-[800px] w-full mx-auto text-center justify-center pt-4 sm:pt-20">
       <p
         className={`text-application-color font-bold p-2 text-[0.8rem] sm:text-[1.3rem]`}
       >

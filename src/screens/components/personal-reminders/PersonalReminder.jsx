@@ -1,6 +1,6 @@
 import withUser from "../../../service/auth/withUser";
 import { useManageRemindersState } from "../../../service/reminders-manage-state/manage-reminders-state";
-import Loader from "../../../shared/components/Loader";
+import Loader from "../../../shared/components/loading-spinner/CenterLoader";
 import { RemindersList } from "../active-reminders-list/RemindersList";
 import { EmptyListDisplay } from "./EmptyListDisplay";
 

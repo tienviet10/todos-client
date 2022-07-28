@@ -12,7 +12,7 @@ export const SearchFriendsMainPage = ({ user }) => {
     searchNewFriend,
   } = useManageSearchFriendsState();
   return (
-    <div className="px-4 py-4 flex-auto shadow-lg rounded-md">
+    <div className="flex-auto px-4 py-4 shadow-lg rounded-md">
       <SearchFriends
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}

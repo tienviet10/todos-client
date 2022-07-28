@@ -3,7 +3,7 @@ import React from "react";
 export default function LoaderFullscreen() {
   return (
     <>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4">
+      <div className="fixed inset-0 flex justify-center items-center mx-4 outline-none overflow-x-hidden overflow-y-auto focus:outline-none z-50">
         <svg
           role="status"
           className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-300 fill-indigo-500"

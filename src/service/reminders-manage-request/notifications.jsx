@@ -47,7 +47,7 @@ export function useNotification() {
     }
   );
 
-  const { mutate } = useRQUpdateARecord(
+  const { mutate: updateSeenStatusAndRefreshAReminder } = useRQUpdateARecord(
     (data) => {
       data.response !== undefined &&
         data.response.status === 404 &&
@@ -59,10 +59,25 @@ export function useNotification() {
     }
   );
 
+  const { mutate: updateSeenStatusOnly } = useRQUpdateARecord(
+    (data) => {
+      data.response !== undefined &&
+        data.response.status === 404 &&
+        setError(data.message);
+      if (data.data !== undefined) {
+        queryClient.invalidateQueries("notifications");
+      }
+    },
+    (data) => {
+      setError(data);
+    }
+  );
+
   return {
     notificationsList,
     error,
-    mutate,
+    updateSeenStatusAndRefreshAReminder,
+    updateSeenStatusOnly,
     setAReminder,
     refetchAReminder,
   };

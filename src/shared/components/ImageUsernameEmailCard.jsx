@@ -7,7 +7,7 @@ export const ImageUsernameEmailCard = ({
   children,
 }) => {
   return (
-    <div key={username} className="bg-white p-4 shadow-lg rounded-md mt-4">
+    <div className="bg-white p-4 shadow-lg rounded-md mt-4">
       <div className="flex items-center">
         <img
           src={
@@ -20,10 +20,12 @@ export const ImageUsernameEmailCard = ({
         />
         <div className="flex items-start justify-between w-full">
           <div className="pl-3 w-full">
-            <p className="text-xl font-medium leading-5 text-gray-800">
+            <p className="text-md sm:text-xl font-medium leading-5 text-gray-800 truncate max-w-[160px] sm:max-w-[220px]">
               {username}
             </p>
-            <p className="text-sm leading-normal pt-2 text-gray-500">{email}</p>
+            <p className="text-xs sm:text-sm leading-normal pt-2 text-gray-500 truncate max-w-[160px] sm:max-w-[220px]">
+              {email}
+            </p>
           </div>
         </div>
 

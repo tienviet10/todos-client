@@ -34,7 +34,7 @@ export const SevenDaysSummary = () => {
 
   return (
     <div>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none mx-4 mb-10 sm:mb-6">
+      <div className="fixed inset-0 flex justify-center items-center overflow-x-hidden overflow-y-auto outline-none mx-4 mb-10 focus:outline-none sm:mb-6 z-40">
         <div className="relative my-6 mx-auto max-w-[1000px] w-[90%] sm:w-[80%] max-h-[90%]">
           <div className="relative bg-white rounded-lg shadow">
             {/* Title and close button */}
@@ -64,7 +64,7 @@ export const SevenDaysSummary = () => {
                           )}
                           onClick={() => handleDetailsScreen(record)}
                         >
-                          <p className="mb-2 text-sm font-medium text-gray-900">
+                          <p className="mb-2 text-sm font-medium text-gray-900 ">
                             {record.title}
                           </p>
                           <p className="text-sm font-normal text-gray-500">
@@ -125,7 +125,7 @@ export const SevenDaysSummary = () => {
 
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button
-                className={`bg-application-color hover:bg-hover-color text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
+                className={`bg-application-color text-white font-bold uppercase text-sm px-6 py-3 rounded shadow outline-none mr-1 mb-1 focus:outline-none hover:shadow-lg hover:bg-hover-color ease-linear transition-all duration-150`}
                 type="button"
                 onClick={() => setIsSummaryOn(false)}
               >
