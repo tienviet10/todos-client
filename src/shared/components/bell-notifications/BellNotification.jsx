@@ -3,6 +3,7 @@ import { useManageBellNotificationsState } from "../../../service/reminders-mana
 import { classNames } from "../color-picker/color-choice";
 import { NotificationItemFriendRequest } from "./NotificationItemFriendRequest";
 import { NotificationItemPersonal } from "./NotificationItemPersonal";
+import { NotificationItemShare } from "./NotificationItemShare";
 
 export const BellNotification = ({
   dropdownOpen,
@@ -13,6 +14,7 @@ export const BellNotification = ({
     isNewNotification,
     notifications,
     navigateToReminderDetail,
+    navigateToSharedReminderDetail,
     openSevenDaySUmmary,
     navigateToFriends,
   } = useManageBellNotificationsState(setDropdownOpen, setNavTab);
@@ -47,12 +49,20 @@ export const BellNotification = ({
             <div className="py-2">
               {notifications.length > 0 &&
                 notifications.map((notificationItem) =>
-                  notificationItem.reminderTypes === "personal" ||
-                  notificationItem.reminderTypes === "sharedReminder" ? (
+                  notificationItem.reminderTypes === "personal" ? (
                     // Normal reminder notification
                     <NotificationItemPersonal
                       key={notificationItem._id}
                       navigateToReminderDetail={navigateToReminderDetail}
+                      notificationItem={notificationItem}
+                    />
+                  ) : notificationItem.reminderTypes === "sharedReminder" ? (
+                    // Normal reminder notification
+                    <NotificationItemShare
+                      key={notificationItem._id}
+                      navigateToSharedReminderDetail={
+                        navigateToSharedReminderDetail
+                      }
                       notificationItem={notificationItem}
                     />
                   ) : (

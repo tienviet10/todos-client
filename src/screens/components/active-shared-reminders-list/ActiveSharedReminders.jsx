@@ -51,6 +51,7 @@ export const ActiveSharedReminders = ({ user }) => {
             editReminder={editReminder}
             execDeletion={execDeletion}
             title="Reminders"
+            user={user}
           />
         </>
       )}

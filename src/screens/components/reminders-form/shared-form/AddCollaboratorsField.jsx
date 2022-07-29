@@ -11,6 +11,7 @@ export const AddCollaborators = ({
   filteredData,
   handleSelectUserFromSuggestion,
   users,
+  _id,
 }) => {
   return (
     <div className="relative px-12 mt-3">
@@ -39,7 +40,7 @@ export const AddCollaborators = ({
         {/* Search Input for Friends and Loading Indicator */}
         <div className="flex mt-1">
           <input
-            autoFocus
+            autoFocus={_id ? false : true}
             type="text"
             placeholder="Username or Email"
             value={searchUser}

@@ -39,6 +39,7 @@ export const ReminderFormShared = () => {
 
           {/* Add Users for collaboration */}
           <AddCollaborators
+            _id={_id}
             users={groupUsers.editor}
             handleDeleteTags={handleDeleteTags}
             searchUser={searchUser}
@@ -50,6 +51,7 @@ export const ReminderFormShared = () => {
 
           {/* Title and Description of Reminder */}
           <TitleDescriptionFields
+            _id={_id}
             title={title}
             handleChange={handleChange}
             description={description}

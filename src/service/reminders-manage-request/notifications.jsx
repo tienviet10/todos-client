@@ -3,12 +3,15 @@ import { useQueryClient } from "react-query";
 import {
   getAllNotificationLink,
   reminderWithIDLink,
+  sharedReminderWithIDLink,
 } from "../../shared/service-link/url-link";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { useRQGetRecords, useRQUpdateARecord } from "./rest-request";
 
 export function useNotification() {
-  const { setReminderDetails } = useContext(DetailOfAReminderContext);
+  const { setReminderDetails, setSharedReminderDetails } = useContext(
+    DetailOfAReminderContext
+  );
   const queryClient = useQueryClient();
 
   const [aReminder, setAReminder] = useState();
@@ -47,6 +50,25 @@ export function useNotification() {
     }
   );
 
+  const { refetch: refetchASharedReminder } = useRQGetRecords(
+    ["aSharedReminder", aReminder],
+    sharedReminderWithIDLink(aReminder),
+    false,
+    (data) => {
+      if (data.data !== undefined) {
+        setSharedReminderDetails(data.data);
+
+        queryClient.invalidateQueries("notifications");
+      }
+      data.response !== undefined &&
+        data.response.status === 404 &&
+        setError(data.message);
+    },
+    (data) => {
+      setError(data);
+    }
+  );
+
   const { mutate: updateSeenStatusAndRefreshAReminder } = useRQUpdateARecord(
     (data) => {
       data.response !== undefined &&
@@ -58,6 +80,19 @@ export function useNotification() {
       setError(data);
     }
   );
+
+  const { mutate: updateSeenStatusAndRefreshASharedReminder } =
+    useRQUpdateARecord(
+      (data) => {
+        data.response !== undefined &&
+          data.response.status === 404 &&
+          setError(data.message);
+        refetchASharedReminder();
+      },
+      (data) => {
+        setError(data);
+      }
+    );
 
   const { mutate: updateSeenStatusOnly } = useRQUpdateARecord(
     (data) => {
@@ -77,8 +112,10 @@ export function useNotification() {
     notificationsList,
     error,
     updateSeenStatusAndRefreshAReminder,
+    updateSeenStatusAndRefreshASharedReminder,
     updateSeenStatusOnly,
     setAReminder,
     refetchAReminder,
+    refetchASharedReminder,
   };
 }

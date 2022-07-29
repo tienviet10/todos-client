@@ -6,6 +6,7 @@ import {
   returnAppropriateBgColor,
 } from "../../../shared/components/color-picker/color-choice";
 import { ColorSelectionDropdown } from "../../../shared/components/color-picker/ColorSelectionDropdown";
+import { UserIconOnReminder } from "./UserIconOnReminder";
 
 export const SharedRemindersList = ({
   title,
@@ -15,6 +16,7 @@ export const SharedRemindersList = ({
   handleDetailsScreen,
   editReminder,
   execDeletion,
+  user,
 }) => {
   return (
     <>
@@ -35,7 +37,7 @@ export const SharedRemindersList = ({
                 <div
                   className={classNames(
                     returnAppropriateBgColor(item.color),
-                    "block px-6 py-3 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500 "
+                    "relative block px-6 py-3 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500 "
                   )}
                 >
                   <div className="flex w-full items-center justify-between mb-2">
@@ -54,6 +56,28 @@ export const SharedRemindersList = ({
                     </div>
 
                     {/* Icons of shared people */}
+                    <div className="absolute right-2 inset-y-3 flex -space-x-3 p-1 overflow-hidden h-8">
+                      {item.groupUsers.editor.length > 1 && (
+                        <UserIconOnReminder
+                          user={item.groupUsers.editor[1]}
+                          color="bg-cyan-300"
+                        />
+                      )}
+                      {item.groupUsers.editor.length > 0 && (
+                        <UserIconOnReminder
+                          user={item.groupUsers.editor[0]}
+                          color="bg-lime-300"
+                        />
+                      )}
+                      {user?.user && (
+                        <UserIconOnReminder
+                          user={user?.user}
+                          color="bg-rose-300"
+                        />
+                      )}
+                    </div>
+
+                    {/* Keep title center */}
                     <div className="w-5"></div>
                   </div>
 

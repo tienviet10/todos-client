@@ -1,38 +1,43 @@
 import { useContext } from "react";
 import { REMINDER_STATUS } from "../../shared/constant/config";
-import { reminderWithIDLink } from "../../shared/service-link/url-link";
-import { ReminderContext } from "../context/ActiveRemindersContext";
+import { sharedReminderWithIDLink } from "../../shared/service-link/url-link";
+import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
 import { ConfirmationContext } from "../context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
-import { PastRemindersContext } from "../context/PastRemindersContext";
+import { PastSharedRemindersContext } from "../context/PastSharedRemindersContext";
 
-export function useManageDisplayDetailRemindersState() {
-  const { updateRecord, discardRecord: discardRecordActiveReminder } =
-    useContext(ReminderContext);
-  const { discardRecord: discardRecordPastReminder } =
-    useContext(PastRemindersContext);
+export function useManageDisplayDetailSharedRemindersState() {
+  const {
+    updateSharedRecord,
+    discardSharedRecord: discardRecordActiveReminder,
+  } = useContext(SharedReminderContext);
+  const { discardRecord: discardRecordPastReminder } = useContext(
+    PastSharedRemindersContext
+  );
 
-  const { confirm } = useContext(ConfirmationContext);
-
-  const { reminderDetails, sharedReminderDetails, setDetailOn } = useContext(
+  const { sharedReminderDetails, setDetailOn } = useContext(
     DetailOfAReminderContext
   );
+
+  const { confirm } = useContext(ConfirmationContext);
 
   const execDeletion = (details) => {
     confirm({
       onSuccess:
         details.status === REMINDER_STATUS.ACTIVE
-          ? () => discardRecordActiveReminder(reminderWithIDLink(details._id))
-          : () => discardRecordPastReminder(reminderWithIDLink(details._id)),
+          ? () =>
+              discardRecordActiveReminder(sharedReminderWithIDLink(details._id))
+          : () =>
+              discardRecordPastReminder(sharedReminderWithIDLink(details._id)),
     });
 
     setDetailOn(false);
   };
 
   const moveReminderToPast = (details) => {
-    updateRecord({
+    updateSharedRecord({
       from: "currentToPast",
-      url: reminderWithIDLink(details._id),
+      url: sharedReminderWithIDLink(details._id),
       data: { ...details, status: REMINDER_STATUS.INACTIVE },
     });
     setDetailOn(false);
@@ -45,9 +50,9 @@ export function useManageDisplayDetailRemindersState() {
       )
     );
 
-    updateRecord({
+    updateSharedRecord({
       from: "past",
-      url: reminderWithIDLink(details._id),
+      url: sharedReminderWithIDLink(details._id),
       data: { ...details, status: REMINDER_STATUS.ACTIVE },
       remindedAt:
         new Date(details._id) < yesterdayEndDate ? null : details.remindedAt,
@@ -57,7 +62,6 @@ export function useManageDisplayDetailRemindersState() {
 
   return {
     setDetailOn,
-    reminderDetails,
     sharedReminderDetails,
     moveReminderToPast,
     restoreReminder,
@@ -66,33 +70,35 @@ export function useManageDisplayDetailRemindersState() {
 }
 
 // import { useContext } from "react";
-// import { reminderWithIDLink } from "../../shared/service-link/url-link";
-// import { ReminderContext } from "../context/ActiveRemindersContext";
+// import { sharedReminderWithIDLink } from "../../shared/service-link/url-link";
+// import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
 // import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
-// import { PastRemindersContext } from "../context/PastRemindersContext";
+// import { PastSharedRemindersContext } from "../context/PastSharedRemindersContext";
 // import { useManageDisplayDetails } from "./manage-display-details";
 
-// export function useManageDisplayDetailRemindersState() {
-//   const { updateRecord, discardRecord: discardRecordActiveReminder } =
-//     useContext(ReminderContext);
-//   const { discardRecord: discardRecordPastReminder } =
-//     useContext(PastRemindersContext);
+// export function useManageDisplayDetailSharedRemindersState() {
+//   const {
+//     updateSharedRecord,
+//     discardSharedRecord: discardRecordActiveReminder,
+//   } = useContext(SharedReminderContext);
+//   const { discardRecord: discardRecordPastReminder } = useContext(
+//     PastSharedRemindersContext
+//   );
 
-//   const { reminderDetails, sharedReminderDetails, setDetailOn } = useContext(
+//   const { sharedReminderDetails, setDetailOn } = useContext(
 //     DetailOfAReminderContext
 //   );
 
 //   const { execDeletion, moveReminderToPast, restoreReminder } =
 //     useManageDisplayDetails(
-//       updateRecord,
+//       updateSharedRecord,
 //       discardRecordActiveReminder,
 //       discardRecordPastReminder,
-//       reminderWithIDLink
+//       sharedReminderWithIDLink
 //     );
 
 //   return {
 //     setDetailOn,
-//     reminderDetails,
 //     sharedReminderDetails,
 //     moveReminderToPast,
 //     restoreReminder,

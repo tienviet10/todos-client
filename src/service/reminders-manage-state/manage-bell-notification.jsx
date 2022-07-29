@@ -11,6 +11,7 @@ export function useManageBellNotificationsState(setDropdownOpen, setNavTab) {
   const {
     notificationsList: notifications,
     updateSeenStatusAndRefreshAReminder,
+    updateSeenStatusAndRefreshASharedReminder,
     updateSeenStatusOnly,
     setAReminder,
   } = useNotification();
@@ -18,6 +19,7 @@ export function useManageBellNotificationsState(setDropdownOpen, setNavTab) {
   const { setDetailOn } = useContext(DetailOfAReminderContext);
   const { refetchSevenDaysSummary } = useContext(SevenDaysSummaryContext);
   const { setOpenTab } = useContext(ResponseFriendsContext);
+
   const [isNewNotification, setIsNewNotification] = useState(false);
   const navigate = useNavigate();
 
@@ -37,9 +39,23 @@ export function useManageBellNotificationsState(setDropdownOpen, setNavTab) {
 
   const navigateToReminderDetail = (reminderID, notificationID) => {
     setAReminder(reminderID);
+    setNavTab(NAV_TABS[0].name);
+    navigate(NAV_TABS[0].href);
     setDetailOn(true);
     setDropdownOpen(false);
     updateSeenStatusAndRefreshAReminder({
+      data: { seen: true },
+      url: getANotificationLink(`${notificationID}`),
+    });
+  };
+
+  const navigateToSharedReminderDetail = (reminderID, notificationID) => {
+    setAReminder(reminderID);
+    setNavTab(NAV_TABS[1].name);
+    navigate(NAV_TABS[1].href);
+    setDetailOn(true);
+    setDropdownOpen(false);
+    updateSeenStatusAndRefreshASharedReminder({
       data: { seen: true },
       url: getANotificationLink(`${notificationID}`),
     });
@@ -73,6 +89,7 @@ export function useManageBellNotificationsState(setDropdownOpen, setNavTab) {
     isNewNotification,
     notifications,
     navigateToReminderDetail,
+    navigateToSharedReminderDetail,
     navigateToFriends,
     openSevenDaySUmmary,
   };
