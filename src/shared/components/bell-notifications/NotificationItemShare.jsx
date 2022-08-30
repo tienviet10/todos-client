@@ -5,7 +5,6 @@ export const NotificationItemShare = ({
   notificationItem,
   navigateToSharedReminderDetail,
 }) => {
-  console.log(notificationItem);
   return (
     <div className="flex justify-between px-4 border-b hover:bg-gray-100 hover:cursor-pointer">
       <div

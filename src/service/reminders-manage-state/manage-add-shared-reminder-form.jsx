@@ -30,6 +30,10 @@ export function useManageAddSharedReminderFormState() {
   } = useRestAddCollaboratorsOnReminder();
 
   const [searchUser, setSearchUser] = useState("");
+  const [newUsersAddedToPending, setNewUsersAddedToPending] = useState({
+    add: [],
+    remove: [],
+  });
 
   //Use this hook to delay sending request to backend -> ensure user temporarily stop typing before sending request
   useEffect(() => {
@@ -54,12 +58,13 @@ export function useManageAddSharedReminderFormState() {
     setLoadingUserBackend,
   ]);
 
-  const handleDeleteTags = (removedIndex) => {
+  const handleDeleteTagOnCurrentUsers = (removedIndex) => {
     // Handle delete selected users (in editor in groupUsers in newSharedReminder)
     setNewSharedReminder((old) => {
       const newSelectedUsers = old.groupUsers.editor.filter(
         (_, index) => index !== removedIndex
       );
+
       return {
         ...old,
         groupUsers: { ...old.groupUsers, editor: newSelectedUsers },
@@ -67,24 +72,55 @@ export function useManageAddSharedReminderFormState() {
     });
   };
 
+  const handleDeleteTagOnPendingUsers = (removedIndex) => {
+    // Handle delete selected users (in editor in groupUsers in newSharedReminder)
+    let usersBeingRemove = [];
+    setNewSharedReminder((old) => {
+      const newSelectedUsers = old.pendingRequest.filter(
+        (_, index) => index !== removedIndex
+      );
+      usersBeingRemove = old.pendingRequest.filter(
+        (_, index) => index === removedIndex
+      );
+      return {
+        ...old,
+        pendingRequest: newSelectedUsers,
+      };
+    });
+
+    // Keep track of users being remove that is still in pending state
+    if (usersBeingRemove.length > 0) {
+      setNewUsersAddedToPending((old) => {
+        return { ...old, remove: [...old.remove, usersBeingRemove[0]._id] };
+      });
+    }
+  };
+
   const handleSelectUserFromSuggestion = (value) => {
     // Handle add new user -> Make sure not same user are added twice
+    let sumWithInitial = 0;
     setNewSharedReminder((old) => {
-      const sumWithInitial = old.groupUsers.editor.reduce(
-        (previousValue, currentValue) =>
-          previousValue + (currentValue._id === value._id ? 1 : 0),
-        0
-      );
+      sumWithInitial = old.groupUsers.editor
+        .concat(old.pendingRequest)
+        .reduce(
+          (previousValue, currentValue) =>
+            previousValue + (currentValue._id === value._id ? 1 : 0),
+          0
+        );
       return sumWithInitial === 0
         ? {
             ...old,
-            groupUsers: {
-              ...old.groupUsers,
-              editor: old.groupUsers.editor.concat([value]),
-            },
+            pendingRequest: old.pendingRequest.concat(value),
           }
         : old;
     });
+
+    // When adding new users to pending list, keep track of the new users so that backend can send notifications to them
+    if (sumWithInitial === 0) {
+      setNewUsersAddedToPending((old) => {
+        return { ...old, add: [...old.add, value._id] };
+      });
+    }
 
     setFilteredData([]);
     setSearchUser("");
@@ -115,18 +151,13 @@ export function useManageAddSharedReminderFormState() {
   // For adding users, add the final list of users without the main or owner user since that would be added to the list on server
   // For the editing/updating, add the new list in newSharedReminder.groupUsers.editor to users
   const saveOrAddReminder = () => {
-    const finalListChosen = newSharedReminder.groupUsers.editor.map(
+    const finalListChosen = newSharedReminder.pendingRequest.map(
       (users) => users._id
     );
     if (newSharedReminder._id === "") {
       const reminderContentToAdd = {
         ...newSharedReminder,
-        users: finalListChosen,
-        groupUsers: {
-          admin: [],
-          editor: finalListChosen,
-          viewer: [],
-        },
+        pendingRequest: finalListChosen,
       };
       delete reminderContentToAdd._id;
 
@@ -135,12 +166,14 @@ export function useManageAddSharedReminderFormState() {
         url: sharedRemindersGeneralLink(),
       });
     } else {
+      // newUsersAddedToPending keep track new users being added or delete when editing a shared reminder
       updateSharedRecord({
         from: "current",
         url: sharedReminderWithIDLink(newSharedReminder._id),
         data: {
           ...newSharedReminder,
-          users: finalListChosen.concat(newSharedReminder.groupUsers.admin),
+          pendingRequest: finalListChosen,
+          newUsersAddedToPending,
         },
       });
     }
@@ -155,7 +188,8 @@ export function useManageAddSharedReminderFormState() {
     setReminderDate,
     saveOrAddReminder,
     searchUser,
-    handleDeleteTags,
+    handleDeleteTagOnCurrentUsers,
+    handleDeleteTagOnPendingUsers,
     setSearchUser,
     loadingUserBackend,
     filteredData,
@@ -164,6 +198,19 @@ export function useManageAddSharedReminderFormState() {
 }
 
 //////-----------------------------------------------------------------
+
+// import { useContext, useEffect, useState } from "react";
+// import { CREATE_EMPTY_SHARED_REMINDER } from "../../shared/constant/config";
+// import {
+//   getSuggestedCollaboratorsLink,
+//   sharedRemindersGeneralLink,
+//   sharedReminderWithIDLink,
+// } from "../../shared/service-link/url-link";
+// import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
+// import { ReminderModalContext } from "../context/ReminderModalContext";
+// import { useRestAddCollaboratorsOnReminder } from "../reminders-manage-request/add-collaborators-shared-reminder";
+
+// const createEmptySharedReminder = CREATE_EMPTY_SHARED_REMINDER;
 
 // export function useManageAddSharedReminderFormState() {
 //   //Send reminder to backend to save or edit reminder
@@ -184,34 +231,62 @@ export function useManageAddSharedReminderFormState() {
 //   } = useRestAddCollaboratorsOnReminder();
 
 //   const [searchUser, setSearchUser] = useState("");
-//   const [selectedUser, setSelectedUser] = useState([]);
 
-//   const handleSearchTermToBackend = (user) => {
-//     setSearchUser(user);
-//     if (user !== "") {
+//   //Use this hook to delay sending request to backend -> ensure user temporarily stop typing before sending request
+//   useEffect(() => {
+//     if (searchUser !== "") {
 //       setLoadingUserBackend(true);
 //       const delayDebounceFn = setTimeout(() => {
 //         getSearchedCollaborators({
 //           url: getSuggestedCollaboratorsLink(),
-//           data: { searchUsers: user },
+//           data: { searchUser },
 //         });
-//       }, 1000);
+//         setLoadingUserBackend(false);
+//       }, 800);
 //       return () => clearTimeout(delayDebounceFn);
 //     } else {
-
 //       setFilteredData([]);
 //       setLoadingUserBackend(false);
 //     }
-//   };
+//   }, [
+//     searchUser,
+//     getSearchedCollaborators,
+//     setFilteredData,
+//     setLoadingUserBackend,
+//   ]);
 
 //   const handleDeleteTags = (removedIndex) => {
-//     setSelectedUser([
-//       ...selectedUser.filter((_, index) => index !== removedIndex),
-//     ]);
+//     // Handle delete selected users (in editor in groupUsers in newSharedReminder)
+//     setNewSharedReminder((old) => {
+//       const newSelectedUsers = old.groupUsers.editor.filter(
+//         (_, index) => index !== removedIndex
+//       );
+//       return {
+//         ...old,
+//         groupUsers: { ...old.groupUsers, editor: newSelectedUsers },
+//       };
+//     });
 //   };
 
 //   const handleSelectUserFromSuggestion = (value) => {
-//     setSelectedUser((old) => [...old, value]);
+//     // Handle add new user -> Make sure not same user are added twice
+//     setNewSharedReminder((old) => {
+//       const sumWithInitial = old.groupUsers.editor.reduce(
+//         (previousValue, currentValue) =>
+//           previousValue + (currentValue._id === value._id ? 1 : 0),
+//         0
+//       );
+//       return sumWithInitial === 0
+//         ? {
+//             ...old,
+//             groupUsers: {
+//               ...old.groupUsers,
+//               editor: old.groupUsers.editor.concat([value]),
+//             },
+//           }
+//         : old;
+//     });
+
 //     setFilteredData([]);
 //     setSearchUser("");
 //   };
@@ -237,10 +312,22 @@ export function useManageAddSharedReminderFormState() {
 //     });
 //   };
 
+//   // newSharedReminder.groupUsers.editor is a list of map that needs to be converted to a list of users ID to save to the backend.
+//   // For adding users, add the final list of users without the main or owner user since that would be added to the list on server
+//   // For the editing/updating, add the new list in newSharedReminder.groupUsers.editor to users
 //   const saveOrAddReminder = () => {
+//     const finalListChosen = newSharedReminder.groupUsers.editor.map(
+//       (users) => users._id
+//     );
 //     if (newSharedReminder._id === "") {
 //       const reminderContentToAdd = {
 //         ...newSharedReminder,
+//         users: finalListChosen,
+//         groupUsers: {
+//           admin: [],
+//           editor: finalListChosen,
+//           viewer: [],
+//         },
 //       };
 //       delete reminderContentToAdd._id;
 
@@ -252,7 +339,10 @@ export function useManageAddSharedReminderFormState() {
 //       updateSharedRecord({
 //         from: "current",
 //         url: sharedReminderWithIDLink(newSharedReminder._id),
-//         data: newSharedReminder,
+//         data: {
+//           ...newSharedReminder,
+//           users: finalListChosen.concat(newSharedReminder.groupUsers.admin),
+//         },
 //       });
 //     }
 //     setNewSharedReminder(createEmptySharedReminder);
@@ -265,13 +355,12 @@ export function useManageAddSharedReminderFormState() {
 //     handleChange,
 //     setReminderDate,
 //     saveOrAddReminder,
-//     selectedUser,
 //     searchUser,
 //     handleDeleteTags,
+//     setSearchUser,
 //     loadingUserBackend,
 //     filteredData,
 //     handleSelectUserFromSuggestion,
-//     handleSearchTermToBackend,
 //   };
 // }
 

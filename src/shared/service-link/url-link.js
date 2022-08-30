@@ -99,3 +99,11 @@ export const pendingFriendsLink = () => {
 export const getSuggestedCollaboratorsLink = () => {
   return "/v1/suggested-friends";
 };
+
+export const acceptJoinedSharedReminderLink = (notificationID) => {
+  return `/v1/join-shared-reminders/${notificationID}`;
+};
+
+export const declineJoinedSharedReminderLink = (notificationID) => {
+  return `/v1/decline-shared-reminders/${notificationID}`;
+};

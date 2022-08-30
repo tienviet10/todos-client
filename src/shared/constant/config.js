@@ -56,6 +56,7 @@ export const CREATE_EMPTY_SHARED_REMINDER = {
   location: Intl.DateTimeFormat().resolvedOptions().timeZone,
   groupUsers: { admin: [], editor: [], viewer: [] },
   users: [],
+  pendingRequest: [],
 };
 export const NAV_TABS = [
   { name: "reminder", href: "/personal-reminders", displayName: "Reminder" },

@@ -4,7 +4,7 @@ import { REMINDER_STATUS } from "../../shared/constant/config";
 import {
   getActiveSharedRemindersLink,
   pastSharedRemindersLink,
-  updateMultipleRemindersLink,
+  updateMultipleSharedRemindersLink,
 } from "../../shared/service-link/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
 import {
@@ -113,7 +113,7 @@ export function useRestOperationSharedReminder() {
         }
         if (updateRepeatReminders.length > 0) {
           updateMultipleRecords({
-            url: updateMultipleRemindersLink(),
+            url: updateMultipleSharedRemindersLink(),
             data: updateRepeatReminders,
           });
         }

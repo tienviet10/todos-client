@@ -15,15 +15,23 @@ export const ReminderFormShared = () => {
     setReminderDate,
     saveOrAddReminder,
     searchUser,
-    handleDeleteTags,
+    handleDeleteTagOnCurrentUsers,
+    handleDeleteTagOnPendingUsers,
     setSearchUser,
     loadingUserBackend,
     filteredData,
     handleSelectUserFromSuggestion,
   } = useManageAddSharedReminderFormState();
 
-  const { title, description, _id, remindedAt, repeat, groupUsers } =
-    newSharedReminder;
+  const {
+    title,
+    description,
+    _id,
+    remindedAt,
+    repeat,
+    groupUsers,
+    pendingRequest,
+  } = newSharedReminder;
 
   return (
     <>
@@ -41,7 +49,9 @@ export const ReminderFormShared = () => {
           <AddCollaborators
             _id={_id}
             users={groupUsers.editor}
-            handleDeleteTags={handleDeleteTags}
+            pendingRequest={pendingRequest}
+            handleDeleteTagOnCurrentUsers={handleDeleteTagOnCurrentUsers}
+            handleDeleteTagOnPendingUsers={handleDeleteTagOnPendingUsers}
             searchUser={searchUser}
             loadingUserBackend={loadingUserBackend}
             filteredData={filteredData}

@@ -1,10 +1,11 @@
 import React from "react";
-import { AiFillDelete } from "react-icons/ai";
 import { LabelText } from "../../../../shared/components/LabelText";
 import LoadSpinnerOnly from "../../../../shared/components/loading-spinner/LoadSpinnerOnly";
+import { LiSelectedUsersComponent } from "../sub-components/LiSelectedUsersComponent";
 
 export const AddCollaborators = ({
-  handleDeleteTags,
+  handleDeleteTagOnCurrentUsers,
+  handleDeleteTagOnPendingUsers,
   searchUser,
   setSearchUser,
   loadingUserBackend,
@@ -12,6 +13,7 @@ export const AddCollaborators = ({
   handleSelectUserFromSuggestion,
   users,
   _id,
+  pendingRequest,
 }) => {
   return (
     <div className="relative px-12 mt-3">
@@ -21,18 +23,22 @@ export const AddCollaborators = ({
           <LabelText text="Add user(s):" />
           <ul className="flex overflow-hidden overflow-x-auto p-0 ml-2 text-xs my-auto">
             {users.map((selectedUser, index) => (
-              <li
+              <LiSelectedUsersComponent
                 key={index}
-                className="flex flex-shrink-0 w-auto h-[22px] items-center justify-center text-white rounded-md mr-3 bg-application-color"
-              >
-                <div className="px-2">{selectedUser.username}</div>
-                <div
-                  className="flex h-[22px] hover:cursor-pointer rounded-r-md bg-red-400 px-1"
-                  onClick={() => handleDeleteTags(index)}
-                >
-                  <AiFillDelete size={15} className="my-auto" />
-                </div>
-              </li>
+                indexToDelete={index}
+                username={selectedUser.username}
+                handleDeleteTags={handleDeleteTagOnCurrentUsers}
+                color="bg-application-color"
+              />
+            ))}
+            {pendingRequest.map((selectedUser, index) => (
+              <LiSelectedUsersComponent
+                key={index}
+                indexToDelete={index}
+                username={selectedUser.username}
+                handleDeleteTags={handleDeleteTagOnPendingUsers}
+                color="bg-indigo-300"
+              />
             ))}
           </ul>
         </div>

@@ -4,6 +4,7 @@ import { classNames } from "../color-picker/color-choice";
 import { NotificationItemFriendRequest } from "./NotificationItemFriendRequest";
 import { NotificationItemPersonal } from "./NotificationItemPersonal";
 import { NotificationItemShare } from "./NotificationItemShare";
+import { NotificationItemSharedReminderPending } from "./NotificationItemSharedReminderPending";
 
 export const BellNotification = ({
   dropdownOpen,
@@ -18,7 +19,7 @@ export const BellNotification = ({
     openSevenDaySUmmary,
     navigateToFriends,
   } = useManageBellNotificationsState(setDropdownOpen, setNavTab);
-
+  //console.log(notifications);
   return (
     <div className="justify-center">
       <div className="relative">
@@ -64,6 +65,14 @@ export const BellNotification = ({
                         navigateToSharedReminderDetail
                       }
                       notificationItem={notificationItem}
+                    />
+                  ) : notificationItem.reminderTypes ===
+                    "sharedReminderRequest" ? (
+                    // Normal reminder notification
+                    <NotificationItemSharedReminderPending
+                      key={notificationItem._id}
+                      notificationItem={notificationItem}
+                      navigateToFriends={navigateToFriends}
                     />
                   ) : (
                     // Friend request in notification
