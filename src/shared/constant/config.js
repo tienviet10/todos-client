@@ -1,4 +1,4 @@
-export const API = process.env.API_LINK;
+export const API = process.env.REACT_APP_API_LINK;
 export const DOMAIN = "https://remeapp.netlify.app";
 export const MAIN_PAGE_EXAMPLE = [
   {
