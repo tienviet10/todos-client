@@ -1,5 +1,6 @@
-export const API = "http://localhost:8000/api";
-export const DOMAIN = "http://localhost:3000";
+//export const API = "http://localhost:8000/api";
+export const API = "https://reme.fly.dev/api";
+export const DOMAIN = "https://remeapp.netlify.app";
 export const MAIN_PAGE_EXAMPLE = [
   {
     _id: "1",
