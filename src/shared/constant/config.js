@@ -1,5 +1,4 @@
-//export const API = "http://localhost:8000/api";
-export const API = "https://reme.fly.dev/api";
+export const API = process.env.API_LINK;
 export const DOMAIN = "https://remeapp.netlify.app";
 export const MAIN_PAGE_EXAMPLE = [
   {
