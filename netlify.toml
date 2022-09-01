@@ -1,4 +1,5 @@
 [[redirects]]
-  from = "/*"
-  to = "/"
+  from = "https://remeapp.netlify.app/*"
+  to = "https://remeapp.netlify.app/"
   status = 404
+  force = true
