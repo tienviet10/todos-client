@@ -12,12 +12,11 @@
 <p align="center">
   <a href="#key-features">Tech Stack & Features</a> •
   <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
+  <a href="#building">Building</a> •
 </p>
 
 <h1 align="center">
-  <br>
-  <a href=""><img src="https://user-images.githubusercontent.com/70352144/191377282-3343d64d-5aaa-49ca-80f1-89be42c069d6.gif" alt="Application" ></a>
+  <a href=""><img src="https://user-images.githubusercontent.com/70352144/191378535-68036f59-8a9a-4d27-b4a0-165614571996.gif" alt="Application" ></a>
 </h1>
 
 ## Tech Stack & Features
@@ -28,17 +27,31 @@
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-```bash
-# Clone this repository
+1. Create a folder and clone this repository
+
+```sh
 $ git clone https://github.com/amitmerchant1990/electron-markdownify
+```
 
-# Go into the repository
-$ cd electron-markdownify
+2. Run the application
 
-# Install dependencies
+```sh
+$ cd todos-client
+```
+
+3. Install dependencies
+
+```sh
 $ npm install
+```
 
-# Run the app
+4. Run the application
+
+```sh
 $ npm start
 ```
+
+## Building
+
+Run 'npm run build' and use the newly created 'build' folder for deployment.
 
