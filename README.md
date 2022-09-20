@@ -15,10 +15,10 @@
   <a href="#download">Download</a> •
 </p>
 
-<p align="center">
-  ![screenshot](https://user-images.githubusercontent.com/70352144/191377282-3343d64d-5aaa-49ca-80f1-89be42c069d6.gif)
-</p>
-
+<h1 align="center">
+  <br>
+  <a href=""><img src="https://user-images.githubusercontent.com/70352144/191377282-3343d64d-5aaa-49ca-80f1-89be42c069d6.gif" alt="Application" ></a>
+</h1>
 
 ## Tech Stack & Features
 
