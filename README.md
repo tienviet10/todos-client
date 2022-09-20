@@ -15,9 +15,8 @@
   <a href="#building">Building</a> •
 </p>
 
-<h1 align="center">
-  <a href=""><img src="https://user-images.githubusercontent.com/70352144/191378535-68036f59-8a9a-4d27-b4a0-165614571996.gif" alt="Application" ></a>
-</h1>
+
+![screenshot](https://user-images.githubusercontent.com/70352144/191378535-68036f59-8a9a-4d27-b4a0-165614571996.gif)
 
 ## Tech Stack & Features
 
