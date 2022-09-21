@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-<h4 align="center">A simple reminder for personal or group use.</h4>
+<h4 align="center">A simple reminder application for personal or group use. This frontend application is written in [React.js](https://reactjs.org/) and deployed automatically on merges to master via Netlify. The backend made in Node.js ([Express.js](https://expressjs.com/)) can be access at [link](https://github.com/tienviet10/todos-server)</h4>
 
 <p align="center">
   <a href="#key-features">Tech Stack & Features</a> •
@@ -15,14 +15,19 @@
   <a href="#building">Building</a> •
 </p>
 
-
 <div align="center">
   <a href=""><img src="https://user-images.githubusercontent.com/70352144/191378535-68036f59-8a9a-4d27-b4a0-165614571996.gif" alt="Application" ></a>
 </div>
 
 ## Tech Stack & Features
 
-
+* React.js
+* [Tailwind](https://tailwindcss.com/) for design/styling and [HeadlessUI](https://headlessui.com) for some custom components
+* [React Router](https://reactrouter.com/) for routing
+* Managing data requests using [React Query](https://react-query-v3.tanstack.com)
+* [React Icons](https://react-icons.github.io/react-icons/) for icons
+* [Datetime Picker](https://github.com/wojtekmaj/react-datetime-picker#readme) for choosing date and time for reminders
+* Google Calendar intergration using OAuth 2.0 protocol
 
 ## How To Use
 
