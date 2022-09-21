@@ -13,7 +13,7 @@
   <a href="#key-features">Tech Stack & Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#building">Building</a> •
-  <a href="#terminologies">Terminologies</a> •
+  <a href="#usage">Usage</a> •
 </p>
 
 <div align="center">
@@ -62,7 +62,13 @@ $ npm start
 
 Run 'npm run build' and use the newly created 'build' folder for deployment.
 
-## Terminologies
+## Usage
+
+**Reminder**: Reminder tab let you add, view, or change the details of your personal reminder. You can link the personal reminders to your Google Calendar by signing in your google account in Profile. 
+
+**Shared Reminder**: Share tab let you create, view, or change a shared reminder with a group of users. Users must be added to your friend list before adding to the shared reminder.
+
+**Seven Days Summary**: In notification, seven days summary displays the summary of today reminders as well as this week reminders.
 
 
 ## TODO
