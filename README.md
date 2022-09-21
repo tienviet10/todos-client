@@ -14,6 +14,7 @@
   <a href="#how-to-use">How To Use</a> •
   <a href="#building">Building</a> •
   <a href="#usage">Usage</a> •
+  <a href="#todo">TODO</a> •
 </p>
 
 <div align="center">
