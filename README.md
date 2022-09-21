@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-<h4 align="center">A simple reminder application for personal or group use. This frontend application is written in [React.js](https://reactjs.org/) and deployed automatically on merges to master via Netlify. The backend made in Node.js ([Express.js](https://expressjs.com/)) can be access at [link](https://github.com/tienviet10/todos-server)</h4>
+<h4 align="center">A simple reminder application for personal or group use. This frontend application is written in <a href="https://reactjs.org/">React.js</a> and deployed automatically on merges to master via Netlify. The backend made in Node.js (<a href="[#key-features](https://expressjs.com/)">Express.js</a>) can be access at this <a href="https://github.com/tienviet10/todos-server">link.</a></h4>
 
 <p align="center">
   <a href="#key-features">Tech Stack & Features</a> •
