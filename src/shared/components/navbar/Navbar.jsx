@@ -51,7 +51,7 @@ const Navbar = ({ setNavTab, user, selectedNavTab }) => {
                 <div className="flex-shrink-0 flex items-center">
                   <img
                     className="hidden sm:block h-8 sm:w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                    src="/logo.svg"
                     alt="ReMe"
                   />
                   <h1
