@@ -66,6 +66,8 @@ Run 'npm run build' and use the newly created 'build' folder for deployment.
 
 **Reminder**: Reminder tab let you add, view, or change the details of your personal reminder. You can link the personal reminders to your Google Calendar by signing in your google account in Profile. 
 
+**Favorite**: All the favorite reminders will be displayed at the top of the page. 
+
 **Shared Reminder**: Share tab let you create, view, or change a shared reminder with a group of users. Users must be added to your friend list before adding to the shared reminder.
 
 **Seven Days Summary**: In notification, seven days summary displays the summary of today reminders as well as this week reminders.
@@ -73,6 +75,6 @@ Run 'npm run build' and use the newly created 'build' folder for deployment.
 
 ## TODO
 
-* Complete routine start and update features
+* Choose what personal reminders can be added to your Google Calendar
 * Internationalize all text
 * Increase performance on load
