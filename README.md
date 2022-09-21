@@ -13,6 +13,7 @@
   <a href="#key-features">Tech Stack & Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#building">Building</a> •
+  <a href="#terminologies">Terminologies</a> •
 </p>
 
 <div align="center">
@@ -39,7 +40,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 $ git clone https://github.com/amitmerchant1990/electron-markdownify
 ```
 
-2. Run the application
+2. Move to the correct directory
 
 ```sh
 $ cd todos-client
@@ -61,3 +62,11 @@ $ npm start
 
 Run 'npm run build' and use the newly created 'build' folder for deployment.
 
+## Terminologies
+
+
+## TODO
+
+* Complete routine start and update features
+* Internationalize all text
+* Increase performance on load
