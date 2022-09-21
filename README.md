@@ -1,70 +1,81 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+  <br>
+  <a href="http://remeapp.netlify.app"><img src="https://user-images.githubusercontent.com/70352144/191369786-648bd405-70c2-47ca-bc43-529ae7bb7b62.png" alt="ReMe" width="200"></a>
+  <br>
+  RemindMe - ReMe
+  <br>
+</h1>
 
-## Available Scripts
+<h4 align="center">A simple reminder application for personal or group use. This frontend application is written in <a href="https://reactjs.org/">React.js</a> and deployed automatically on merges to master via Netlify. The backend made in Node.js (<a href="https://expressjs.com/">Express.js</a>) can be access at this <a href="https://github.com/tienviet10/todos-server">link.</a></h4>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="#key-features">Tech Stack & Features</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#building">Building</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#todo">TODO</a> •
+</p>
 
-### `npm start`
+<div align="center">
+  <a href=""><img src="https://user-images.githubusercontent.com/70352144/191378535-68036f59-8a9a-4d27-b4a0-165614571996.gif" alt="Application" ></a>
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack & Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* React.js
+* [Tailwind](https://tailwindcss.com/) for design/styling and [HeadlessUI](https://headlessui.com) for some custom components
+* [React Router](https://reactrouter.com/) for routing
+* Managing data requests using [React Query](https://react-query-v3.tanstack.com)
+* [React Icons](https://react-icons.github.io/react-icons/) for icons
+* [Datetime Picker](https://github.com/wojtekmaj/react-datetime-picker#readme) for choosing date and time for reminders
+* Google Calendar intergration using OAuth 2.0 protocol
 
-### `npm test`
+## How To Use
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-### `npm run build`
+1. Create a folder and clone this repository
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+$ git clone https://github.com/amitmerchant1990/electron-markdownify
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Move to the correct directory
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+$ cd todos-client
+```
 
-### `npm run eject`
+3. Install dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+$ npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Run the application
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+$ npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Building
 
-## Learn More
+Run 'npm run build' and use the newly created 'build' folder for deployment.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Reminder**: Reminder tab let you add, view, or change the details of your personal reminder. You can link the personal reminders to your Google Calendar by signing in your google account in Profile. 
 
-### Code Splitting
+**Favorite**: All the favorite reminders will be displayed at the top of the page. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Shared Reminder**: Share tab let you create, view, or change a shared reminder with a group of users. Users must be added to your friend list before adding to the shared reminder.
 
-### Analyzing the Bundle Size
+**Seven Days Summary**: In notification, seven days summary displays the summary of today reminders as well as this week reminders.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## TODO
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Choose what personal reminders can be added to your Google Calendar
+* Internationalize all text
+* Increase performance on load
