@@ -38,7 +38,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 1. Create a folder and clone this repository
 
 ```sh
-$ git clone https://github.com/amitmerchant1990/electron-markdownify
+$ git clone https://github.com/tienviet10/todos-client.git
 ```
 
 2. Move to the correct directory
