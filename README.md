@@ -52,12 +52,20 @@ $ cd todos-client
 ```sh
 $ npm install
 ```
+4. Fill out all variables in .env file. Follow the Google Calendar Integration instructions below to obtain the necessary keys.
 
-4. Run the application
+5. Run the application
 
 ```sh
 $ npm start
 ```
+
+**Google Calendar Integration**
+
+1. Sign up and log into [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a project
+3. Create Credentials for Google Calendar API. Copy the API key and paste to the REACT_APP_API_KEY in .env file. 
+4. Create Credentials for OAuth 2.0 Client IDs if you have not generated one. Copy the Client ID to REACT_APP_CLIENT_ID variable in .env file.
 
 ## Building
 
