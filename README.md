@@ -13,6 +13,7 @@
   <a href="#key-features">Tech Stack & Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#building">Building</a> •
+  <a href="#development">Development</a> •
   <a href="#usage">Usage</a> •
   <a href="#todo">TODO</a>
 </p>
@@ -70,6 +71,13 @@ $ npm start
 ## Building
 
 Run 'npm run build' and use the newly created 'build' folder for deployment.
+
+## Development
+
+Install:
+- Prettier
+- ESLint
+- Enable "format on save"
 
 ## Usage
 
