@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-<h4 align="center">A simple reminder application for personal or group use. This frontend application is written in <a href="https://reactjs.org/">React.js</a> and deployed automatically on merges to master via Netlify. The backend made in Node.js (<a href="https://expressjs.com/">Express.js</a>) can be access at this <a href="https://github.com/tienviet10/todos-server">link.</a></h4>
+<h4 align="center">A simple reminder application for personal or group use. This frontend application is written in <a href="https://reactjs.org/">React.js</a> and deployed automatically on merges to master via Netlify. The backend, made in Node.js (<a href="https://expressjs.com/">Express.js</a>), can be accessed at this <a href="https://github.com/tienviet10/todos-server">link.</a></h4>
 
 <p align="center">
   <a href="#key-features">Tech Stack & Features</a> •
@@ -25,7 +25,7 @@
 ## Tech Stack & Features
 
 * React.js
-* [Tailwind](https://tailwindcss.com/) for design/styling and [HeadlessUI](https://headlessui.com) for some custom components
+* [Tailwind](https://tailwindcss.com/) for design/styling
 * [React Router](https://reactrouter.com/) for routing
 * Managing data requests using [React Query](https://react-query-v3.tanstack.com)
 * [React Icons](https://react-icons.github.io/react-icons/) for icons
@@ -36,7 +36,7 @@
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-1. Create a folder and clone this repository
+1. Clone the repository
 
 ```sh
 $ git clone https://github.com/tienviet10/todos-client.git
@@ -81,13 +81,13 @@ Install:
 
 ## Usage
 
-**Reminder**: Reminder tab let you add, view, or change the details of your personal reminder. You can link the personal reminders to your Google Calendar by signing in your google account in Profile. 
+**Reminder**: Reminder tab lets you add, view, or change the details of your personal reminder. You can link the personal reminders to your Google Calendar by signing into your Google account in Profile. 
 
 **Favorite**: All the favorite reminders will be displayed at the top of the page. 
 
-**Shared Reminder**: Share tab let you create, view, or change a shared reminder with a group of users. Users must be added to your friend list before adding to the shared reminder.
+**Shared Reminder**: Share tab lets you create, view, or change a shared reminder with a group of users. Users must be added to your friends list before they can be added to a shared reminder.
 
-**Seven Days Summary**: In notification, seven days summary displays the summary of today reminders as well as this week reminders.
+**Seven Days Summary**: In the notification section, seven days summary displays the summary of today’s reminders as well as this week’s reminders.
 
 
 ## TODO
