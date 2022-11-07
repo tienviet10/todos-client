@@ -27,12 +27,12 @@ export const Login = () => {
   } = useLogIn();
 
   return (
-    <div className="grid place-items-center h-screen">
+    <div className="grid place-items-center h-screen bg-[#081730]">
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <img className="mx-auto h-12 w-auto" src="/logo.svg" alt="ReMe" />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
               Sign in to your account
             </h2>
           </div>
@@ -70,11 +70,11 @@ export const Login = () => {
                   value={password}
                   autoComplete="current-password"
                   required
-                  className="flex-shrink flex-grow flex-auto px-3 py-2 outline-none rounded-b-md placeholder-gray-500 text-gray-900 sm:text-sm"
+                  className="flex-shrink flex-grow flex-auto px-3 py-2 outline-none rounded-bl-md placeholder-gray-500 text-gray-900 sm:text-sm"
                   placeholder="Password"
                   onChange={handleChange("password")}
                 />
-                <div className="flex bg-white">
+                <div className="flex bg-white rounded-br-md">
                   <span className="flex items-center text-2xl mr-1">
                     {open === false ? (
                       <AiFillEye onClick={toggle} />

@@ -21,12 +21,12 @@ export const Registration = () => {
   } = useManageRegistrationState();
 
   return (
-    <div className="grid place-items-center h-screen">
+    <div className="grid place-items-center h-screen bg-[#081730]">
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <img className="mx-auto h-12 w-auto" src="/logo.svg" alt="ReMe" />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
               Register new account
             </h2>
           </div>
@@ -34,7 +34,7 @@ export const Registration = () => {
           {error && <Error error={error} />}
           {success && <Success success="Your Registration is successful" />}
           <form
-            className="mt-8 space-y-6"
+            className="mt-8 space-y-8"
             method="POST"
             onSubmit={(e) => register(e)}
           >
@@ -50,7 +50,7 @@ export const Registration = () => {
                   value={username}
                   type="text"
                   required
-                  className="relative appearance-none rounded-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="relative appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Username"
                   onChange={handleChange("username")}
                 />
@@ -66,7 +66,7 @@ export const Registration = () => {
                   value={email}
                   autoComplete="email"
                   required
-                  className="relative appearance-none rounded-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="relative appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                   onChange={handleChange("email")}
                 />
@@ -81,7 +81,7 @@ export const Registration = () => {
                   type="password"
                   value={password}
                   required
-                  className="relative appearance-none rounded-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="relative appearance-none rounded-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                   onChange={handleChange("password")}
                 />

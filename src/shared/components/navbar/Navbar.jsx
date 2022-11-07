@@ -26,7 +26,7 @@ const Navbar = ({ setNavTab, user, selectedNavTab }) => {
   } = useManageNavbarState(setNavTab);
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-[#020917]">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -96,7 +96,7 @@ const Navbar = ({ setNavTab, user, selectedNavTab }) => {
                       <Link
                         key="home"
                         to="/"
-                        className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                        className="bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
                         Home
                       </Link>
@@ -235,7 +235,7 @@ const Navbar = ({ setNavTab, user, selectedNavTab }) => {
               ) : (
                 <Disclosure.Button
                   key="home"
-                  className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => navigate("/")}
                 >
                   Home

@@ -28,7 +28,7 @@ export const BellNotification = ({
           className={classNames(
             dropdownOpen
               ? "bg-white focus:outline-none"
-              : "hover:bg-gray-700 hover:text-white",
+              : "hover:bg-gray-600 hover:text-white",
             "relative z-10 block rounded-md p-1"
           )}
         >
