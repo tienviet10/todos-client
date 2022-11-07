@@ -36,10 +36,10 @@ export const ReminderFormShared = () => {
   return (
     <>
       <div className="fixed inset-0 flex justify-center items-center overflow-x-hidden overflow-y-auto  mx-4 outline-none focus:outline-none z-50">
-        <div className="relative flex flex-col my-6 mx-auto max-w-[800px] border-0 rounded-lg shadow-lg w-full bg-white outline-none sm:w-[60%] focus:outline-none">
+        <div className="relative flex flex-col my-6 mx-auto max-w-[800px] border-0 rounded-lg shadow-lg w-full bg-[#1b3663] outline-none sm:w-[60%] focus:outline-none">
           {/* Close reminder */}
           <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-            <h3 className="text-2xl font-semibold">
+            <h3 className="text-2xl font-semibold text-white">
               {_id ? "Edit Shared Reminder" : "New Shared Reminder"}
             </h3>
             <CloseButton takeAction={() => exitTheForm()} />

@@ -27,10 +27,6 @@ const Benefits = () => {
               ReMe adds the tasks directly to your Google Calendar if you sign
               in with Google.
             </span>
-
-            {/* <span className="text-[#E600FF] underline mt-[3rem] hover:cursor-pointer">
-            Learn more
-          </span> */}
           </div>
           <div className="feature flex items-center justify-center flex-col relative text-center mx-12 mt-[3rem] sm:mt-0">
             {/* icon */}
@@ -44,10 +40,6 @@ const Benefits = () => {
               Working as a group? No problem! Add tasks and invite friends to
               join the reminder.
             </span>
-
-            {/* <span className="text-[#E600FF] underline mt-[3rem] hover:cursor-pointer">
-            Learn more
-          </span> */}
           </div>
           <div className="feature flex items-center justify-center flex-col relative text-center mx-12 mt-[3rem] sm:mt-0">
             {/* icon */}
@@ -61,10 +53,6 @@ const Benefits = () => {
               Add a groceries list or a secrete santa list to share with your
               family members!
             </span>
-
-            {/* <span className="text-[#E600FF] underline mt-[3rem] hover:cursor-pointer">
-            Learn more
-          </span> */}
           </div>
         </div>
       </div>

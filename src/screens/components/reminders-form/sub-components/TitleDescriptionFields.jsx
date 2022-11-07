@@ -12,7 +12,7 @@ export const TitleDescriptionFields = ({
       <LabelText text="Title:" />
       <input
         autoFocus={_id ? true : false}
-        className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 mt-1 mb-3"
+        className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-white mt-1 mb-3 bg-[#1b3663]"
         name="title"
         value={title}
         placeholder="Shopping List, etc."
@@ -23,7 +23,7 @@ export const TitleDescriptionFields = ({
       <textarea
         value={description}
         rows={5}
-        className="border-solid border-gray-300 border p-2 w-full rounded text-gray-700 resize-none mt-1"
+        className="border-solid border-gray-300 border p-2 w-full rounded text-white resize-none mt-1 bg-[#1b3663]"
         name="description"
         onChange={handleChange("description")}
       />

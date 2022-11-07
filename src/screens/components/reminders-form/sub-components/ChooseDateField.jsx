@@ -4,9 +4,10 @@ import { LabelText } from "../../../../shared/components/LabelText";
 
 export const ChooseDateField = ({ setReminderDate, remindedAt }) => {
   return (
-    <div className="flex flex-col px-12 text-gray-600 font-medium mt-3">
+    <div className="flex flex-col px-12 text-white font-medium mt-3">
       <LabelText text="Remind At:" />
       <DateTimePicker
+        calendarClassName="bg-black"
         className="z-8 mt-1"
         disableClock
         minDate={new Date()}

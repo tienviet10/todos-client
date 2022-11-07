@@ -6,7 +6,7 @@ export const RepeatField = ({ repeat, handleChange }) => {
     <div className="block px-12 mb-5 py-2 mt-2">
       <LabelText text="Repeated:" />
       <select
-        className="ml-2"
+        className="ml-2 bg-[#1b3663] text-white"
         id="repeat"
         value={repeat}
         onChange={handleChange("repeat")}

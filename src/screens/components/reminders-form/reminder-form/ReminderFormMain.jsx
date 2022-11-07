@@ -21,10 +21,10 @@ export const ReminderFormMain = () => {
   return (
     <>
       <div className="fixed inset-0 flex justify-center items-center overflow-x-hidden overflow-y-auto mx-4 outline-none focus:outline-none z-50">
-        <div className="relative flex flex-col my-6 mx-auto max-w-[800px] sm:w-[60%] border-0 rounded-lg shadow-lg w-full bg-white outline-none focus:outline-none">
+        <div className="relative flex flex-col my-6 mx-auto max-w-[800px] sm:w-[60%] border-0 rounded-lg shadow-lg w-full bg-[#1b3663] outline-none focus:outline-none">
           {/* Close reminder */}
           <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-            <h3 className="text-2xl font-semibold">
+            <h3 className="text-2xl font-semibold text-white">
               {_id ? "Edit Reminder" : "New Reminder"}
             </h3>
             <CloseButton takeAction={() => exitTheForm()} />
@@ -35,7 +35,7 @@ export const ReminderFormMain = () => {
             <LabelText text="Title:" />
             <div className="flex mb-3">
               <input
-                className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700"
+                className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-white bg-[#1b3663]"
                 name="title"
                 value={title}
                 placeholder="Shopping List, etc."
@@ -46,12 +46,14 @@ export const ReminderFormMain = () => {
                 <AiFillStar
                   className="hover:cursor-pointer float-right mr-[-1%] my-auto"
                   size={25}
+                  color="#ffffff"
                   onClick={() => handleFavoriteChange()}
                 />
               ) : (
                 <AiOutlineStar
                   className="hover:cursor-pointer float-right mr-[-1%] my-auto"
                   size={25}
+                  color="#ffffff"
                   onClick={() => handleFavoriteChange()}
                 />
               )}
@@ -61,7 +63,7 @@ export const ReminderFormMain = () => {
             <textarea
               value={description}
               rows={5}
-              className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-gray-700 resize-none"
+              className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-white resize-none bg-[#1b3663]"
               name="description"
               onChange={handleChange("description")}
             />

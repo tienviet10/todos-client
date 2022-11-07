@@ -51,7 +51,7 @@ export const AddCollaborators = ({
             placeholder="Username or Email"
             value={searchUser}
             onChange={(e) => setSearchUser(e.target.value)}
-            className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
+            className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-white bg-[#1b3663]"
           />
           {loadingUserBackend && (
             <div className="absolute flex items-center px-2 right-0 py-2">

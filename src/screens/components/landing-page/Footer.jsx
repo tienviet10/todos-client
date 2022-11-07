@@ -7,8 +7,6 @@ const Footer = () => {
   return (
     <div className="flex flex-col items-center justify-start px-[5rem] bg-[#020917] h-[40rem] pt-[15rem] sm:pt-[18rem] mt-[-10rem]">
       <div className="flex flex-col max-w-[1100px] w-full mx-auto text-center justify-center">
-        {/* <CenterMenu /> */}
-        {/* Social icons */}
         <p className="text-[1.2rem] sm:text-[1.5rem]">Contact Me : </p>
         <div className="flex w-[100%] justify-center space-x-10 mt-10">
           <a
