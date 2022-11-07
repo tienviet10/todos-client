@@ -23,7 +23,7 @@ export const SharedRemindersList = ({
       {remindersList.length > 0 && (
         <div className="mb-2">
           {/* Reminders */}
-          <h2 className="max-w-[1240px] w-full mx-auto pt-4 sm:pt-5 text-2xl font-bold px-4">
+          <h2 className="max-w-[1240px] w-full mx-auto pt-4 sm:pt-5 text-2xl font-bold px-4 text-white">
             {title}:
           </h2>
           <div className="grid sm:grid-cols-3 max-w-[1240px] w-full mx-auto text-center">

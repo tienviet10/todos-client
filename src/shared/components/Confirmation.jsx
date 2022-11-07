@@ -9,16 +9,16 @@ export const Confirmation = () => {
     <div>
       <div className="fixed inset-0 flex justify-center items-center mx-4 overflow-x-hidden overflow-y-auto outline-none focus:outline-none z-50">
         <div className="relative my-6 mx-auto max-w-[1000px] sm:w-[30%] max-h-[90%]">
-          <div className="relative bg-white rounded-lg shadow">
-            <div className="flex justify-between items-start p-4 rounded-t border-b border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900">
+          <div className="relative bg-[#1b3663] rounded-lg shadow border border-[#8daef0]">
+            <div className="flex justify-between items-start p-4 rounded-t border-b">
+              <h3 className="text-xl font-semibold text-white">
                 {descriptionText.titleText}
               </h3>
               <CloseButton takeAction={() => setConfirmationOn(false)} />
             </div>
 
             <div className="p-6 space-y-6">
-              <p className="text-base leading-relaxed text-gray-500">
+              <p className="text-base leading-relaxed text-white">
                 {descriptionText.displayText}
               </p>
             </div>

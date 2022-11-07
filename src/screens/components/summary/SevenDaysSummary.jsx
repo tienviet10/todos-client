@@ -36,16 +36,16 @@ export const SevenDaysSummary = () => {
     <div>
       <div className="fixed inset-0 flex justify-center items-center overflow-x-hidden overflow-y-auto outline-none mx-4 mb-10 focus:outline-none sm:mb-6 z-40">
         <div className="relative my-6 mx-auto max-w-[1000px] w-[90%] sm:w-[80%] max-h-[90%]">
-          <div className="relative bg-white rounded-lg shadow">
+          <div className="relative bg-[#1b3663] rounded-lg shadow">
             {/* Title and close button */}
             <div className="flex justify-between items-start p-4 rounded-t border-b border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900">
+              <h3 className="text-xl font-semibold text-white">
                 Seven Days Summary
               </h3>
               <CloseButton takeAction={() => setIsSummaryOn(false)} />
             </div>
 
-            <div className="p-6">
+            <div className="p-6 text-white">
               {/* Today reminders */}
               <div>
                 <div className="font-semibold">Today: </div>
@@ -114,7 +114,7 @@ export const SevenDaysSummary = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-base leading-relaxed text-gray-500">
+                      <p className="text-base leading-relaxed text-[#cbced4]">
                         No Reminders
                       </p>
                     )}

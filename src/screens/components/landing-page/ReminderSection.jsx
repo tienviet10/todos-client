@@ -7,7 +7,7 @@ import {
 
 const ReminderSection = () => {
   return (
-    <div className="relative h-[62rem] px-[5rem] bg-[#081730] pt-[16rem] pb-[7rem] mt-[-15rem] z-[1] flex items-center justify-between rounded-b-[5rem]">
+    <div className="relative h-[60rem] px-[5rem] bg-[#081730] pt-[16rem] pb-[7rem] mt-[-15rem] z-[1] flex items-center justify-between rounded-b-[5rem]">
       <div className="flex flex-col max-w-[1100px] w-full mx-auto items-center text-center justify-center pt-4 sm:pt-20">
         {/* title icon */}
         <img src="images/squiggly_line.png" alt="" className="w-[5rem]" />

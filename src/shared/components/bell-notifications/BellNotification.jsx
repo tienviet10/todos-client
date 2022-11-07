@@ -86,7 +86,7 @@ export const BellNotification = ({
             </div>
             <div
               href="#"
-              className="block bg-gray-800 text-white text-center font-bold py-2 hover:cursor-pointer"
+              className="block bg-gray-600 text-white text-center font-bold py-2 hover:cursor-pointer"
               onClick={() => openSevenDaySUmmary()}
             >
               Seven Days Summary

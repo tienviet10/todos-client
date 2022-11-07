@@ -21,7 +21,7 @@ export const Registration = () => {
   } = useManageRegistrationState();
 
   return (
-    <div className="grid place-items-center h-screen bg-[#081730]">
+    <div className="grid place-items-center h-screen">
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

@@ -28,7 +28,7 @@ export const PastSharedReminders = () => {
     <div>
       {pastSharedReminders && pastSharedReminders.length > 0 ? (
         <>
-          <h2 className="max-w-[1240px] w-full mx-auto pt-10 sm:pt-5 text-2xl font-bold px-4">
+          <h2 className="max-w-[1240px] w-full mx-auto pt-10 sm:pt-5 text-2xl font-bold px-4 text-white">
             Past Reminders:
           </h2>
           <div className="grid sm:grid-cols-3 max-w-[1240px] w-full mx-auto text-center">

@@ -28,7 +28,7 @@ export const RemindersList = ({
       {remindersList.length > 0 && (
         <div className="mb-2">
           {/* Favorite or Reminder */}
-          <h2 className="max-w-[1240px] w-full mx-auto pt-4 sm:pt-5 text-2xl font-bold px-4">
+          <h2 className="max-w-[1240px] w-full mx-auto pt-4 sm:pt-5 text-2xl font-bold px-4 text-white">
             {title}:
           </h2>
 
