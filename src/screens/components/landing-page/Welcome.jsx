@@ -20,15 +20,15 @@ const Welcome = () => {
               <br />
               Shared reminders for group/team/family use.
             </p>
-            <div className="flex text-[1rem] mt-4 w-full content-start">
+            <div className="flex flex-row text-[1rem] mt-4 w-full justify-center sm:justify-start">
               <button
-                className={`bg-application-color hover:bg-[#6c5cff] text-white font-bold py-1 px-2 sm:px-10 border border-[#6c5cff] rounded`}
+                className={`bg-application-color hover:bg-[#6c5cff] text-white font-bold py-1 px-8 sm:px-10 border border-[#6c5cff] rounded`}
                 onClick={() => navigate(NAV_TABS[6].href)}
               >
                 Log In
               </button>
               <button
-                className={`bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 sm:px-10 border border-red-500 rounded ml-3`}
+                className={`bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-5 sm:px-10 border border-red-500 rounded ml-3`}
                 onClick={() => navigate(NAV_TABS[5].href)}
               >
                 Sign Up

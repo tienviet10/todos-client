@@ -7,12 +7,12 @@ import {
 
 const ReminderSection = () => {
   return (
-    <div className="relative h-[60rem] px-[5rem] bg-[#081730] pt-[16rem] pb-[7rem] mt-[-15rem] z-[1] flex items-center justify-between rounded-b-[5rem]">
-      <div className="flex flex-col max-w-[1100px] w-full mx-auto items-center text-center justify-center pt-4 sm:pt-20">
+    <div className="relative h-[60rem] bg-[#081730] pt-[22rem] sm:pt-[16rem] pb-[7rem] mt-[-15rem] z-[1] flex items-center justify-between rounded-b-[5rem]">
+      <div className="flex flex-col max-w-[1100px] w-full mx-auto items-center text-center justify-center pt-0 sm:pt-20">
         {/* title icon */}
         <img src="images/squiggly_line.png" alt="" className="w-[5rem]" />
         {/* heading */}
-        <div className="headline mt-7 mb-10 flex flex-col items-center text-[2rem]">
+        <div className="headline mt-7 mb-10 flex flex-col items-center text-[1.2rem] sm:text-[2rem]">
           <span>Work Smart and Never Miss a Thing</span>
           <span>
             <b>Fast and Easy</b>
