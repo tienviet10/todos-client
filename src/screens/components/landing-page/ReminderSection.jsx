@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import {
   MAIN_PAGE_EXAMPLE,
@@ -6,16 +7,17 @@ import {
 } from "../../../shared/constant/config";
 
 const ReminderSection = () => {
+  const { t } = useTranslation();
   return (
     <div className="relative h-[60rem] bg-[#081730] pt-[22rem] sm:pt-[16rem] pb-[7rem] mt-[-15rem] z-[1] flex items-center justify-between rounded-b-[5rem]">
       <div className="flex flex-col max-w-[1100px] w-full mx-auto items-center text-center justify-center pt-0 sm:pt-20">
         {/* title icon */}
         <img src="images/squiggly_line.png" alt="" className="w-[5rem]" />
         {/* heading */}
-        <div className="headline mt-7 mb-10 flex flex-col items-center text-[1.2rem] sm:text-[2rem]">
-          <span>Work Smart and Never Miss a Thing</span>
+        <div className="headline mt-7 mb-10 flex flex-col items-center text-[1.2rem] sm:text-[2rem] px-1">
+          <span>{t("third_intro_1")}</span>
           <span>
-            <b>Fast and Easy</b>
+            <b>{t("third_intro_2")}</b>
           </span>
         </div>
 

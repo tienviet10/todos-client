@@ -17,6 +17,7 @@ const PersonalReminder = ({ user }) => {
     editReminder,
     saveNewChosenColor,
     sayHi,
+    t,
   } = useManageRemindersState();
 
   if (loadingReminders)
@@ -56,7 +57,7 @@ const PersonalReminder = ({ user }) => {
             editFavorite={editFavorite}
             editReminder={editReminder}
             execDeletion={execDeletion}
-            title="Favorite"
+            title={t("favorite")}
           />
           {/* Main List */}
           <RemindersList
@@ -67,7 +68,7 @@ const PersonalReminder = ({ user }) => {
             editFavorite={editFavorite}
             editReminder={editReminder}
             execDeletion={execDeletion}
-            title="Reminders"
+            title={t("reminders")}
           />
         </>
       )}

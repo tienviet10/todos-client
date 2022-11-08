@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { postRegisterLink } from "../../shared/service-link/url-link";
 
 export function useManageRegistrationState(user) {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ export function useManageRegistrationState(user) {
     reconfirmedPassword: "",
     error: "",
     success: "",
-    buttonText: "Register Account",
+    buttonText: t("sign_up"),
   });
 
   const {
@@ -34,14 +36,14 @@ export function useManageRegistrationState(user) {
       [name]: e.target.value,
       error: "",
       success: "",
-      buttonText: "Register",
+      buttonText: t("sign_up"),
     }));
   };
 
   async function register(e) {
     e.preventDefault();
     setLoading(true);
-    setState((item) => ({ ...item, buttonText: "Registering..." }));
+    setState((item) => ({ ...item, buttonText: t("sign_up_ing") }));
     const newUser = {
       username,
       email,
@@ -68,7 +70,7 @@ export function useManageRegistrationState(user) {
         setState((item) => ({
           ...item,
           error: err.response.data.error,
-          buttonText: "Register",
+          buttonText: t("sign_up"),
         }));
 
         setLoading(false);
@@ -90,5 +92,6 @@ export function useManageRegistrationState(user) {
     reconfirmedPassword,
     buttonText,
     navigate,
+    t,
   };
 }

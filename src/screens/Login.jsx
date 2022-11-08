@@ -24,6 +24,7 @@ export const Login = () => {
     toggle,
     handleChange,
     navigate,
+    t,
   } = useLogIn();
 
   return (
@@ -33,7 +34,7 @@ export const Login = () => {
           <div>
             <img className="mx-auto h-12 w-auto" src="/logo.svg" alt="ReMe" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-              Sign in to your account
+              {t("log_in_your_account")}
             </h2>
           </div>
           {loading && <Loader />}
@@ -47,9 +48,6 @@ export const Login = () => {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
                 <input
                   id="email-address"
                   name="email"
@@ -57,8 +55,8 @@ export const Login = () => {
                   value={email}
                   autoComplete="email"
                   required
-                  className="relative appearance-none rounded-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm outline-none"
-                  placeholder="Email address"
+                  className="relative appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm outline-none"
+                  placeholder={t("email")}
                   onChange={handleChange("email")}
                 />
               </div>
@@ -71,7 +69,7 @@ export const Login = () => {
                   autoComplete="current-password"
                   required
                   className="flex-shrink flex-grow flex-auto px-3 py-2 outline-none rounded-bl-md placeholder-gray-500 text-gray-900 sm:text-sm"
-                  placeholder="Password"
+                  placeholder={t("pass")}
                   onChange={handleChange("password")}
                 />
                 <div className="flex bg-white rounded-br-md">
@@ -116,7 +114,7 @@ export const Login = () => {
                   aria-hidden="true"
                 />
               </span>
-              Register Account
+              {t("sign_up")}
             </button>
           </div>
         </div>

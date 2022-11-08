@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { getANotificationLink } from "../../shared/service-link/url-link";
@@ -8,6 +9,7 @@ import { SevenDaysSummaryContext } from "../context/SevenDaysSummaryContext";
 import { useNotification } from "../reminders-manage-request/notifications";
 
 export function useManageBellNotificationsState(setDropdownOpen, setNavTab) {
+  const { t } = useTranslation();
   const {
     notificationsList: notifications,
     updateSeenStatusAndRefreshAReminder,
@@ -92,5 +94,6 @@ export function useManageBellNotificationsState(setDropdownOpen, setNavTab) {
     navigateToSharedReminderDetail,
     navigateToFriends,
     openSevenDaySUmmary,
+    t,
   };
 }

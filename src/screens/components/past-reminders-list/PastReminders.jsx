@@ -12,6 +12,7 @@ export const PastReminders = () => {
     restorePastReminder,
     handleDetailsScreen,
     execDeletion,
+    t,
   } = useManagePastRemindersState();
 
   if (loading)
@@ -29,7 +30,7 @@ export const PastReminders = () => {
       {pastReminders && pastReminders.length > 0 ? (
         <>
           <h2 className="max-w-[1240px] w-full mx-auto pt-10 sm:pt-5 text-2xl font-bold px-4 text-white">
-            Past Reminders:
+            {t("past_reminders")}
           </h2>
           <div className="grid sm:grid-cols-3 max-w-[1240px] w-full mx-auto text-center">
             {pastReminders.map((item) => (

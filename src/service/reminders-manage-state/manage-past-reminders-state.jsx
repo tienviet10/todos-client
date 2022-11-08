@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { REMINDER_STATUS } from "../../shared/constant/config";
 import { reminderWithIDLink } from "../../shared/service-link/url-link";
 import { ReminderContext } from "../context/ActiveRemindersContext";
@@ -7,6 +8,7 @@ import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { PastRemindersContext } from "../context/PastRemindersContext";
 
 export function useManagePastRemindersState() {
+  const { t } = useTranslation();
   const {
     pastReminders,
     error,
@@ -58,5 +60,6 @@ export function useManagePastRemindersState() {
     restorePastReminder,
     handleDetailsScreen,
     execDeletion,
+    t,
   };
 }

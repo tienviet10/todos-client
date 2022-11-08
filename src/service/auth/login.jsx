@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { postLogInLink } from "../../shared/service-link/url-link";
@@ -7,6 +8,7 @@ import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 
 export function useLogIn() {
+  const { t } = useTranslation();
   const { login: signInAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ export function useLogIn() {
     password: "",
     error: "",
     success: "",
-    buttonText: "Sign In",
+    buttonText: t("log_in"),
   });
 
   const { email, password, error, success, buttonText } = state;
@@ -32,7 +34,7 @@ export function useLogIn() {
       [name]: e.target.value,
       error: "",
       success: "",
-      buttonText: "Sign In",
+      buttonText: t("log_in"),
     }));
   };
 
@@ -43,7 +45,7 @@ export function useLogIn() {
       ...item,
       error: "",
       success: "",
-      buttonText: "Signing In...",
+      buttonText: t("log_in_ing"),
     }));
     const user = {
       email: email,
@@ -61,7 +63,7 @@ export function useLogIn() {
           password: "",
           error: "",
           success: data.message,
-          buttonText: "Sign In",
+          buttonText: t("log_in"),
         }));
         storeAuthentication("token", data.token);
         signInAuth();
@@ -76,7 +78,7 @@ export function useLogIn() {
         password: "",
         success: "",
         error: err.response.data.error,
-        buttonText: "Sign In",
+        buttonText: t("log_in"),
       }));
 
       setLoading(false);
@@ -95,5 +97,6 @@ export function useLogIn() {
     toggle,
     handleChange,
     navigate,
+    t,
   };
 }

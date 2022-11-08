@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { REMINDER_STATUS } from "../../shared/constant/config";
 import { reminderWithIDLink } from "../../shared/service-link/url-link";
 import { ReminderContext } from "../context/ActiveRemindersContext";
@@ -7,6 +8,7 @@ import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { ReminderModalContext } from "../context/ReminderModalContext";
 
 export function useManageRemindersState() {
+  const { t } = useTranslation();
   const {
     allReminders,
     updateRecord,
@@ -22,7 +24,7 @@ export function useManageRemindersState() {
   const { confirm } = useContext(ConfirmationContext);
 
   const [sayHi, setSayHi] = useState({
-    statement: "Good day, ",
+    statement: t("day"),
     image: "images/afternoon.png",
   });
 
@@ -31,21 +33,21 @@ export function useManageRemindersState() {
     const curHr = today.getHours();
     if (curHr < 12 && curHr > 3) {
       setSayHi({
-        statement: "Good morning, ",
+        statement: t("morning"),
         image: "images/morning.png",
       });
     } else if (curHr < 18 && curHr > 12) {
       setSayHi({
-        statement: "Good afternoon, ",
+        statement: t("afternoon"),
         image: "images/afternoon.png",
       });
     } else {
       setSayHi({
-        statement: "Good evening, ",
+        statement: t("evening"),
         image: "images/evening.png",
       });
     }
-  }, []);
+  }, [t]);
 
   const editFavorite = (item, fav) => {
     updateRecord({
@@ -102,5 +104,6 @@ export function useManageRemindersState() {
     editReminder,
     saveNewChosenColor,
     sayHi,
+    t,
   };
 }

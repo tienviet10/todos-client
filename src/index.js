@@ -1,5 +1,9 @@
-import React from "react";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
+import { initReactI18next } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
@@ -16,39 +20,58 @@ import { PastSharedReminderProvider } from "./service/context/PastSharedReminder
 import { ReminderModalProvider } from "./service/context/ReminderModalContext";
 import { ResponseFriendsProvider } from "./service/context/ResponseFriendsContext";
 import { SevenDaysSummaryProvider } from "./service/context/SevenDaysSummaryContext";
+import Loader from "./shared/components/loading-spinner/CenterLoader";
 
 const queryClient = new QueryClient();
 
+i18n
+  .use(HttpApi)
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(LanguageDetector)
+  .init({
+    supportedLngs: ["en", "vi"],
+    fallbackLng: "en",
+    detection: {
+      order: ["path", "cookie", "htmlTag"],
+      caches: ["cookie"],
+    },
+    backend: {
+      loadPath: "/assets/locales/{{lng}}/translation.json",
+    },
+  });
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <ReminderModalProvider>
-            <DetailOfAReminderProvider>
-              <PasswordConfirmationProfileProvider>
-                <PastReminderProvider>
-                  <PastSharedReminderProvider>
-                    <ReminderProvider>
-                      <SharedReminderProvider>
-                        <ConfirmationProvider>
-                          <SevenDaysSummaryProvider>
-                            <ResponseFriendsProvider>
-                              <App />
-                            </ResponseFriendsProvider>
-                          </SevenDaysSummaryProvider>
-                        </ConfirmationProvider>
-                      </SharedReminderProvider>
-                    </ReminderProvider>
-                  </PastSharedReminderProvider>
-                </PastReminderProvider>
-              </PasswordConfirmationProfileProvider>
-            </DetailOfAReminderProvider>
-          </ReminderModalProvider>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </AuthProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <Suspense fallback={<Loader />}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <AuthProvider>
+          <QueryClientProvider client={queryClient}>
+            <ReminderModalProvider>
+              <DetailOfAReminderProvider>
+                <PasswordConfirmationProfileProvider>
+                  <PastReminderProvider>
+                    <PastSharedReminderProvider>
+                      <ReminderProvider>
+                        <SharedReminderProvider>
+                          <ConfirmationProvider>
+                            <SevenDaysSummaryProvider>
+                              <ResponseFriendsProvider>
+                                <App />
+                              </ResponseFriendsProvider>
+                            </SevenDaysSummaryProvider>
+                          </ConfirmationProvider>
+                        </SharedReminderProvider>
+                      </ReminderProvider>
+                    </PastSharedReminderProvider>
+                  </PastReminderProvider>
+                </PasswordConfirmationProfileProvider>
+              </DetailOfAReminderProvider>
+            </ReminderModalProvider>
+            <ReactQueryDevtools />
+          </QueryClientProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  </Suspense>
 );

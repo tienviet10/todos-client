@@ -18,8 +18,9 @@ export const BellNotification = ({
     navigateToSharedReminderDetail,
     openSevenDaySUmmary,
     navigateToFriends,
+    t,
   } = useManageBellNotificationsState(setDropdownOpen, setNavTab);
-  //console.log(notifications);
+
   return (
     <div className="justify-center">
       <div className="relative">
@@ -89,7 +90,7 @@ export const BellNotification = ({
               className="block bg-gray-600 text-white text-center font-bold py-2 hover:cursor-pointer"
               onClick={() => openSevenDaySUmmary()}
             >
-              Seven Days Summary
+              {t("seven_day_summary")}
             </div>
           </div>
         ) : (

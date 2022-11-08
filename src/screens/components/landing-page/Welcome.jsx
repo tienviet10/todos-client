@@ -1,9 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-
 import { NAV_TABS } from "../../../shared/constant/config";
 
 const Welcome = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div className="wrapper bg-[#081730] flex items-center justify-between px-[3rem] sm:px-[5rem] rounded-b-[5rem] w-[100%] h-[35rem] relative z-[3]">
@@ -11,27 +12,29 @@ const Welcome = () => {
         {/* left */}
         <div className="row w-[100%] sm:w-[50%]">
           <div className="headings flex flex-col items-start justify-center h-[100%] sm:text-[3rem] text-[2rem]">
-            <p className="w-full text-center sm:text-left">Experience The</p>{" "}
             <p className="w-full text-center sm:text-left">
-              <b>Best Reminders</b>
+              {t("main_intro_1")}
+            </p>{" "}
+            <p className="w-full text-center sm:text-left">
+              <b>{t("main_intro_2")}</b>
             </p>
             <p className="w-full text-center sm:text-left text-[15px] text-[#525D6E]">
-              View 7-day reminder summary all in one place.
+              {t("main_intro_3")}
               <br />
-              Shared reminders for group/team/family use.
+              {t("main_intro_4")}
             </p>
             <div className="flex flex-row text-[1rem] mt-4 w-full justify-center sm:justify-start">
               <button
                 className={`bg-application-color hover:bg-[#6c5cff] text-white font-bold py-1 px-8 sm:px-10 border border-[#6c5cff] rounded`}
                 onClick={() => navigate(NAV_TABS[6].href)}
               >
-                Log In
+                {t("log_in")}
               </button>
               <button
                 className={`bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-5 sm:px-10 border border-red-500 rounded ml-3`}
                 onClick={() => navigate(NAV_TABS[5].href)}
               >
-                Sign Up
+                {t("sign_up")}
               </button>
             </div>
           </div>

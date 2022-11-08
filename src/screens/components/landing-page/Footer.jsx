@@ -1,13 +1,17 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const SocialStyle =
     "rounded-full border-2 border-whit p-2 hover:cursor-pointer";
   return (
     <div className="flex flex-col items-center justify-start px-[5rem] bg-[#020917] h-[40rem] pt-[15rem] sm:pt-[18rem] mt-[-10rem]">
       <div className="flex flex-col max-w-[1100px] w-full mx-auto text-center justify-center">
-        <p className="text-[1.2rem] sm:text-[1.5rem]">Contact Me : </p>
+        <p className="text-[1.2rem] sm:text-[1.5rem]">
+          {t("fourth_contact_me")}
+        </p>
         <div className="flex w-[100%] justify-center space-x-10 mt-10">
           <a
             className={SocialStyle}
