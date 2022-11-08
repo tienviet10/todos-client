@@ -15,6 +15,7 @@ export const ReminderFormMain = () => {
     handleFavoriteChange,
     setReminderDate,
     saveOrAddReminder,
+    t,
   } = useManageAddReminderFormState();
   const { title, description, _id, remindedAt, repeat } = newReminder;
 
@@ -25,20 +26,20 @@ export const ReminderFormMain = () => {
           {/* Close reminder */}
           <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
             <h3 className="text-2xl font-semibold text-white">
-              {_id ? "Edit Reminder" : "New Reminder"}
+              {_id ? t("edit_reminder") : t("new_reminder")}
             </h3>
             <CloseButton takeAction={() => exitTheForm()} />
           </div>
 
           {/* Add title and description */}
           <form className="m-auto mt-3 px-12 w-full">
-            <LabelText text="Title:" />
+            <LabelText text={t("title")} />
             <div className="flex mb-3">
               <input
                 className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-white bg-[#1b3663]"
                 name="title"
                 value={title}
-                placeholder="Shopping List, etc."
+                placeholder={t("placeholder_add_reminder")}
                 autoFocus
                 onChange={handleChange("title")}
               />
@@ -59,7 +60,7 @@ export const ReminderFormMain = () => {
               )}
             </div>
 
-            <LabelText text="Description:" />
+            <LabelText text={t("desc")} />
             <textarea
               value={description}
               rows={5}
@@ -73,10 +74,15 @@ export const ReminderFormMain = () => {
           <ChooseDateField
             setReminderDate={setReminderDate}
             remindedAt={remindedAt}
+            text={t("remind_at")}
           />
 
           {/*Choose type of repeat*/}
-          <RepeatField repeat={repeat} handleChange={handleChange} />
+          <RepeatField
+            repeat={repeat}
+            handleChange={handleChange}
+            text={t("repeated")}
+          />
 
           {/* Button Choices */}
           <ButtonChoicesReminderForm

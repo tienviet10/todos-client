@@ -1,15 +1,10 @@
 import { createContext, useRef, useState } from "react";
-
-const CONFIRMATION_DELETION = {
-  titleText: "Delete A Reminder",
-  displayText: "Are you sure you want to delete the reminder?",
-  confirmText: "Accept",
-  declineText: "Cancel",
-};
+import { useTranslation } from "react-i18next";
 
 const ConfirmationContext = createContext();
 
 function ConfirmationProvider({ children }) {
+  const { t } = useTranslation();
   const [confirmationOn, setConfirmationOn] = useState(false);
   const [descriptionText, setDescriptionText] = useState({
     titleText: "",
@@ -20,7 +15,15 @@ function ConfirmationProvider({ children }) {
 
   const confirmationFunction = useRef(() => undefined);
 
-  function confirm({ descriptionText = CONFIRMATION_DELETION, onSuccess }) {
+  function confirm({
+    descriptionText = {
+      titleText: t("confirmation_box_title"),
+      displayText: t("confirmation_box_display"),
+      confirmText: t("confirmation_box_accept"),
+      declineText: t("close_text"),
+    },
+    onSuccess,
+  }) {
     confirmationFunction.current = () => {
       onSuccess();
       setConfirmationOn(false);

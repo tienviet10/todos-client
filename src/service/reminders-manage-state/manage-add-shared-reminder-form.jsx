@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CREATE_EMPTY_SHARED_REMINDER } from "../../shared/constant/config";
 import {
   getSuggestedCollaboratorsLink,
@@ -12,6 +13,8 @@ import { useRestAddCollaboratorsOnReminder } from "../reminders-manage-request/a
 const createEmptySharedReminder = CREATE_EMPTY_SHARED_REMINDER;
 
 export function useManageAddSharedReminderFormState() {
+  const { t } = useTranslation();
+
   //Send reminder to backend to save or edit reminder
   const { addSharedRecord, updateSharedRecord } = useContext(
     SharedReminderContext
@@ -194,6 +197,7 @@ export function useManageAddSharedReminderFormState() {
     loadingUserBackend,
     filteredData,
     handleSelectUserFromSuggestion,
+    t,
   };
 }
 

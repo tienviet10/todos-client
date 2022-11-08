@@ -12,6 +12,7 @@ export const PastSharedReminders = () => {
     restorePastReminder,
     handleDetailsScreen,
     execDeletion,
+    t,
   } = useManageSharedPastRemindersState();
 
   if (loading)
@@ -29,7 +30,7 @@ export const PastSharedReminders = () => {
       {pastSharedReminders && pastSharedReminders.length > 0 ? (
         <>
           <h2 className="max-w-[1240px] w-full mx-auto pt-10 sm:pt-5 text-2xl font-bold px-4 text-white">
-            Past Reminders:
+            {t("past_reminders")}
           </h2>
           <div className="grid sm:grid-cols-3 max-w-[1240px] w-full mx-auto text-center">
             {pastSharedReminders.map((item) => (

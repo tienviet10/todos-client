@@ -8,7 +8,7 @@ export const ResponseFriendsRequestMainPage = ({
   pendingFriendsRequest,
   sentFriendRequest,
 }) => {
-  const { toggleOnOff, acceptAFriend, declineAFriend } =
+  const { toggleOnOff, acceptAFriend, declineAFriend, t } =
     useManageResponseFriendState();
 
   return (
@@ -74,8 +74,8 @@ export const ResponseFriendsRequestMainPage = ({
         sentFriendRequest.length < 1 &&
         pendingFriendsRequest &&
         pendingFriendsRequest.length < 1 && (
-          <div className="px-4 py-5 shadow-lg">
-            <div>No friend requests!</div>
+          <div className="px-4 py-5 shadow-lg text-white bg-[#1c3d78] rounded-md">
+            <div>{t("no_friend_request")}</div>
           </div>
         )}
     </>

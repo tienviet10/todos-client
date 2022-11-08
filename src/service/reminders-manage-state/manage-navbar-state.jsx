@@ -4,21 +4,9 @@ import { useNavigate } from "react-router-dom";
 import i18next from "i18next";
 import cookies from "js-cookie";
 import { useTranslation } from "react-i18next";
+import { languages } from "../../shared/constant/config";
 import { AuthContext } from "../context/AuthServiceContext";
 import { ReminderModalContext } from "../context/ReminderModalContext";
-
-const languages = [
-  {
-    code: "en",
-    name: "English",
-    country_code: "gb",
-  },
-  {
-    code: "vi",
-    name: "Vietnamese",
-    country_code: "vn",
-  },
-];
 
 export function useManageNavbarState(setNavTab) {
   const currentLanguageCode = cookies.get("i18next") || "en";

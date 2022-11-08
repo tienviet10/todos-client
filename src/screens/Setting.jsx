@@ -1,7 +1,77 @@
+import i18next from "i18next";
+import { useState } from "react";
 import withUser from "../service/auth/withUser";
+import { GlobeIcon } from "../shared/components/GlobalIcon";
+import { languages } from "../shared/constant/config";
 
 const Setting = ({ user }) => {
-  return <div>Hi</div>;
+  const [expandLanguages, setExpandLanguages] = useState(false);
+  return (
+    <div className="flex max-w-[1240px] w-full mx-auto pt-4 font-bold px-4 mb-2">
+      <div className="bg-white my-12 pb-6 w-full justify-center items-center overflow-hidden md:max-w-md rounded-lg shadow-sm mx-auto h-[200px]">
+        <div className="flex justify-end mt-4 mr-4">
+          <div className="relative inline-block text-left">
+            <button
+              type="button"
+              className="inline-flex w-full justify-center rounded-md bg-application-color px-2 py-1.5 text-sm font-medium shadow-sm text-white"
+              id="menu-button"
+              aria-expanded="true"
+              aria-haspopup="true"
+              onClick={() => setExpandLanguages((prev) => !prev)}
+            >
+              <GlobeIcon color="white" />
+              <svg
+                className="-mr-1 ml-2 h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+
+            <div
+              className={
+                expandLanguages
+                  ? "absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-application-color shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white"
+                  : "hidden absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-application-color shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-white"
+              }
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="menu-button"
+              tabIndex="-1"
+            >
+              <div className="py-1" role="none">
+                {languages.map(({ code, name, country_code }) => (
+                  <div key={country_code} className="px-2 py-2 text-sm w-full">
+                    <button
+                      className="flex ml-5 w-full"
+                      onClick={() => {
+                        setExpandLanguages((prev) => !prev);
+                        i18next.changeLanguage(code);
+                      }}
+                    >
+                      <img
+                        src={`images/${code}.png`}
+                        style={{ width: 30 }}
+                        alt=""
+                      />
+                      <p className="ml-4">{name}</p>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default withUser(Setting);

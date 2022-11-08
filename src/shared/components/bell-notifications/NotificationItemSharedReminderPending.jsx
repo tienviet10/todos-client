@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import React from "react";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useManageResponseSharedReminderState } from "../../../service/reminders-manage-state/manage-response-shared-reminder";
@@ -27,11 +28,11 @@ export const NotificationItemSharedReminderPending = ({
           alt="avatar"
         />
         <p className="text-gray-600 text-sm mx-2">
-          <span>Join</span>{" "}
+          <span>{t("join")}</span>{" "}
           <span className="font-semibold" href="#">
             {notificationItem.title}
           </span>{" "}
-          created by{" "}
+          {t("created_by")}{" "}
           <span className="font-semibold" href="#">
             {notificationItem.postedBy.username
               ? notificationItem.postedBy.username

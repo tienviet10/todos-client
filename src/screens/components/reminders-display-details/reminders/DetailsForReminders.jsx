@@ -13,17 +13,18 @@ export const DetailsForReminders = () => {
     moveReminderToPast,
     restoreReminder,
     execDeletion,
+    t,
   } = useManageDisplayDetailRemindersState();
   const { title, description, remindedAt } = reminderDetails;
   return (
     <>
       <div className="fixed inset-0 flex justify-center items-center overflow-x-hidden overflow-y-auto mx-4 outline-none focus:outline-none z-50">
         <div className="relative my-6 mx-auto max-w-[800px] sm:w-[60%] max-h-[75%] shadow-2xl">
-          <div className="relative flex flex-col border-0 rounded-lg shadow-lg w-full bg-[#204c96] outline-none focus:outline-none">
+          <div className="relative flex flex-col border-0 rounded-lg shadow-lg w-full bg-[#1c3d78] outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-2xl font-semibold text-white">
-                Details Reminder
+                {t("details_reminder")}
               </h3>
               <CloseButton takeAction={() => setDetailOn(false)} />
             </div>
@@ -35,7 +36,7 @@ export const DetailsForReminders = () => {
               <>
                 <div className="m-auto py-5 px-12 w-full">
                   {/* Title */}
-                  <label className="text-white font-medium">Title</label>
+                  <label className="text-white font-medium">{t("title")}</label>
                   <div className="flex">
                     <p
                       className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-white overflow-auto max-h-[100px] sm:max-h-[200px]"
@@ -47,7 +48,7 @@ export const DetailsForReminders = () => {
 
                   {/* Remind time */}
                   <label className="text-white font-medium block mt-4">
-                    Remind At
+                    {t("remind_at")}
                   </label>
                   <div className="flex">
                     <p
@@ -62,7 +63,7 @@ export const DetailsForReminders = () => {
 
                   {/* Description */}
                   <label className="text-white font-medium block mt-4">
-                    Description
+                    {t("desc")}
                   </label>
                   <p
                     className="border-solid border-gray-300 border py-2 px-2 w-full rounded text-white overflow-auto max-h-[200px] sm:max-h-[500px]"

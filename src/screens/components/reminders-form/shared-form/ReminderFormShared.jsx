@@ -21,6 +21,7 @@ export const ReminderFormShared = () => {
     loadingUserBackend,
     filteredData,
     handleSelectUserFromSuggestion,
+    t,
   } = useManageAddSharedReminderFormState();
 
   const {
@@ -40,7 +41,7 @@ export const ReminderFormShared = () => {
           {/* Close reminder */}
           <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
             <h3 className="text-2xl font-semibold text-white">
-              {_id ? "Edit Shared Reminder" : "New Shared Reminder"}
+              {_id ? t("edit_shared_reminder") : t("new_shared_reminder")}
             </h3>
             <CloseButton takeAction={() => exitTheForm()} />
           </div>
@@ -57,6 +58,7 @@ export const ReminderFormShared = () => {
             filteredData={filteredData}
             handleSelectUserFromSuggestion={handleSelectUserFromSuggestion}
             setSearchUser={setSearchUser}
+            text={t("add_user_shared_reminder")}
           />
 
           {/* Title and Description of Reminder */}
@@ -65,16 +67,23 @@ export const ReminderFormShared = () => {
             title={title}
             handleChange={handleChange}
             description={description}
+            textTitle={t("title")}
+            textDes={t("desc")}
           />
 
           {/*Choose date */}
           <ChooseDateField
             setReminderDate={setReminderDate}
             remindedAt={remindedAt}
+            text={t("remind_at")}
           />
 
           {/*Choose type of repeat*/}
-          <RepeatField repeat={repeat} handleChange={handleChange} />
+          <RepeatField
+            repeat={repeat}
+            handleChange={handleChange}
+            text={t("repeated")}
+          />
 
           {/* Button Choices */}
           <ButtonChoicesReminderForm

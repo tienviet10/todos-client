@@ -13,6 +13,7 @@ export const DetailsForSharedReminders = () => {
     moveReminderToPast,
     restoreReminder,
     execDeletion,
+    t,
   } = useManageDisplayDetailSharedRemindersState();
   const { title, description, remindedAt, status, groupUsers } =
     sharedReminderDetails;
@@ -21,11 +22,11 @@ export const DetailsForSharedReminders = () => {
     <>
       <div className="fixed inset-0 flex justify-center items-center overflow-x-hidden overflow-y-auto mx-4 outline-none focus:outline-none z-50">
         <div className="relative my-6 mx-auto max-w-[800px] sm:w-[60%] max-h-[75%] shadow-2xl">
-          <div className="relative flex flex-col border-0 rounded-lg shadow-lg w-full bg-[#204c96] outline-none focus:outline-none">
+          <div className="relative flex flex-col border-0 rounded-lg shadow-lg w-full bg-[#1c3d78] outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-2xl font-semibold text-white">
-                Details Shared Reminder
+                {t("details_shared_reminders")}
               </h3>
               <CloseButton takeAction={() => setDetailOn(false)} />
             </div>
@@ -39,7 +40,7 @@ export const DetailsForSharedReminders = () => {
                   {/* Collaborators */}
                   <div className="flex mb-4">
                     <label className="text-white font-medium mr-3">
-                      Collaborator:
+                      {t("collaborator")}
                     </label>
                     <ul className="flex overflow-hidden overflow-x-auto text-sm my-auto">
                       {groupUsers.editor.map((selectedUser, index) => (
@@ -54,7 +55,7 @@ export const DetailsForSharedReminders = () => {
                   </div>
 
                   {/* Title */}
-                  <label className="text-white font-medium">Title:</label>
+                  <label className="text-white font-medium">{t("title")}</label>
                   <div className="flex">
                     <p
                       className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-white overflow-auto max-h-[100px] sm:max-h-[200px]"
@@ -66,7 +67,7 @@ export const DetailsForSharedReminders = () => {
 
                   {/* Remind time */}
                   <label className="text-white font-medium block">
-                    Remind At:
+                    {t("remind_at")}
                   </label>
                   <div className="flex">
                     <p
@@ -81,7 +82,7 @@ export const DetailsForSharedReminders = () => {
 
                   {/* Description */}
                   <label className="text-white font-medium block">
-                    Description:
+                    {t("desc")}
                   </label>
                   <p
                     className="border-solid border-gray-300 border py-2 px-2 w-full mb-4 rounded text-white overflow-auto max-h-[200px] sm:max-h-[500px]"

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { PastSharedRemindersContext } from "../../../service/context/PastSharedRemindersContext";
 import { PastSharedReminders } from "./PastSharedReminders";
@@ -7,6 +8,7 @@ export const PastSharedRemindersToggle = () => {
   const { isPastSharedRemindersOn, setIsPastSharedRemindersOn } = useContext(
     PastSharedRemindersContext
   );
+  const { t } = useTranslation();
 
   return (
     <div className="pb-10">
@@ -16,7 +18,7 @@ export const PastSharedRemindersToggle = () => {
             className="flex gap-2 text-xl hover:cursor-pointer mx-auto text-center text-blue-600 font-bold pt-0 sm:pt-10"
             onClick={() => setIsPastSharedRemindersOn(false)}
           >
-            <p>Close Past Reminders</p>
+            <p>{t("close_past_reminders")}</p>
             <div className="my-auto">
               <AiOutlineArrowUp size={23} />
             </div>
@@ -31,7 +33,7 @@ export const PastSharedRemindersToggle = () => {
               setIsPastSharedRemindersOn(true);
             }}
           >
-            <p>Open Past Reminders</p>
+            <p>{t("open_past_reminders")}</p>
             <div className="my-auto">
               <AiOutlineArrowDown size={23} />
             </div>

@@ -12,6 +12,7 @@ const Profile = ({ user }) => {
     handleGoogleLogout,
     handleFieldChange,
     handleSummit,
+    t,
   } = useManageProfileState(user);
 
   return (
@@ -42,7 +43,7 @@ const Profile = ({ user }) => {
         )}
 
         <div className="m-auto py-5 px-12 w-full">
-          <label className="text-gray-600 font-medium">Username</label>
+          <label className="text-gray-600 font-medium">{t("username")}</label>
 
           <input
             className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700"
@@ -54,7 +55,7 @@ const Profile = ({ user }) => {
           />
 
           <label className="text-gray-600 font-medium block mt-4">
-            New Password
+            {t("new_pass")}
           </label>
           <input
             className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700"
@@ -67,7 +68,7 @@ const Profile = ({ user }) => {
           />
 
           <label className="text-gray-600 font-medium block mt-4">
-            New Password Confirmation
+            {t("new_pass_confirm")}
           </label>
           <input
             className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-gray-700"
@@ -80,7 +81,7 @@ const Profile = ({ user }) => {
           />
           <div>
             <label className="text-gray-600 text-center font-medium block mt-4">
-              Connect/Disconnect Google Calendar:
+              {t("connect_google")}
             </label>
             <div className="flex justify-center mt-2">
               {user.user &&
@@ -98,7 +99,7 @@ const Profile = ({ user }) => {
             className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 mt-14"
             onClick={() => handleSummit()}
           >
-            Update Information
+            {t("update_info")}
           </button>
         </div>
       </div>

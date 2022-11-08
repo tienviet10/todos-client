@@ -15,6 +15,7 @@ export const ActiveSharedReminders = ({ user }) => {
     editReminder,
     saveNewChosenColor,
     sayHi,
+    t,
   } = useManageSharedRemindersState();
 
   if (loadingSharedReminders)
@@ -50,7 +51,7 @@ export const ActiveSharedReminders = ({ user }) => {
             handleDetailsScreen={handleDetailsScreen}
             editReminder={editReminder}
             execDeletion={execDeletion}
-            title="Reminders"
+            title={t("reminders")}
             user={user}
           />
         </>

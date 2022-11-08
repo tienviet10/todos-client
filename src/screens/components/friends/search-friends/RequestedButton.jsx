@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { pendingFriendsLink } from "../../../../shared/service-link/url-link";
 
 export const RequestedButton = ({ sendFriendRequest, email }) => {
+  const { t } = useTranslation();
   const [requestedButtonToggle, setRequestedButtonToggle] = useState(false);
   return (
     <>
@@ -23,7 +25,7 @@ export const RequestedButton = ({ sendFriendRequest, email }) => {
             setRequestedButtonToggle(true);
           }}
         >
-          Add
+          {t("add")}
         </button>
       )}
     </>

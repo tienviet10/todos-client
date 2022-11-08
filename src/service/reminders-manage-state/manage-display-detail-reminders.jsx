@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { REMINDER_STATUS } from "../../shared/constant/config";
 import { reminderWithIDLink } from "../../shared/service-link/url-link";
 import { ReminderContext } from "../context/ActiveRemindersContext";
@@ -7,6 +8,7 @@ import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { PastRemindersContext } from "../context/PastRemindersContext";
 
 export function useManageDisplayDetailRemindersState() {
+  const { t } = useTranslation();
   const { updateRecord, discardRecord: discardRecordActiveReminder } =
     useContext(ReminderContext);
   const { discardRecord: discardRecordPastReminder } =
@@ -62,6 +64,7 @@ export function useManageDisplayDetailRemindersState() {
     moveReminderToPast,
     restoreReminder,
     execDeletion,
+    t,
   };
 }
 

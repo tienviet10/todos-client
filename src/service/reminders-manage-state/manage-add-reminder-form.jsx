@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CREATE_EMPTY_REMINDER } from "../../shared/constant/config";
 import {
   remindersGeneralLink,
@@ -10,6 +11,8 @@ import { ReminderModalContext } from "../context/ReminderModalContext";
 const createEmptyReminder = CREATE_EMPTY_REMINDER;
 
 export function useManageAddReminderFormState() {
+  const { t } = useTranslation();
+
   //Send reminder to backend to save or edit reminder
   const { addRecord, updateRecord } = useContext(ReminderContext);
 
@@ -76,5 +79,6 @@ export function useManageAddReminderFormState() {
     handleFavoriteChange,
     setReminderDate,
     saveOrAddReminder,
+    t,
   };
 }

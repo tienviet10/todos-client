@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import React from "react";
 import { LabelText } from "../../../../shared/components/LabelText";
 import LoadSpinnerOnly from "../../../../shared/components/loading-spinner/LoadSpinnerOnly";
@@ -14,13 +15,14 @@ export const AddCollaborators = ({
   users,
   _id,
   pendingRequest,
+  text,
 }) => {
   return (
     <div className="relative px-12 mt-3">
       <div className="flex flex-col">
         {/* Label and selected friends for collaboration */}
         <div className="flex h-8">
-          <LabelText text="Add user(s):" />
+          <LabelText text={text} />
           <ul className="flex overflow-hidden overflow-x-auto p-0 ml-2 text-xs my-auto">
             {users.map((selectedUser, index) => (
               <LiSelectedUsersComponent
@@ -48,7 +50,7 @@ export const AddCollaborators = ({
           <input
             autoFocus={_id ? false : true}
             type="text"
-            placeholder="Username or Email"
+            placeholder={t("placeholder_shared_reminder")}
             value={searchUser}
             onChange={(e) => setSearchUser(e.target.value)}
             className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-white bg-[#1b3663]"

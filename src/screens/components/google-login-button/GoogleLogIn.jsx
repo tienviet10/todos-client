@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { ButtonIconText } from "../../../shared/components/ButtonIconText";
 
 const getIconFromName = () => {
@@ -27,12 +28,13 @@ const getIconFromName = () => {
 };
 
 export const GoogleLogIn = ({ onClick }) => {
+  const { t } = useTranslation();
   const icon = getIconFromName();
 
   return (
     <ButtonIconText
       iconImage={icon}
-      testDisplay="Sign in with Google"
+      testDisplay={t("sign_in_with_google")}
       onClick={onClick}
     />
     // <button className="flex p-2 text-red-500 border border-red-500 hover:bg-red-300 hover:border-red-200 hover:text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">

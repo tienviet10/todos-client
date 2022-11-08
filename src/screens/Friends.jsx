@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import withUser from "../service/auth/withUser";
 import { ResponseFriendsContext } from "../service/context/ResponseFriendsContext";
 import { CurrentFriends } from "./components/friends/current-friends/CurrentFriends";
@@ -7,6 +8,7 @@ import { SearchFriendsMainPage } from "./components/friends/search-friends/Searc
 import { TabsComponent } from "./components/friends/TabsComponent";
 
 const Friends = ({ user }) => {
+  const { t } = useTranslation();
   const { listFriends, openTab, changeTab, refetchFriendList } = useContext(
     ResponseFriendsContext
   );
@@ -22,7 +24,7 @@ const Friends = ({ user }) => {
           className="flex flex-row mb-0 list-none flex-wrap py-4"
           role="tablist"
         >
-          {["Search", "Request", "Friends"].map((tabName, index) => (
+          {[t("search"), t("request"), t("friend")].map((tabName, index) => (
             <TabsComponent
               key={tabName}
               openTab={openTab}

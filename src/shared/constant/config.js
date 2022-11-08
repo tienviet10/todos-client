@@ -66,3 +66,15 @@ export const NAV_TABS = [
   { name: "registration", href: "/registration", displayName: "Registration" },
   { name: "login", href: "/login", displayName: "Login" },
 ];
+export const languages = [
+  {
+    code: "en",
+    name: "English",
+    country_code: "gb",
+  },
+  {
+    code: "vi",
+    name: "Vietnamese",
+    country_code: "vn",
+  },
+];

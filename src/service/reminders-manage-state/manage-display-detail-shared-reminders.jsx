@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { REMINDER_STATUS } from "../../shared/constant/config";
 import { sharedReminderWithIDLink } from "../../shared/service-link/url-link";
 import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
@@ -7,6 +8,7 @@ import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { PastSharedRemindersContext } from "../context/PastSharedRemindersContext";
 
 export function useManageDisplayDetailSharedRemindersState() {
+  const { t } = useTranslation();
   const {
     updateSharedRecord,
     discardSharedRecord: discardRecordActiveReminder,
@@ -66,6 +68,7 @@ export function useManageDisplayDetailSharedRemindersState() {
     moveReminderToPast,
     restoreReminder,
     execDeletion,
+    t,
   };
 }
 

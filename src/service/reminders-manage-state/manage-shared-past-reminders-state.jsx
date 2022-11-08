@@ -5,8 +5,10 @@ import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
 import { ConfirmationContext } from "../context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { PastSharedRemindersContext } from "../context/PastSharedRemindersContext";
+import { useTranslation } from "react-i18next";
 
 export function useManageSharedPastRemindersState() {
+  const { t } = useTranslation();
   const {
     pastSharedReminders,
     error,
@@ -59,5 +61,6 @@ export function useManageSharedPastRemindersState() {
     restorePastReminder,
     handleDetailsScreen,
     execDeletion,
+    t,
   };
 }

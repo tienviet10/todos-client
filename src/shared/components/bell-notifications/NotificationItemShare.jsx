@@ -1,10 +1,12 @@
 import { format } from "date-fns";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const NotificationItemShare = ({
   notificationItem,
   navigateToSharedReminderDetail,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex justify-between px-4 border-b hover:bg-gray-100 hover:cursor-pointer">
       <div
@@ -60,7 +62,7 @@ export const NotificationItemShare = ({
           <span className="font-bold" href="#">
             {notificationItem.title}
           </span>{" "}
-          on{" "}
+          {t("on")}{" "}
           <span className="font-semibold" href="#">
             {format(new Date(notificationItem.remindedAt), "PPPPp")}
           </span>

@@ -7,7 +7,7 @@ export const NotificationItemFriendRequest = ({
   notificationItem,
   navigateToFriends,
 }) => {
-  const { toggleOnOff, acceptAFriend, declineAFriend } =
+  const { toggleOnOff, acceptAFriend, declineAFriend, t } =
     useManageResponseFriendState();
 
   return (
@@ -27,9 +27,9 @@ export const NotificationItemFriendRequest = ({
         />
         <p className="text-gray-600 text-sm mx-2">
           <span className="font-semibold" href="#">
-            Friend Request
+            {t("friend_request")}
           </span>{" "}
-          from{" "}
+          {t("from")}{" "}
           <span className="font-semibold" href="#">
             {notificationItem.postedBy.username
               ? notificationItem.postedBy.username

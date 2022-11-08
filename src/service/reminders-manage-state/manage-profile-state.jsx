@@ -1,8 +1,11 @@
 import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useGoogleAuth } from "../auth/google-auth";
 import { PasswordConfirmationProfileContext } from "../context/PasswordConfirmationProfileContext";
 
 export function useManageProfileState(user) {
+  const { t } = useTranslation();
+
   const {
     setPassConfirmationProfileToggle,
     setNewPasswordUpdate,
@@ -44,5 +47,6 @@ export function useManageProfileState(user) {
     handleGoogleLogout,
     handleFieldChange,
     handleSummit,
+    t,
   };
 }

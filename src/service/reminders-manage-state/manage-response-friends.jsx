@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   acceptFriendsLink,
   declineFriendsLink,
@@ -6,6 +7,7 @@ import {
 import { useRestResponseFriends } from "../reminders-manage-request/response-friends";
 
 export function useManageResponseFriendState() {
+  const { t } = useTranslation();
   const [toggleOnOff, setToggleOnOff] = useState("");
   const { acceptOrDeclinedFriendRequest } = useRestResponseFriends();
 
@@ -30,5 +32,6 @@ export function useManageResponseFriendState() {
     setToggleOnOff,
     acceptAFriend,
     declineAFriend,
+    t,
   };
 }
