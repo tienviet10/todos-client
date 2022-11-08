@@ -29,7 +29,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .use(LanguageDetector)
   .init({
-    supportedLngs: ["en", "vi"],
+    supportedLngs: ["en", "vi", "fr"],
     fallbackLng: "en",
     detection: {
       order: ["path", "cookie", "htmlTag"],

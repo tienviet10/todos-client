@@ -77,4 +77,9 @@ export const languages = [
     name: "Vietnamese",
     country_code: "vn",
   },
+  {
+    code: "fr",
+    name: "Français",
+    country_code: "fr",
+  },
 ];
