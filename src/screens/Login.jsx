@@ -46,7 +46,7 @@ export const Login = () => {
             onSubmit={(e) => login(e)}
           >
             <input type="hidden" name="remember" defaultValue="true" />
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="shadow-sm -space-y-px">
               <div>
                 <input
                   id="email-address"
@@ -55,7 +55,7 @@ export const Login = () => {
                   value={email}
                   autoComplete="email"
                   required
-                  className="relative appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm outline-none"
+                  className="relative appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-none rounded-t-md sm:text-sm outline-none"
                   placeholder={t("email")}
                   onChange={handleChange("email")}
                 />
@@ -68,11 +68,11 @@ export const Login = () => {
                   value={password}
                   autoComplete="current-password"
                   required
-                  className="flex-shrink flex-grow flex-auto px-3 py-2 outline-none rounded-bl-md placeholder-gray-500 text-gray-900 sm:text-sm"
+                  className="flex-shrink flex-grow flex-auto px-3 py-2 outline-none rounded-none rounded-bl placeholder-gray-500 text-gray-900 sm:text-sm"
                   placeholder={t("pass")}
                   onChange={handleChange("password")}
                 />
-                <div className="flex bg-white rounded-br-md">
+                <div className="flex bg-white rounded-br">
                   <span className="flex items-center text-2xl mr-1">
                     {open === false ? (
                       <AiFillEye onClick={toggle} />
