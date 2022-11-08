@@ -28,6 +28,7 @@
 * [Tailwind](https://tailwindcss.com/) for design/styling
 * [React Router](https://reactrouter.com/) for routing
 * Managing data requests using [React Query](https://react-query-v3.tanstack.com)
+* Internationalization with react-i18next and https://translate.i18next.com/
 * [React Icons](https://react-icons.github.io/react-icons/) for icons
 * [Datetime Picker](https://github.com/wojtekmaj/react-datetime-picker#readme) for choosing date and time for reminders
 * Google Calendar intergration using OAuth 2.0 protocol
@@ -92,6 +93,6 @@ Install:
 
 ## TODO
 
+* Add TypeScript to the project
 * Choose what personal reminders can be added to your Google Calendar
-* Internationalize all text
 * Increase performance on load
