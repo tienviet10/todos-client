@@ -1,19 +1,40 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { postLogInLink } from "../../shared/service-link/url-link";
 import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 
-export function useLogIn() {
+type logInFunc = () => {
+  login: (e: any) => Promise<void>;
+  open: boolean;
+  loading: boolean;
+  error: string;
+  success: string;
+  email: string;
+  password: string;
+  buttonText: string;
+  toggle: () => void;
+  handleChange: (name: any) => (e: any) => void;
+  navigate: NavigateFunction;
+  t: any;
+};
+
+export const useLogIn: logInFunc = () => {
   const { t } = useTranslation();
   const { login: signInAuth } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [state, setState] = useState({
+  const [loading, setLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [state, setState] = useState<{
+    email: string;
+    password: string;
+    error: string;
+    success: string;
+    buttonText: string;
+  }>({
     email: "",
     password: "",
     error: "",
@@ -28,17 +49,18 @@ export function useLogIn() {
     setOpen(!open);
   };
 
-  const handleChange = (name) => (e) => {
-    setState((item) => ({
-      ...item,
-      [name]: e.target.value,
-      error: "",
-      success: "",
-      buttonText: t("log_in"),
-    }));
-  };
+  const handleChange =
+    (name: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setState((item) => ({
+        ...item,
+        [name]: e.target.value,
+        error: "",
+        success: "",
+        buttonText: t("log_in"),
+      }));
+    };
 
-  async function login(e) {
+  async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setState((item) => ({
@@ -47,7 +69,10 @@ export function useLogIn() {
       success: "",
       buttonText: t("log_in_ing"),
     }));
-    const user = {
+    const user: {
+      email: string;
+      password: string;
+    } = {
       email: email,
       password: password,
     };
@@ -56,13 +81,14 @@ export function useLogIn() {
       const response = await axios.post(postLogInLink(), user);
 
       if (response.status) {
-        const data = response.data;
+        const data: { token: string; error: string } = response.data;
+
         setState((item) => ({
           ...item,
           email: "",
           password: "",
-          error: "",
-          success: data.message,
+          error: data.error,
+          success: "",
           buttonText: t("log_in"),
         }));
         storeAuthentication("token", data.token);
@@ -72,7 +98,7 @@ export function useLogIn() {
       } else {
         throw new Error("Fetch request error");
       }
-    } catch (err) {
+    } catch (err: any) {
       setState((item) => ({
         ...item,
         password: "",
@@ -99,4 +125,4 @@ export function useLogIn() {
     navigate,
     t,
   };
-}
+};
