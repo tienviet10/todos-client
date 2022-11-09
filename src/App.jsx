@@ -5,7 +5,7 @@ import { DetailOfAReminderWindow } from "./screens/components/reminders-display-
 import { ReminderForm } from "./screens/components/reminders-form/ReminderForm";
 import { SevenDaysSummary } from "./screens/components/summary/SevenDaysSummary";
 import Friends from "./screens/Friends";
-import { Landing } from "./screens/Landing";
+import Landing from "./screens/Landing.tsx";
 import { Login } from "./screens/Login";
 import { MainReminders } from "./screens/MainReminders";
 import Profile from "./screens/Profile";

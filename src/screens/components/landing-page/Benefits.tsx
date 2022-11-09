@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const Benefits = () => {
+const Benefits: React.FC = () => {
   const { t } = useTranslation();
   return (
     <div className="experience bg-[#020917] h-[71rem] sm:h-[55rem] pt-[14rem] sm:pt-[18rem] mt-[-10rem] relative z-[2] rounded-b-[5rem]">
