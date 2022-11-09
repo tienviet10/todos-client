@@ -8,6 +8,7 @@ import Friends from "./screens/Friends";
 import Landing from "./screens/Landing.tsx";
 import { Login } from "./screens/Login";
 import { MainReminders } from "./screens/MainReminders";
+import PrivacyPolicy from "./screens/PrivacyPolicy";
 import Profile from "./screens/Profile";
 import { Registration } from "./screens/Registration";
 import Setting from "./screens/Setting";
@@ -58,6 +59,7 @@ function App() {
             <Route path={NAV_TABS[6].href} element={<Login />} />
           </>
         )}
+        <Route path={NAV_TABS[7].href} element={<PrivacyPolicy />} />
         <Route
           path="*"
           element={<Navigate to={isAuth ? NAV_TABS[0].href : "/"} />}

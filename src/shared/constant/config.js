@@ -65,6 +65,7 @@ export const NAV_TABS = [
   { name: "friends", href: "/friends", displayName: "Friends" },
   { name: "registration", href: "/registration", displayName: "Registration" },
   { name: "login", href: "/login", displayName: "Login" },
+  { name: "privacy", href: "/privacy", displayName: "PrivacyPolicy" },
 ];
 export const languages = [
   {
