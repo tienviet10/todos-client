@@ -27,7 +27,7 @@ export function useRestFriendList() {
       }
       setIsLoading(false);
     },
-    (data) => setError(true)
+    () => setError(true)
   );
 
   return {

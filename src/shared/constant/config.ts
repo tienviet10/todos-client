@@ -1,5 +1,39 @@
-export const API = process.env.REACT_APP_API_LINK;
-export const MAIN_PAGE_EXAMPLE = [
+import { Reminder, SharedReminder } from "../types/Reminder";
+import { EachTab } from "../types/Tab";
+
+type HomeScreenReminder = {
+  _id: string;
+  title: string;
+  description: string;
+  days: string;
+  status: string;
+};
+
+type ReminderStatus = {
+  ACTIVE: string;
+  INACTIVE: string;
+};
+
+type ChosenColorReminder = {
+  blue: string;
+  red: string;
+  orange: string;
+  yellow: string;
+  lime: string;
+  purple: string;
+  pink: string;
+  white: string;
+};
+
+type EachLanguage = {
+  code: string;
+  name: string;
+  country_code: string;
+};
+
+export const API: string | undefined = process.env.REACT_APP_API_LINK;
+
+export const MAIN_PAGE_EXAMPLE: HomeScreenReminder[] = [
   {
     _id: "1",
     title: "Shopping List",
@@ -15,11 +49,13 @@ export const MAIN_PAGE_EXAMPLE = [
     status: "inactive",
   },
 ];
-export const REMINDER_STATUS = {
+
+export const REMINDER_STATUS: ReminderStatus = {
   ACTIVE: "active",
   INACTIVE: "inactive",
 };
-export const COLOR_LIST = {
+
+export const COLOR_LIST: ChosenColorReminder = {
   blue: "#93c5fd",
   red: "#fca5a5",
   orange: "#fdba74",
@@ -29,11 +65,14 @@ export const COLOR_LIST = {
   pink: "#f9a8d4",
   white: "#e2e8f0",
 };
-export const DISCOVERY_DOC =
+
+export const DISCOVERY_DOC: string =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
-export const SCOPES =
+
+export const SCOPES: string =
   "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/userinfo.profile";
-export const CREATE_EMPTY_REMINDER = {
+
+export const CREATE_EMPTY_REMINDER: Reminder = {
   title: "",
   description: "",
   status: REMINDER_STATUS.ACTIVE,
@@ -44,7 +83,8 @@ export const CREATE_EMPTY_REMINDER = {
   googleCalendarReminderID: "",
   location: Intl.DateTimeFormat().resolvedOptions().timeZone,
 };
-export const CREATE_EMPTY_SHARED_REMINDER = {
+
+export const CREATE_EMPTY_SHARED_REMINDER: SharedReminder = {
   title: "",
   description: "",
   status: REMINDER_STATUS.ACTIVE,
@@ -57,7 +97,8 @@ export const CREATE_EMPTY_SHARED_REMINDER = {
   users: [],
   pendingRequest: [],
 };
-export const NAV_TABS = [
+
+export const NAV_TABS: EachTab[] = [
   { name: "reminder", href: "/personal-reminders", displayName: "Reminder" },
   { name: "share", href: "/shared-reminders", displayName: "Share" },
   { name: "profile", href: "/profile", displayName: "Profile" },
@@ -67,7 +108,8 @@ export const NAV_TABS = [
   { name: "login", href: "/login", displayName: "Login" },
   { name: "privacy", href: "/privacy", displayName: "PrivacyPolicy" },
 ];
-export const languages = [
+
+export const languages: EachLanguage[] = [
   {
     code: "en",
     name: "English",

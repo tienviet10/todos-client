@@ -27,7 +27,7 @@ export function useRestOperationReminder() {
         data.response.status === 404 &&
         setError(data.message);
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   //Request for active reminders
@@ -122,22 +122,26 @@ export function useRestOperationReminder() {
             data: pastDueRemindersTemp,
           });
         }
+
         setAllReminders(newUpdate);
       }
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   //Delete a record
   const { mutate: discardRecord } = useRQDeleteARecord(
     () => {},
-    (err, newReminder, context) => {
+    (err, context) => {
+      console.log(context.previousReminders);
       queryClient.setQueryData("reminders", context.previousReminders);
       setError(err);
     },
     async (data) => {
       await queryClient.cancelQueries("reminders");
       const previousReminders = queryClient.getQueryData("reminders");
+
+      console.log(previousReminders);
 
       //Optimistic update
       queryClient.setQueryData("reminders", (old) => {
@@ -161,7 +165,7 @@ export function useRestOperationReminder() {
   //Add a record to mongodb then to google calendar
   const { mutate: addRecord } = useRQPostARecord(
     () => {},
-    (err, reminder, context) => {
+    (err, context) => {
       queryClient.setQueryData("reminders", context.previousReminders);
       setError(err);
     },
@@ -196,7 +200,7 @@ export function useRestOperationReminder() {
   //Update a record
   const { mutate: updateRecord } = useRQUpdateARecord(
     () => {},
-    (err, newReminder, context) => {
+    (err, context) => {
       queryClient.setQueryData("reminders", context.previousReminders);
       queryClient.setQueryData("pastReminders", context.previousPastReminders);
       setError(err);
@@ -281,7 +285,7 @@ export function useRestOperationReminder() {
   //Update a record
   const { mutate: updateMultipleRecords } = useRQUpdateARecord(
     () => {},
-    (err, newReminder, context) => {
+    (err) => {
       setError(err);
     },
     () => {},

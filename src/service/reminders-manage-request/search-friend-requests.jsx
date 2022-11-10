@@ -13,11 +13,9 @@ export function useRestSearchFriends() {
         setError(data.message);
       setSearchedFriendsList(data.data);
     },
-    (err, friends, context) => {
+    (err) => {
       setError(err);
-    },
-    () => {},
-    () => {}
+    }
   );
 
   const { mutate: sendFriendRequest } = useRQUpdateARecord(
@@ -26,11 +24,9 @@ export function useRestSearchFriends() {
         data.response.status === 404 &&
         setError(data.message);
     },
-    (err, friends, context) => {
+    (err) => {
       setError(err);
-    },
-    () => {},
-    () => {}
+    }
   );
 
   return {

@@ -20,13 +20,13 @@ export function useRestPastSharedReminder() {
         data.response.status === 404 &&
         setError(data.message);
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   //Delete a record
   const { mutate: discardRecord } = useRQDeleteARecord(
     () => {},
-    (err, newReminder, context) => {
+    (err, context) => {
       queryClient.setQueryData(
         "sharedPastReminders",
         context.previousReminders

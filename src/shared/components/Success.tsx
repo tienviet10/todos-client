@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function Success({ success }) {
+export default function Success({ success }: { success: string }): JSX.Element {
   return (
     <div>
       <div

@@ -1,5 +1,4 @@
 import { t } from "i18next";
-import React from "react";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useManageResponseSharedReminderState } from "../../../service/reminders-manage-state/manage-response-shared-reminder";
 import { DisableButtonWithColorAndText } from "../DisableButtonWithColorAndText";
@@ -10,7 +9,6 @@ export const NotificationItemSharedReminderPending = ({
 }) => {
   const { toggleOnOff, acceptASharedReminder, declineASharedReminder } =
     useManageResponseSharedReminderState();
-  console.log(notificationItem);
 
   return (
     <div className="flex justify-between px-4 border-b hover:bg-gray-100 hover:cursor-pointer">

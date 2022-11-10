@@ -37,11 +37,7 @@ function App() {
   return (
     <div className="App h-screen">
       <div>
-        <Navbar
-          isAuth={isAuth}
-          setNavTab={setNavTab}
-          selectedNavTab={selectedNavTab}
-        />
+        <Navbar setNavTab={setNavTab} selectedNavTab={selectedNavTab} />
       </div>
       <Routes>
         {isAuth ? (

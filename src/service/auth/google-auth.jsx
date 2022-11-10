@@ -39,7 +39,7 @@ export function useGoogleAuth() {
         setError(data.message);
       queryClient.invalidateQueries("userDetail");
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   //Add a record to mongodb then to google calendar
@@ -51,7 +51,7 @@ export function useGoogleAuth() {
 
       queryClient.invalidateQueries("userDetail");
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   function handleAuthClick() {

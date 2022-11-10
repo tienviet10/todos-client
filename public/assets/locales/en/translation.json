@@ -84,5 +84,10 @@
   "sign_in_with_google": "Sign in with Google",
   "confirmation_box_title": "Delete A Reminder",
   "confirmation_box_display": "Are you sure you want to delete the reminder?",
-  "confirmation_box_accept": "Accept"
+  "confirmation_box_accept": "Accept",
+  "no_past_reminder": "No Past reminders!",
+  "add_cap": "ADD",
+  "your": "your",
+  "first_reminder": "FIRST REMINDER",
+  "below": "below."
 }

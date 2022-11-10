@@ -28,7 +28,7 @@ export function useNotification() {
         data.response.status === 404 &&
         setError(data.message);
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   const { refetch: refetchAReminder } = useRQGetRecords(
@@ -45,8 +45,8 @@ export function useNotification() {
         data.response.status === 404 &&
         setError(data.message);
     },
-    (data) => {
-      setError(data);
+    (err) => {
+      setError(err);
     }
   );
 
@@ -64,8 +64,8 @@ export function useNotification() {
         data.response.status === 404 &&
         setError(data.message);
     },
-    (data) => {
-      setError(data);
+    (err) => {
+      setError(err);
     }
   );
 
@@ -76,8 +76,8 @@ export function useNotification() {
         setError(data.message);
       refetchAReminder();
     },
-    (data) => {
-      setError(data);
+    (err) => {
+      setError(err);
     }
   );
 
@@ -89,8 +89,8 @@ export function useNotification() {
           setError(data.message);
         refetchASharedReminder();
       },
-      (data) => {
-        setError(data);
+      (err) => {
+        setError(err);
       }
     );
 
@@ -103,8 +103,8 @@ export function useNotification() {
         queryClient.invalidateQueries("notifications");
       }
     },
-    (data) => {
-      setError(data);
+    (err) => {
+      setError(err);
     }
   );
 

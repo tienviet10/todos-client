@@ -1,10 +1,10 @@
 import { COLOR_LIST } from "../../constant/config";
 
-export const classNames = (...classes) => {
+export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
 };
 
-export const returnAppropriateBgColor = (itemColor) => {
+export const returnAppropriateBgColor = (itemColor: string): string => {
   return itemColor === COLOR_LIST.blue
     ? "bg-blue-100"
     : itemColor === COLOR_LIST.red
@@ -22,7 +22,7 @@ export const returnAppropriateBgColor = (itemColor) => {
     : "bg-white";
 };
 
-export const returnAppropriateBtnColor = (itemColor) => {
+export const returnAppropriateBtnColor = (itemColor: string): string => {
   return itemColor === COLOR_LIST.blue
     ? "bg-blue-300"
     : itemColor === COLOR_LIST.red

@@ -1,5 +1,4 @@
 import { t } from "i18next";
-import React from "react";
 import { LabelText } from "../../../../shared/components/LabelText";
 
 export const TitleDescriptionFields = ({
@@ -14,6 +13,7 @@ export const TitleDescriptionFields = ({
     <form className="m-auto mt-3 px-12 w-full">
       <LabelText text={textTitle} />
       <input
+        autoComplete="off"
         autoFocus={_id ? true : false}
         className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-white mt-1 mb-3 bg-[#1b3663]"
         name="title"

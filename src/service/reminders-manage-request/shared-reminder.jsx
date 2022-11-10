@@ -27,7 +27,7 @@ export function useRestOperationSharedReminder() {
         data.response.status === 404 &&
         setError(data.message);
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   //Request for active reminders
@@ -126,13 +126,13 @@ export function useRestOperationSharedReminder() {
         setAllSharedReminders(newUpdate);
       }
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   //Delete a record
   const { mutate: discardSharedRecord } = useRQDeleteARecord(
     () => {},
-    (err, newReminder, context) => {
+    (err, context) => {
       queryClient.setQueryData("sharedReminders", context.previousReminders);
       setError(err);
     },
@@ -162,7 +162,7 @@ export function useRestOperationSharedReminder() {
   //Add a record to mongodb then to google calendar
   const { mutate: addSharedRecord } = useRQPostARecord(
     () => {},
-    (err, reminder, context) => {
+    (err, context) => {
       queryClient.setQueryData("sharedReminders", context.previousReminders);
       setError(err);
     },
@@ -197,7 +197,7 @@ export function useRestOperationSharedReminder() {
   //Update a record
   const { mutate: updateSharedRecord } = useRQUpdateARecord(
     () => {},
-    (err, newReminder, context) => {
+    (err, context) => {
       queryClient.setQueryData("sharedReminders", context.previousReminders);
       queryClient.setQueryData(
         "sharedPastReminders",
@@ -287,7 +287,7 @@ export function useRestOperationSharedReminder() {
   //Update multiple records
   const { mutate: updateMultipleRecords } = useRQUpdateARecord(
     () => {},
-    (err, newReminder, context) => {
+    (err) => {
       setError(err);
     },
     () => {},

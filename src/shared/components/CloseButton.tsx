@@ -1,6 +1,8 @@
-import React from "react";
-
-export const CloseButton = ({ takeAction }) => {
+export const CloseButton = ({
+  takeAction,
+}: {
+  takeAction: () => void;
+}): JSX.Element => {
   return (
     <button
       type="button"

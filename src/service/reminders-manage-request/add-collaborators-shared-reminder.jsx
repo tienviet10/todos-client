@@ -18,8 +18,8 @@ export function useRestAddCollaboratorsOnReminder() {
 
       setLoadingUserBackend(false);
     },
-    (data) => {
-      setError(data);
+    (err) => {
+      setError(err);
       setLoadingUserBackend(false);
     }
   );

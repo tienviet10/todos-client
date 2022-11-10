@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react";
-import React from "react";
+import { EachTab } from "../../types/Tab";
 import { classNames } from "../color-picker/color-choice";
 
 export const ButtonComponentMobileTabs = ({
@@ -7,7 +7,12 @@ export const ButtonComponentMobileTabs = ({
   changeTabsAndNavigation,
   tabName,
   selectedNavTab,
-}) => {
+}: {
+  item: EachTab;
+  changeTabsAndNavigation: (name: string, href: string) => void;
+  tabName: string;
+  selectedNavTab: string;
+}): JSX.Element => {
   return (
     <Disclosure.Button
       key={item.name}

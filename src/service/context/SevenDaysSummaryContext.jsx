@@ -1,5 +1,6 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 import { getSevenRemindersSummaryLink } from "../../shared/service-link/url-link";
+
 import { useRQGetRecords } from "../reminders-manage-request/rest-request";
 
 const SevenDaysSummaryContext = createContext();
@@ -15,6 +16,7 @@ function SevenDaysSummaryProvider({ children }) {
     //isSummaryOn,
     false,
     (data) => {
+      console.log(data);
       data.response !== undefined &&
         data.response.status === 404 &&
         setError(data.message);
@@ -24,7 +26,7 @@ function SevenDaysSummaryProvider({ children }) {
         setIsSummaryOn(true);
       }
     },
-    (data) => setError(data)
+    (err) => setError(err)
   );
 
   return (

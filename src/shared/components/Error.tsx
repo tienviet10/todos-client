@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function Error({ error }) {
+export default function Error({ error }: { error: string }): JSX.Element {
   return (
     <div>
       <div

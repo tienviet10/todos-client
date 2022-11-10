@@ -1,5 +1,4 @@
 import { format, formatDistance } from "date-fns";
-import React from "react";
 import { AiFillCaretUp, AiFillDelete } from "react-icons/ai";
 import { useManageSharedPastRemindersState } from "../../../service/reminders-manage-state/manage-shared-past-reminders-state";
 import Loader from "../../../shared/components/loading-spinner/CenterLoader";
@@ -93,7 +92,9 @@ export const PastSharedReminders = () => {
           </div>
         </>
       ) : (
-        <div className="mt-10 text-center text-xl">No Past reminders!</div>
+        <div className="mt-10 text-center text-xl text-white">
+          {t("no_past_reminder")}
+        </div>
       )}
     </div>
   );

@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-import React from "react";
 import { useTranslation } from "react-i18next";
 
 export const NotificationItemPersonal = ({

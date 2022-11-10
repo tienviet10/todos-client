@@ -52,29 +52,9 @@
 
 import { ComponentType, useContext, useState } from "react";
 import { getUserAuthenticationLink } from "../../shared/service-link/url-link";
+import { DataRespond, UserData } from "../../shared/types/User";
 import { AuthContext } from "../context/AuthServiceContext";
 import { useRQGetRecords } from "../reminders-manage-request/rest-request";
-
-interface UserData {
-  token: string;
-  user: {
-    email: string;
-    refreshToken: number;
-    role: string;
-    username: string;
-    _id: string;
-  };
-}
-
-interface DataRespond {
-  data: UserData;
-  status: number;
-  statusText: string;
-  request: {
-    status: number;
-    statusText: string;
-  };
-}
 
 function withUser<T>(WrappedComponent: ComponentType<T>) {
   const WithFetch = (props: any) => {

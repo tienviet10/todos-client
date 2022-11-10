@@ -16,7 +16,7 @@ export const getAllNotificationLink = () => {
   return "/v1/notifications";
 };
 
-export const getANotificationLink = (notificationID) => {
+export const getANotificationLink = (notificationID: string) => {
   return `/v1/notification/${notificationID}`;
 };
 
@@ -24,7 +24,7 @@ export const remindersGeneralLink = () => {
   return "/v1/reminder";
 };
 
-export const reminderWithIDLink = (reminderID) => {
+export const reminderWithIDLink = (reminderID: string) => {
   return `/v1/reminder/${reminderID}`;
 };
 
@@ -32,7 +32,7 @@ export const sharedRemindersGeneralLink = () => {
   return "/v1/shared-reminder";
 };
 
-export const sharedReminderWithIDLink = (reminderID) => {
+export const sharedReminderWithIDLink = (reminderID: string) => {
   return `/v1/shared-reminder/${reminderID}`;
 };
 
@@ -68,7 +68,7 @@ export const createGoogleTokensLink = () => {
   return "/v1/google-tokens";
 };
 
-export const deleteGoogleRefreshAccessLink = (_id) => {
+export const deleteGoogleRefreshAccessLink = (_id: string) => {
   return `/v1/google-tokens/${_id}`;
 };
 
@@ -100,10 +100,10 @@ export const getSuggestedCollaboratorsLink = () => {
   return "/v1/suggested-friends";
 };
 
-export const acceptJoinedSharedReminderLink = (notificationID) => {
+export const acceptJoinedSharedReminderLink = (notificationID: string) => {
   return `/v1/join-shared-reminders/${notificationID}`;
 };
 
-export const declineJoinedSharedReminderLink = (notificationID) => {
+export const declineJoinedSharedReminderLink = (notificationID: string) => {
   return `/v1/decline-shared-reminders/${notificationID}`;
 };
