@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { NAV_TABS } from "../../../shared/constant/config.js";
+import { NAV_TABS } from "../../../shared/constant/config";
 
 const Welcome: React.FC = () => {
   const { t } = useTranslation();

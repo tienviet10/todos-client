@@ -5,16 +5,24 @@ import { Link } from "react-router-dom";
 import withUser from "../../../service/auth/withUser";
 import { useManageNavbarState } from "../../../service/reminders-manage-state/manage-navbar-state";
 import { NAV_TABS } from "../../constant/config";
+import { UserData } from "../../types/User";
 import { BellNotification } from "../bell-notifications/BellNotification";
 
 import { classNames } from "../color-picker/color-choice";
+import { GlobeIcon } from "../GlobalIcon";
 import { ButtonComponentMobileTabs } from "./ButtonComponentMobileTabs";
 import { LinkComponentDesktopTabs } from "./LinkComponentDesktopTabs";
 import { LinkComponentProfileIcon } from "./LinkComponentProfileIcon";
 
-import { GlobeIcon } from "../GlobalIcon";
-
-const Navbar = ({ setNavTab, user, selectedNavTab }) => {
+const Navbar = ({
+  user,
+  setNavTab,
+  selectedNavTab,
+}: {
+  setNavTab: string;
+  user: UserData;
+  selectedNavTab: string;
+}): JSX.Element => {
   const {
     isAuth,
     setDropdownOpen,
@@ -253,7 +261,7 @@ const Navbar = ({ setNavTab, user, selectedNavTab }) => {
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"
-                    tabIndex="-1"
+                    // tabIndex="-1"
                   >
                     <div className="py-1" role="none">
                       {languages.map(({ code, name, country_code }) => (

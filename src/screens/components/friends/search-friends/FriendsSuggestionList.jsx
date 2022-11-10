@@ -1,4 +1,3 @@
-import React from "react";
 import { ImageUsernameEmailCard } from "../../../../shared/components/ImageUsernameEmailCard";
 import { RequestedButton } from "./RequestedButton";
 

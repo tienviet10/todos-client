@@ -4,7 +4,7 @@ import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import {
   MAIN_PAGE_EXAMPLE,
   REMINDER_STATUS,
-} from "../../../shared/constant/config.js";
+} from "../../../shared/constant/config";
 
 const ReminderSection: React.FC = () => {
   const { t } = useTranslation();

@@ -13,11 +13,9 @@ export function useRestResponseFriends() {
         setError(data.message);
       queryClient.invalidateQueries("notifications");
     },
-    (err, friends, context) => {
+    (err) => {
       setError(err);
-    },
-    () => {},
-    () => {}
+    }
   );
 
   return {

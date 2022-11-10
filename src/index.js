@@ -20,7 +20,7 @@ import { PastSharedReminderProvider } from "./service/context/PastSharedReminder
 import { ReminderModalProvider } from "./service/context/ReminderModalContext";
 import { ResponseFriendsProvider } from "./service/context/ResponseFriendsContext";
 import { SevenDaysSummaryProvider } from "./service/context/SevenDaysSummaryContext";
-import Loader from "./shared/components/loading-spinner/CenterLoader";
+import LoaderFullscreen from "./shared/components/loading-spinner/LoaderFullscreen";
 
 const queryClient = new QueryClient();
 
@@ -42,7 +42,7 @@ i18n
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Suspense fallback={<Loader />}>
+  <Suspense fallback={<LoaderFullscreen />}>
     <React.StrictMode>
       <BrowserRouter>
         <AuthProvider>

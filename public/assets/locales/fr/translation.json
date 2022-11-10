@@ -84,5 +84,10 @@
   "sign_in_with_google": "Connectez-vous avec Google",
   "confirmation_box_title": "Supprimer un rappel",
   "confirmation_box_display": "Voulez-vous vraiment supprimer le rappel ?",
-  "confirmation_box_accept": "Accepter"
+  "confirmation_box_accept": "Accepter",
+  "no_past_reminder": "Pas de rappels passés !",
+  "add_cap": "AJOUTEZ",
+  "your": "votre",
+  "first_reminder": "PREMIER RAPPEL",
+  "below": "ci-dessous."
 }

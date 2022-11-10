@@ -1,5 +1,4 @@
 import { t } from "i18next";
-import React from "react";
 import { LabelText } from "../../../../shared/components/LabelText";
 import LoadSpinnerOnly from "../../../../shared/components/loading-spinner/LoadSpinnerOnly";
 import { LiSelectedUsersComponent } from "../sub-components/LiSelectedUsersComponent";
@@ -48,6 +47,7 @@ export const AddCollaborators = ({
         {/* Search Input for Friends and Loading Indicator */}
         <div className="flex mt-1">
           <input
+            autoComplete="off"
             autoFocus={_id ? false : true}
             type="text"
             placeholder={t("placeholder_shared_reminder")}

@@ -1,4 +1,12 @@
-export const GlobeIcon = ({ width = 23, height = 23, color = "black" }) => (
+export const GlobeIcon = ({
+  width = 23,
+  height = 23,
+  color = "black",
+}: {
+  width?: number;
+  height?: number;
+  color?: string;
+}): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}

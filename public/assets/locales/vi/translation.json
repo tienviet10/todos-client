@@ -85,5 +85,10 @@
   "sign_in_with_google": "Đăng Nhập Google",
   "confirmation_box_title": "Xóa Nhắc Nhở",
   "confirmation_box_display": "Bạn có muốn xóa nhắc nhở này không?",
-  "confirmation_box_accept": "Đồng Ý"
+  "confirmation_box_accept": "Đồng Ý",
+  "no_past_reminder": "Không có lịch sử nhắc nhở!",
+  "add_cap": "THÊM",
+  "your": "",
+  "first_reminder": "LỊCH NHẮC NHỞ",
+  "below": "tại đây."
 }

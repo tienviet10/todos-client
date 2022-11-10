@@ -15,8 +15,8 @@ function PasswordConfirmationProfileProvider({ children }) {
   });
 
   const { mutate: confirmPasswordRequest } = useRQUpdateARecord(
-    (response) => {
-      if (response.status) {
+    (data) => {
+      if (data.status) {
         setNewPasswordUpdate((item) => ({
           ...item,
           newPassword: "",

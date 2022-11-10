@@ -1,5 +1,4 @@
 import { Menu } from "@headlessui/react";
-import React from "react";
 import { Link } from "react-router-dom";
 import { classNames } from "../color-picker/color-choice";
 
@@ -7,7 +6,11 @@ export const LinkComponentProfileIcon = ({
   changeTabsWithoutNavigation,
   link,
   displayName,
-}) => {
+}: {
+  changeTabsWithoutNavigation: (name: string) => void;
+  link: string;
+  displayName: string;
+}): JSX.Element => {
   return (
     <Menu.Item>
       {({ active }) => (

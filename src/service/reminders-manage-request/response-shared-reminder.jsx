@@ -14,11 +14,9 @@ export function useRestResponseSharedReminder() {
       queryClient.invalidateQueries("notifications");
       queryClient.invalidateQueries("sharedReminders");
     },
-    (err, friends, context) => {
+    (err) => {
       setError(err);
-    },
-    () => {},
-    () => {}
+    }
   );
 
   return {

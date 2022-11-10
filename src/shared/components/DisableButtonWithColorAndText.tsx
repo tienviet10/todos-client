@@ -1,7 +1,12 @@
-import React from "react";
 import { classNames } from "./color-picker/color-choice";
 
-export const DisableButtonWithColorAndText = ({ buttonColor, buttonText }) => {
+export const DisableButtonWithColorAndText = ({
+  buttonColor,
+  buttonText,
+}: {
+  buttonColor: string;
+  buttonText: string;
+}): JSX.Element => {
   return (
     <button
       disabled
