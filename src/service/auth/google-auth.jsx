@@ -45,9 +45,10 @@ export function useGoogleAuth() {
   //Add a record to mongodb then to google calendar
   const { mutate: deleteGoogleTokens } = useRQDeleteARecord(
     (data) => {
-      data.response !== undefined &&
-        data.response.status === 404 &&
-        setError(data.message);
+      console.log(data);
+      data.request !== undefined &&
+        data.request.status === 404 &&
+        setError(data.data);
 
       queryClient.invalidateQueries("userDetail");
     },

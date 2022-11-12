@@ -46,7 +46,6 @@ function PasswordConfirmationProfileProvider({ children }) {
         passConfirmationProfileToggle,
         setPassConfirmationProfileToggle,
         confirmPasswordRequest,
-
         confirmationRequest,
         setNewPasswordUpdate,
         newPasswordUpdate,

@@ -6,61 +6,79 @@ import { getLocalStorage } from "../auth/auth";
 
 interface NewData {
   url: string;
-  data:
+  data?:
     | {
         searchUser: string;
       }
     | Reminder
     | SharedReminder;
+  from?: string;
+}
+
+interface NewDataAPI extends NewData {
+  method: "get" | "post" | "put" | "delete";
+}
+
+interface SuccessfulDataResponse {
+  data: string;
+  status: number;
+  statusText: string;
+  request: {
+    status: number;
+  };
+}
+
+interface ErrorHandling {
+  error: string;
 }
 
 const client: AxiosInstance = axios.create({ baseURL: `${API}` });
 
-const request = ({ ...options }) => {
+const request = ({ ...options }: NewDataAPI) => {
   const token = getLocalStorage("token");
   client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   client.defaults.headers.post["Content-Type"] = "application/json";
   const onSuccess = (response: any) => response;
-  const onError = (error: any) => error;
+  const onError = (error: ErrorHandling) => error;
   return client(options).then(onSuccess).catch(onError);
 };
 
-function createARecordWithTokenFunction(newData: NewData) {
-  return request({
-    url: newData.url,
-    method: "post",
-    data: newData.data,
-  });
-}
+// function createARecordWithTokenFunction(newData: NewData) {
+//   return request({
+//     url: newData.url,
+//     method: newData.method,
+//     data: newData.data,
+//   });
+// }
 
-function getRecordsWithTokenFunction(urlLink: string) {
-  return request({ url: urlLink, method: "get" });
-}
+// function getRecordsWithTokenFunction(newData: NewData) {
+//   return request({ url: newData.url, method: newData.method });
+// }
 
-function updatedARecordWithTokenFunction(newData: NewData) {
-  return request({
-    url: newData.url,
-    method: "put",
-    data: newData.data,
-  });
-}
+// function updatedARecordWithTokenFunction(newData: NewData) {
+//   return request({
+//     url: newData.url,
+//     method: newData.method,
+//     data: newData.data,
+//   });
+// }
 
-function deleteARecordWithTokenFunction(urlLink: string) {
-  return request({
-    url: urlLink,
-    method: "delete",
-  });
-}
+// function deleteARecordWithTokenFunction(newData: NewData) {
+//   return request({
+//     url: newData.url,
+//     method: newData.method,
+//   });
+// }
 
 //Create a record or records
 export const useRQPostARecord = (
   onSuccess: (data?: any) => void,
-  onError: (err?: any, context?: any) => void,
-  onMutate: (data?: any) => void,
+  onError: (err?: ErrorHandling, context?: any) => void,
+  onMutate: (data?: NewData) => void,
   onSettled: () => void
 ) => {
   return useMutation(
-    (newData: NewData) => createARecordWithTokenFunction(newData),
+    (newData: NewData) => request({ ...newData, method: "post" }),
     {
       onSuccess,
       onError,
@@ -76,9 +94,9 @@ export const useRQGetRecords = (
   urlLink: string,
   typeDefault: boolean,
   onSuccess: (data: any) => void,
-  onError: (err?: any) => void
+  onError: (err?: ErrorHandling) => void
 ) => {
-  return useQuery(cacheVar, () => getRecordsWithTokenFunction(urlLink), {
+  return useQuery(cacheVar, () => request({ url: urlLink, method: "get" }), {
     onSuccess,
     onError,
     enabled: typeDefault,
@@ -88,12 +106,12 @@ export const useRQGetRecords = (
 //Update a record
 export const useRQUpdateARecord = (
   onSuccess: (data?: any) => void,
-  onError: (err?: any, context?: any) => void,
-  onMutate: (data?: any) => void,
+  onError: (err?: ErrorHandling, context?: any) => void,
+  onMutate: (data?: NewData) => void,
   onSettled: () => void
 ) => {
   return useMutation(
-    (newData: NewData) => updatedARecordWithTokenFunction(newData),
+    (newData: NewData) => request({ ...newData, method: "put" }),
     {
       onSuccess,
       onError,
@@ -105,13 +123,13 @@ export const useRQUpdateARecord = (
 
 //Delete a record
 export const useRQDeleteARecord = (
-  onSuccess: (data?: any) => void,
-  onError: (err?: any, context?: any) => void,
-  onMutate: any,
+  onSuccess: (data?: SuccessfulDataResponse) => void,
+  onError: (err?: ErrorHandling, context?: any) => void,
+  onMutate: (data: string) => unknown,
   onSettled: () => void
 ) => {
   return useMutation(
-    (deleteData: string) => deleteARecordWithTokenFunction(deleteData),
+    (deleteId: string) => request({ url: deleteId, method: "delete" }),
     {
       onSuccess,
       onError,

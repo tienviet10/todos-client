@@ -42,6 +42,7 @@ export const ReminderFormMain = () => {
                 placeholder={t("placeholder_add_reminder")}
                 autoFocus
                 onChange={handleChange("title")}
+                autoComplete="off"
               />
               {favorite ? (
                 <AiFillStar

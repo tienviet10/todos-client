@@ -16,7 +16,6 @@ function SevenDaysSummaryProvider({ children }) {
     //isSummaryOn,
     false,
     (data) => {
-      console.log(data);
       data.response !== undefined &&
         data.response.status === 404 &&
         setError(data.message);

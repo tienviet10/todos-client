@@ -133,15 +133,12 @@ export function useRestOperationReminder() {
   const { mutate: discardRecord } = useRQDeleteARecord(
     () => {},
     (err, context) => {
-      console.log(context.previousReminders);
       queryClient.setQueryData("reminders", context.previousReminders);
       setError(err);
     },
     async (data) => {
       await queryClient.cancelQueries("reminders");
       const previousReminders = queryClient.getQueryData("reminders");
-
-      console.log(previousReminders);
 
       //Optimistic update
       queryClient.setQueryData("reminders", (old) => {
@@ -170,6 +167,8 @@ export function useRestOperationReminder() {
       setError(err);
     },
     async (data) => {
+      console.log(data);
+
       await queryClient.cancelQueries("reminders");
       const previousReminders = queryClient.getQueryData("reminders");
 
