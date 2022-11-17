@@ -4,7 +4,7 @@ import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import { ReminderModalContext } from "../../../service/context/ReminderModalContext";
 import {
   MAIN_PAGE_EXAMPLE,
-  REMINDER_STATUS,
+  REMINDER_STATUS
 } from "../../../shared/constant/config";
 
 // When there is no reminders, display this placeholder
@@ -28,18 +28,18 @@ export const EmptyListDisplay = () => {
       </div>
       <div className="grid sm:grid-cols-2 gap-4 sm:gap-8 sm:mt-10">
         {MAIN_PAGE_EXAMPLE.map((cart) => (
-          <div key={cart._id} className="flex justify-center">
+          <div key={cart?._id} className="flex justify-center">
             <div
               className={
-                cart.status === REMINDER_STATUS.ACTIVE
+                cart?.status === REMINDER_STATUS.ACTIVE
                   ? "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-green-500"
                   : "block p-6 pb-2 rounded-lg shadow-lg bg-white w-full m-4 border-l-4 border-l-red-500"
               }
             >
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
-                {cart.title}
+                {cart?.title}
               </h5>
-              <p className="text-gray-700 text-base mb-4">{cart.description}</p>
+              <p className="text-gray-700 text-base mb-4">{cart?.description}</p>
               <div className="flex gap-6 justify-center mt-7">
                 <AiOutlineFileDone
                   // disabled
@@ -60,7 +60,7 @@ export const EmptyListDisplay = () => {
                 />
               </div>
               <div className="py-1 px-6 border-t border-gray-300 text-gray-600 mt-4">
-                {cart.days}
+                {cart?.days}
               </div>
             </div>
           </div>

@@ -37,7 +37,7 @@ export const PastReminders = () => {
             {pastReminders.map((item) => (
               // Card
               <div
-                key={item._id}
+                key={item?._id}
                 className="flex justify-center"
                 onDoubleClick={() => restorePastReminder(item)}
               >
@@ -45,22 +45,22 @@ export const PastReminders = () => {
                   <div onClick={() => handleDetailsScreen(item)}>
                     {/* Reminder title */}
                     <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2 max-w-[300px] truncate px-8 sm:max-w-[330px]">
-                      {item.title}
+                      {item?.title}
                     </h5>
                     {/* Date time of the reminder */}
                     <div className="font-medium text-sm text-gray-500">
-                      {item.remindedAt
-                        ? format(new Date(item.remindedAt), "PPPP")
+                      {item?.remindedAt
+                        ? format(new Date(item?.remindedAt), "PPPP")
                         : "----No-Date----"}
                     </div>
                     <div className="font-medium mb-5 text-sm h-4 text-gray-500">
-                      {item.remindedAt &&
-                        format(new Date(item.remindedAt), "p")}
+                      {item?.remindedAt &&
+                        format(new Date(item?.remindedAt), "p")}
                     </div>
 
                     {/* Reminder description */}
                     <p className="text-gray-700 text-base mb-4 truncate max-w-[300px] sm:max-w-[330px]">
-                      {item.description}
+                      {item?.description}
                     </p>
                   </div>
 

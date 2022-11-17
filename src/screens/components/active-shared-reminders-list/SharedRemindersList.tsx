@@ -31,7 +31,7 @@ export const SharedRemindersList:React.FC<SharedRemindersListType> = ({
             {remindersList.map((item) => (
               // Card
               <div
-                key={item._id}
+                key={item?._id}
                 className="flex justify-center"
                 onDoubleClick={() => moveReminderToPast(item)}
               >
@@ -53,20 +53,20 @@ export const SharedRemindersList:React.FC<SharedRemindersListType> = ({
                       className="text-gray-900 text-xl font-medium truncate max-w-[180px] sm:max-w-[200px] mx-auto text-center"
                       onClick={() => handleDetailsScreen(item)}
                     >
-                      {item.title}
+                      {item?.title}
                     </div>
 
                     {/* Icons of shared people */}
                     <div className="absolute right-2 inset-y-3 flex -space-x-3 p-1 overflow-hidden h-8">
-                      {item.groupUsers.editor.length > 1 && (
+                      {item?.groupUsers?.editor.length > 1 && (
                         <UserIconOnReminder
-                          user={item.groupUsers.editor[1]}
+                          user={item?.groupUsers?.editor[1]}
                           color="bg-cyan-300"
                         />
                       )}
-                      {item.groupUsers.editor.length > 0 && (
+                      {item?.groupUsers?.editor?.length > 0 && (
                         <UserIconOnReminder
-                          user={item.groupUsers.editor[0]}
+                          user={item?.groupUsers?.editor[0]}
                           color="bg-lime-300"
                         />
                       )}
@@ -85,19 +85,19 @@ export const SharedRemindersList:React.FC<SharedRemindersListType> = ({
                   <div onClick={() => handleDetailsScreen(item)}>
                     {/* Date time of the reminder */}
                     <div className="font-medium text-sm text-gray-500">
-                      {item.remindedAt
-                        ? format(new Date(item.remindedAt), "PPPP")
+                      {item?.remindedAt
+                        ? format(new Date(item?.remindedAt), "PPPP")
                         : "----No-Date----"}
                     </div>
 
                     {/* Repeat Icon if the reminder is on repeat */}
                     <div className="flex justify-center font-medium mb-5 text-sm h-4 text-gray-500">
-                      {item.remindedAt &&
-                        format(new Date(item.remindedAt), "p")}
+                      {item?.remindedAt &&
+                        format(new Date(item?.remindedAt), "p")}
                       <div className="ml-2 text-center">
-                        {item.remindedAt &&
-                          item.repeat &&
-                          item.repeat !== "none" && (
+                        {item?.remindedAt &&
+                          item?.repeat &&
+                          item?.repeat !== "none" && (
                             <IoRepeatOutline className="inline-block align-text-bottom text-black" />
                           )}
                       </div>
@@ -106,7 +106,7 @@ export const SharedRemindersList:React.FC<SharedRemindersListType> = ({
                     {/* Reminder description */}
                     <div className="flex w-full justify-center mb-4">
                       <p className="text-gray-700 text-base px-6 truncate max-w-[180px] sm:max-w-[280px]">
-                        {item.description}
+                        {item?.description}
                       </p>
                     </div>
                   </div>

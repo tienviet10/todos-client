@@ -13,7 +13,7 @@ export const FriendsSuggestionList:React.FC<FriendsSuggestionListType> = ({
         {searchedFriendsList ? (
           searchedFriendsList.map(
             (friendInfo) =>
-              friendInfo.email !== email && (
+              friendInfo?.email !== email && (
                 <ImageUsernameEmailCard
                   key={friendInfo?.username as string}
                   username={friendInfo?.username as string}
