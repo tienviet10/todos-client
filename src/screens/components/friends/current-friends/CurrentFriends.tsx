@@ -1,11 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { ImageUsernameEmailCard } from "../../../../shared/components/ImageUsernameEmailCard";
-import { UserEmailUsernamePicture } from "../../../../shared/types/RESTResponse";
+import { CurrentFriendsType } from "../../../../shared/types/friends/Friends";
 
-export const CurrentFriends = ({
+export const CurrentFriends:React.FC<CurrentFriendsType> = ({
   acceptedFriends,
-}: {
-  acceptedFriends: UserEmailUsernamePicture[];
 }) => {
   const { t } = useTranslation();
   return (

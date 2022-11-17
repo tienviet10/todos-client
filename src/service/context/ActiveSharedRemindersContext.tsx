@@ -1,5 +1,6 @@
 import { createContext } from "react";
-import { RestOperationSharedReminder } from "../../shared/types/ContextType";
+import { RestOperationSharedReminder } from "../../shared/types/service/ManageRequest";
+
 import { useRestOperationSharedReminder } from "../reminders-manage-request/shared-reminder";
 
 const SharedReminderContext = createContext<RestOperationSharedReminder>({

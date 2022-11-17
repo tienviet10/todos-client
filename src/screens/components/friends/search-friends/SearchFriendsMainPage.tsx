@@ -1,9 +1,9 @@
 import { useManageSearchFriendsState } from "../../../../service/reminders-manage-state/manage-search-friends";
-import { UserData } from "../../../../shared/types/User";
+import { UserDataType } from "../../../../shared/types/service/User";
 import { FriendsSuggestionList } from "./FriendsSuggestionList";
 import { SearchFriends } from "./SearchFriends";
 
-export const SearchFriendsMainPage = ({ user }: { user: UserData }) => {
+export const SearchFriendsMainPage:React.FC<UserDataType> = ({ user }) => {
   const {
     searchUser,
     setSearchUser,

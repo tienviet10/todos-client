@@ -1,13 +1,10 @@
 import { useTranslation } from "react-i18next";
+import { ButtonChoicesReminderFormType } from "../../../../shared/types/reminders-form/ReminderForm";
 
-export const ButtonChoicesReminderForm = ({
+export const ButtonChoicesReminderForm:React.FC<ButtonChoicesReminderFormType> = ({
   exitTheForm,
   saveOrAddReminder,
   _id,
-}: {
-  exitTheForm: () => void;
-  saveOrAddReminder: () => void;
-  _id: string | undefined;
 }) => {
   const { t } = useTranslation();
   return (

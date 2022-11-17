@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { friendsLink } from "../../shared/service-link/url-link";
-import { SendFriendType } from "../../shared/types/MutationFuncType";
-import { EmailUserPicId } from "../../shared/types/RESTResponse";
+import { SendFriendType } from "../../shared/types/service/MutationFuncType";
+import { EmailUserPicId } from "../../shared/types/service/User";
 import { useRestSearchFriends } from "../reminders-manage-request/search-friend-requests";
 
 export function useManageSearchFriendsState(): {

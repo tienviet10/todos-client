@@ -1,11 +1,9 @@
-export const ButtonIconText = ({
+import { ButtonIconTextType } from "../types/sub-components/SharedComponents";
+
+export const ButtonIconText:React.FC<ButtonIconTextType> = ({
   iconImage,
   testDisplay,
   onClick,
-}: {
-  iconImage: JSX.Element;
-  testDisplay: string;
-  onClick: () => void;
 }) => {
   return (
     <button

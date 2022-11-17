@@ -1,16 +1,10 @@
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
-import { NotificationData } from "../../types/RESTResponse";
+import { NotificationItemPersonalType } from "../../types/sub-components/SharedComponents";
 
-export const NotificationItemPersonal = ({
+export const NotificationItemPersonal:React.FC<NotificationItemPersonalType> = ({
   notificationItem,
   navigateToReminderDetail,
-}: {
-  notificationItem: NotificationData;
-  navigateToReminderDetail: (
-    reminderID: string,
-    notificationID: string
-  ) => void;
 }) => {
   const { t } = useTranslation();
   return (

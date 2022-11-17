@@ -1,17 +1,12 @@
 import { ImageUsernameEmailCard } from "../../../../shared/components/ImageUsernameEmailCard";
-import { SendFriendType } from "../../../../shared/types/MutationFuncType";
-import { EmailUserPicId } from "../../../../shared/types/RESTResponse";
+import { FriendsSuggestionListType } from "../../../../shared/types/friends/Friends";
 import { RequestedButton } from "./RequestedButton";
 
-export const FriendsSuggestionList = ({
+export const FriendsSuggestionList:React.FC<FriendsSuggestionListType> = ({
   searchedFriendsList,
   email,
   sendFriendRequest,
-}: {
-  searchedFriendsList: EmailUserPicId[];
-  email: string;
-  sendFriendRequest: SendFriendType;
-}) => {
+} ) => {
   return (
     <div className="w-full">
       <div className="flex-col items-center justify-center w-full">

@@ -1,10 +1,10 @@
 import withUser from "../service/auth/withUser";
 import { useManageProfileState } from "../service/reminders-manage-state/manage-profile-state";
-import { UserData } from "../shared/types/User";
+import { UserDataType } from "../shared/types/service/User";
 import { GoogleLogIn } from "./components/google-login-button/GoogleLogIn";
 import { GoogleLogout } from "./components/google-logout-button/GoogleLogout";
 
-const Profile = ({ user }: { user: UserData }) => {
+const Profile:React.FC<UserDataType> = ({ user }) => {
   const {
     username,
     newPassword,

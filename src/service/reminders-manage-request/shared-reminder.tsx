@@ -4,21 +4,20 @@ import { REMINDER_STATUS } from "../../shared/constant/config";
 import {
   getActiveSharedRemindersLink,
   pastSharedRemindersLink,
-  updateMultipleSharedRemindersLink,
+  updateMultipleSharedRemindersLink
 } from "../../shared/service-link/url-link";
-import { RestOperationSharedReminder } from "../../shared/types/ContextType";
-import { SharedReminder } from "../../shared/types/Reminder";
+import { GetListSharedRemindersResponse, GetSharedReminderResponse, RestOperationSharedReminder } from "../../shared/types/service/ManageRequest";
+
+import { SharedReminder } from "../../shared/types/service/Reminder";
 import {
-  GetListSharedRemindersResponse,
-  GetSharedReminderResponse,
-  NewSharedReminderData,
-} from "../../shared/types/RESTResponse";
+  NewSharedReminderData
+} from "../../shared/types/service/RESTRequestDataType";
 import { AuthContext } from "../context/AuthServiceContext";
 import {
   useRQDeleteARecord,
   useRQGetRecords,
   useRQPostARecord,
-  useRQUpdateARecord,
+  useRQUpdateARecord
 } from "./rest-request";
 
 export function useRestOperationSharedReminder(): RestOperationSharedReminder {

@@ -1,12 +1,14 @@
-export const setLocalStorage = (key: string, value: string) => {
+import { GetLocalStorageType, RemoveLocalStorageType, SetLocalStorageType, StoreAuthenticationType } from "../../shared/types/service/Authentication";
+
+export const setLocalStorage: SetLocalStorageType = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
-export const removeLocalStorage = (key: string) => {
+export const removeLocalStorage: RemoveLocalStorageType = (key) => {
   localStorage.removeItem(key);
 };
 
-export const getLocalStorage = (token: string) => {
+export const getLocalStorage: GetLocalStorageType = (token) => {
   if (localStorage.getItem(token)) {
     return JSON.parse(localStorage.getItem(token) || "");
   } else {
@@ -14,7 +16,7 @@ export const getLocalStorage = (token: string) => {
   }
 };
 
-export const storeAuthentication = (token: string, accessToken: string) => {
+export const storeAuthentication: StoreAuthenticationType = (token, accessToken) => {
   setLocalStorage(token, accessToken);
 };
 

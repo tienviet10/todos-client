@@ -1,12 +1,10 @@
 import axios, { AxiosInstance } from "axios";
 import { useMutation, useQuery } from "react-query";
 import { API } from "../../shared/constant/config";
+import { ErrorHandling, FriendRequest, JSONStringResponse } from "../../shared/types/service/ManageRequest";
 import {
-  ErrorHandling,
-  FriendRequest,
-  JSONStringResponse,
-  NewDataAPI,
-} from "../../shared/types/RESTResponse";
+  NewDataAPI
+} from "../../shared/types/service/RESTRequestDataType";
 import { getLocalStorage } from "../auth/auth";
 
 const client: AxiosInstance = axios.create({ baseURL: `${API}` });

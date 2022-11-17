@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { ResponseFriendsContextType } from "../../shared/types/ContextType";
+import { ResponseFriendsContextType } from "../../shared/types/service/ContextType";
 import { useRestFriendList } from "../reminders-manage-request/friends-list";
 
 const ResponseFriendsContext = createContext<ResponseFriendsContextType>(

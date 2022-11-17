@@ -1,16 +1,9 @@
 import { LabelText } from "../../../../shared/components/LabelText";
-export const RepeatField = ({
+import { RepeatFieldType } from "../../../../shared/types/reminders-form/ReminderForm";
+export const RepeatField:React.FC<RepeatFieldType> = ({
   repeat,
   handleChange,
   text,
-}: {
-  repeat: string;
-  handleChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => void;
-  text: string;
 }) => {
   return (
     <div className="block px-12 mb-5 py-2 mt-2">

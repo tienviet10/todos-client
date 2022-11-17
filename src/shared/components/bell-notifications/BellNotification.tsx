@@ -1,20 +1,17 @@
-import { Dispatch, SetStateAction } from "react";
 import { useManageBellNotificationsState } from "../../../service/reminders-manage-state/manage-bell-notification";
+import { BellNotificationType } from "../../types/sub-components/SharedComponents";
 import { classNames } from "../color-picker/color-choice";
 import { NotificationItemFriendRequest } from "./NotificationItemFriendRequest";
 import { NotificationItemPersonal } from "./NotificationItemPersonal";
 import { NotificationItemShare } from "./NotificationItemShare";
 import { NotificationItemSharedReminderPending } from "./NotificationItemSharedReminderPending";
 
-export const BellNotification = ({
+export const BellNotification:React.FC<BellNotificationType> = ({
   dropdownOpen,
   setDropdownOpen,
   setNavTab,
-}: {
-  dropdownOpen: boolean;
-  setDropdownOpen: Dispatch<SetStateAction<boolean>>;
-  setNavTab: Dispatch<SetStateAction<string>>;
 }) => {
+  
   const {
     isNewNotification,
     notifications,

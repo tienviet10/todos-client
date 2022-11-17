@@ -1,17 +1,12 @@
 import { Link } from "react-router-dom";
-import { EachTab } from "../../types/Tab";
+import { LinkComponentDesktopTabsType } from "../../types/sub-components/SharedComponents";
 import { classNames } from "../color-picker/color-choice";
 
-export const LinkComponentDesktopTabs = ({
+export const LinkComponentDesktopTabs:React.FC<LinkComponentDesktopTabsType> = ({
   item,
   changeTabsWithoutNavigation,
   tabName,
   selectedNavTab,
-}: {
-  item: EachTab;
-  changeTabsWithoutNavigation: (name: string) => void;
-  tabName: string;
-  selectedNavTab: string;
 }) => {
   return (
     <Link

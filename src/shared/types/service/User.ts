@@ -12,6 +12,8 @@ export interface UserData {
   };
 }
 
+export interface UserDataType { user: UserData }
+
 export interface UserNewPassword {
   email: string;
   username: string;
@@ -29,17 +31,27 @@ export interface UserInfoRegistration {
   buttonText: string;
 }
 
+export interface EmailUserPicId {
+  email: string;
+  username: string;
+  picture?: string;
+  _id: string;
+}
+
+export interface UserEmailUsernamePicture {
+  email: string;
+  username: string;
+  picture?: string;
+}
+
+export interface UserFriendsList {
+  acceptedFriends: UserEmailUsernamePicture[];
+  pendingFriendsRequest: UserEmailUsernamePicture[];
+  sentFriendRequests: UserEmailUsernamePicture[];
+}
+
 export interface GreetingImageType {
   statement: string;
   image: string;
 }
 
-// export interface DataRespond {
-//   data: UserData;
-//   status: number;
-//   statusText: string;
-//   request: {
-//     status: number;
-//     statusText: string;
-//   };
-// }

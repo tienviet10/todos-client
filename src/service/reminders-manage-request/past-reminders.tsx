@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { pastRemindersLink } from "../../shared/service-link/url-link";
-import { RestPastReminderType } from "../../shared/types/ContextType";
-import { Reminder } from "../../shared/types/Reminder";
-import { GetListRemindersResponse } from "../../shared/types/RESTResponse";
+import { GetListRemindersResponse, RestPastReminderType } from "../../shared/types/service/ManageRequest";
+import { Reminder } from "../../shared/types/service/Reminder";
 import { useRQDeleteARecord, useRQGetRecords } from "./rest-request";
 
 export function useRestPastReminder(): RestPastReminderType {

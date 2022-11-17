@@ -1,14 +1,11 @@
 import DateTimePicker from "react-datetime-picker";
 import { LabelText } from "../../../../shared/components/LabelText";
+import { ChooseDateFieldType } from "../../../../shared/types/reminders-form/ReminderForm";
 
-export const ChooseDateField = ({
+export const ChooseDateField:React.FC<ChooseDateFieldType> = ({
   setReminderDate,
   remindedAt,
   text,
-}: {
-  setReminderDate: (remindedAt: Date) => void;
-  remindedAt: any;
-  text: string;
 }) => {
   return (
     <div className="flex flex-col px-12 text-white font-medium mt-3">

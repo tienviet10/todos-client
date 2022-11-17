@@ -1,4 +1,5 @@
 import { ButtonIconText } from "../../../shared/components/ButtonIconText";
+import { GoogleLogInOut } from "../../../shared/types/service/Authentication";
 
 const getIconFromName = () => {
   return (
@@ -26,7 +27,7 @@ const getIconFromName = () => {
   );
 };
 
-export const GoogleLogout = ({ onClick }: { onClick: () => void }) => {
+export const GoogleLogout:React.FC<GoogleLogInOut> = ({ onClick }) => {
   const icon: JSX.Element = getIconFromName();
 
   return (

@@ -1,30 +1,17 @@
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useQueryClient } from "react-query";
 import {
   getAllNotificationLink,
   reminderWithIDLink,
-  sharedReminderWithIDLink,
+  sharedReminderWithIDLink
 } from "../../shared/service-link/url-link";
-import { UpdateSeenType } from "../../shared/types/MutationFuncType";
-import {
-  GetNotificationsResponse,
-  GetReminderResponse,
-  GetSharedReminderResponse,
-  NotificationData,
-} from "../../shared/types/RESTResponse";
+import { GetNotificationsResponse, GetReminderResponse, GetSharedReminderResponse, UseNotificationType } from "../../shared/types/service/ManageRequest";
+import { NotificationData } from "../../shared/types/service/Reminder";
+
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { useRQGetRecords, useRQUpdateARecord } from "./rest-request";
 
-export function useNotification(): {
-  notificationsList: NotificationData[];
-  error: string;
-  updateSeenStatusAndRefreshAReminder: UpdateSeenType;
-  updateSeenStatusAndRefreshASharedReminder: UpdateSeenType;
-  updateSeenStatusOnly: UpdateSeenType;
-  setAReminder: Dispatch<SetStateAction<string>>;
-  refetchAReminder: () => void;
-  refetchASharedReminder: () => void;
-} {
+export function useNotification(): UseNotificationType {
   const { setReminderDetails, setSharedReminderDetails } = useContext(
     DetailOfAReminderContext
   );

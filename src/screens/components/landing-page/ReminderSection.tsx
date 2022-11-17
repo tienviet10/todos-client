@@ -1,12 +1,11 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import {
   MAIN_PAGE_EXAMPLE,
-  REMINDER_STATUS,
+  REMINDER_STATUS
 } from "../../../shared/constant/config";
 
-const ReminderSection: React.FC = () => {
+const ReminderSection = () => {
   const { t } = useTranslation();
   return (
     <div className="relative h-[60rem] bg-[#081730] pt-[22rem] sm:pt-[16rem] pb-[7rem] mt-[-15rem] z-[1] flex items-center justify-between rounded-b-[5rem]">

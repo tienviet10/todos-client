@@ -3,14 +3,15 @@ import {
   SetStateAction,
   useContext,
   useEffect,
-  useState,
+  useState
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { getANotificationLink } from "../../shared/service-link/url-link";
-import { ManageBellNotificationsStateType } from "../../shared/types/ManageStateType";
-import { NotificationData } from "../../shared/types/RESTResponse";
+import { ManageBellNotificationsStateType } from "../../shared/types/service/ManageStateType";
+import { NotificationData } from "../../shared/types/service/Reminder";
+
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
 import { ResponseFriendsContext } from "../context/ResponseFriendsContext";
 import { SevenDaysSummaryContext } from "../context/SevenDaysSummaryContext";

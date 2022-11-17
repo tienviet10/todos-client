@@ -3,14 +3,13 @@ import { AiFillDelete, AiFillEdit, AiOutlineFileDone } from "react-icons/ai";
 import { IoRepeatOutline } from "react-icons/io5";
 import {
   classNames,
-  returnAppropriateBgColor,
+  returnAppropriateBgColor
 } from "../../../shared/components/color-picker/color-choice";
 import { ColorSelectionDropdown } from "../../../shared/components/color-picker/ColorSelectionDropdown";
-import { SharedReminder } from "../../../shared/types/Reminder";
-import { UserData } from "../../../shared/types/User";
+import { SharedRemindersListType } from "../../../shared/types/reminders-shared-reminders-components/RemindersComponents";
 import { UserIconOnReminder } from "./UserIconOnReminder";
 
-export const SharedRemindersList = ({
+export const SharedRemindersList:React.FC<SharedRemindersListType> = ({
   title,
   remindersList,
   moveReminderToPast,
@@ -19,15 +18,6 @@ export const SharedRemindersList = ({
   editReminder,
   execDeletion,
   user,
-}: {
-  title: string;
-  remindersList: SharedReminder[];
-  moveReminderToPast: (item: SharedReminder) => void;
-  saveNewChosenColor: (color: string, item: SharedReminder) => void;
-  handleDetailsScreen: (item: SharedReminder) => void;
-  editReminder: (item: SharedReminder) => void;
-  execDeletion: (itemId: string) => void;
-  user: UserData;
 }) => {
   return (
     <>

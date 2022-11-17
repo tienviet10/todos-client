@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { postRegisterLink } from "../../shared/service-link/url-link";
-import { ManageRegistrationStateType } from "../../shared/types/ManageStateType";
-import { UserInfoRegistration } from "../../shared/types/User";
+import { ManageRegistrationStateType } from "../../shared/types/service/ManageStateType";
+import { UserInfoRegistration } from "../../shared/types/service/User";
 
 export function useManageRegistrationState(): ManageRegistrationStateType {
   const { t } = useTranslation();

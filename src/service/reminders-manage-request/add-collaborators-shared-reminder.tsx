@@ -1,16 +1,10 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { SearchFriendType } from "../../shared/types/MutationFuncType";
-import { EmailUserPicId } from "../../shared/types/RESTResponse";
+import { useState } from "react";
+import { UseRestAddCollaboratorsOnReminderType } from "../../shared/types/service/ManageRequest";
+import { EmailUserPicId } from "../../shared/types/service/User";
+
 import { useRQPostARecord } from "./rest-request";
 
-export function useRestAddCollaboratorsOnReminder(): {
-  error: string;
-  filteredData: EmailUserPicId[];
-  setFilteredData: Dispatch<SetStateAction<EmailUserPicId[]>>;
-  getSearchedCollaborators: SearchFriendType;
-  loadingUserBackend: boolean;
-  setLoadingUserBackend: Dispatch<SetStateAction<boolean>>;
-} {
+export function useRestAddCollaboratorsOnReminder(): UseRestAddCollaboratorsOnReminderType {
   const [filteredData, setFilteredData] = useState<EmailUserPicId[]>([]);
   const [error, setError] = useState<string>("");
   const [loadingUserBackend, setLoadingUserBackend] = useState<boolean>(false);

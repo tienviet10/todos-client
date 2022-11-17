@@ -4,17 +4,17 @@ import {
   AiFillEdit,
   AiFillStar,
   AiOutlineFileDone,
-  AiOutlineStar,
+  AiOutlineStar
 } from "react-icons/ai";
 import { IoRepeatOutline } from "react-icons/io5";
 import {
   classNames,
-  returnAppropriateBgColor,
+  returnAppropriateBgColor
 } from "../../../shared/components/color-picker/color-choice";
 import { ColorSelectionDropdown } from "../../../shared/components/color-picker/ColorSelectionDropdown";
-import { Reminder } from "../../../shared/types/Reminder";
+import { RemindersListType } from "../../../shared/types/reminders-shared-reminders-components/RemindersComponents";
 
-export const RemindersList = ({
+export const RemindersList:React.FC<RemindersListType> = ({
   title,
   remindersList,
   moveReminderToPast,
@@ -23,15 +23,6 @@ export const RemindersList = ({
   editFavorite,
   editReminder,
   execDeletion,
-}: {
-  title: string;
-  remindersList: Reminder[];
-  moveReminderToPast: (item: Reminder) => void;
-  saveNewChosenColor: (color: string, item: Reminder) => void;
-  handleDetailsScreen: (item: Reminder) => void;
-  editFavorite: (item: Reminder, fav: boolean) => void;
-  editReminder: (item: Reminder) => void;
-  execDeletion: (itemId: string) => void;
 }) => {
   return (
     <>

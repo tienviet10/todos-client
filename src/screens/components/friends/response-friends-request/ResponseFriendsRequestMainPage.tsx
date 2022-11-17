@@ -2,14 +2,11 @@ import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useManageResponseFriendState } from "../../../../service/reminders-manage-state/manage-response-friends";
 import { DisableButtonWithColorAndText } from "../../../../shared/components/DisableButtonWithColorAndText";
 import { ImageUsernameEmailCard } from "../../../../shared/components/ImageUsernameEmailCard";
-import { UserEmailUsernamePicture } from "../../../../shared/types/RESTResponse";
+import { ResponseFriendsRequestMainPageType } from "../../../../shared/types/friends/Friends";
 
-export const ResponseFriendsRequestMainPage = ({
+export const ResponseFriendsRequestMainPage:React.FC<ResponseFriendsRequestMainPageType> = ({
   pendingFriendsRequest,
   sentFriendRequest,
-}: {
-  pendingFriendsRequest: UserEmailUsernamePicture[];
-  sentFriendRequest: UserEmailUsernamePicture[];
 }) => {
   const { toggleOnOff, acceptAFriend, declineAFriend, t } =
     useManageResponseFriendState();

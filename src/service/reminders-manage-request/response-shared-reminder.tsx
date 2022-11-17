@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { AcceptDeclineSharedReminderType } from "../../shared/types/MutationFuncType";
+import { UseRestResponseSharedReminderType } from "../../shared/types/service/ManageRequest";
 import { useRQUpdateARecord } from "./rest-request";
 
-export function useRestResponseSharedReminder(): {
-  error: string;
-  acceptOrDeclinedSharedReminderRequest: AcceptDeclineSharedReminderType;
-} {
+export function useRestResponseSharedReminder():UseRestResponseSharedReminderType  {
   const [error, setError] = useState<string>("");
   const queryClient = useQueryClient();
 

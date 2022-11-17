@@ -3,7 +3,7 @@ import {
   SetStateAction,
   useContext,
   useEffect,
-  useState,
+  useState
 } from "react";
 import { useNavigate } from "react-router-dom";
 // import { NAV_TABS } from "../../shared/constant/config";
@@ -11,7 +11,7 @@ import i18next from "i18next";
 import cookies from "js-cookie";
 import { useTranslation } from "react-i18next";
 import { languages } from "../../shared/constant/config";
-import { ManageNavbarStateType } from "../../shared/types/ManageStateType";
+import { ManageNavbarStateType } from "../../shared/types/service/ManageStateType";
 import { AuthContext } from "../context/AuthServiceContext";
 import { ReminderModalContext } from "../context/ReminderModalContext";
 

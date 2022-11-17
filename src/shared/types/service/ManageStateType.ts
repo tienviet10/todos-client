@@ -1,10 +1,9 @@
 import { TFunction } from "i18next";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
-import { EachLanguage } from "../constant/config";
-import { Reminder, SharedReminder } from "./Reminder";
-import { EmailUserPicId, NotificationData } from "./RESTResponse";
-import { GreetingImageType, UserInfoRegistration } from "./User";
+import { EachLanguage } from "../../constant/config";
+import { NotificationData, Reminder, SharedReminder } from "./Reminder";
+import { EmailUserPicId, GreetingImageType, UserInfoRegistration } from "./User";
 
 export interface ManageAddReminderFormStateType {
   newReminder: Reminder;

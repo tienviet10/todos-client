@@ -52,8 +52,8 @@
 
 import { ComponentType, useContext, useState } from "react";
 import { getUserAuthenticationLink } from "../../shared/service-link/url-link";
-import { GetUserDataResponse } from "../../shared/types/RESTResponse";
-import { UserData } from "../../shared/types/User";
+import { GetUserDataResponse } from "../../shared/types/service/ManageRequest";
+import { UserData } from "../../shared/types/service/User";
 import { AuthContext } from "../context/AuthServiceContext";
 import { useRQGetRecords } from "../reminders-manage-request/rest-request";
 

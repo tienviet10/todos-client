@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { REMINDER_STATUS } from "../../shared/constant/config";
 import { reminderWithIDLink } from "../../shared/service-link/url-link";
-import { ManageDisplayDetailRemindersStateType } from "../../shared/types/ManageStateType";
-import { Reminder } from "../../shared/types/Reminder";
+import { ManageDisplayDetailRemindersStateType } from "../../shared/types/service/ManageStateType";
+import { Reminder } from "../../shared/types/service/Reminder";
 import { ReminderContext } from "../context/ActiveRemindersContext";
 import { ConfirmationContext } from "../context/ConfirmationToProceedContext";
 import { DetailOfAReminderContext } from "../context/DetailOfAReminderContext";
@@ -25,13 +25,13 @@ export function useManageDisplayDetailRemindersState(): ManageDisplayDetailRemin
       onSuccess:
         details.status === REMINDER_STATUS.ACTIVE
           ? () =>
-              discardRecordActiveReminder(
-                reminderWithIDLink(details?._id as string)
-              )
+            discardRecordActiveReminder(
+              reminderWithIDLink(details?._id as string)
+            )
           : () =>
-              discardRecordPastReminder(
-                reminderWithIDLink(details?._id as string)
-              ),
+            discardRecordPastReminder(
+              reminderWithIDLink(details?._id as string)
+            ),
     });
 
     setDetailOn(false);

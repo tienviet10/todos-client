@@ -1,9 +1,9 @@
 import withUser from "../service/auth/withUser";
-import { UserData } from "../shared/types/User";
+import { UserDataType } from "../shared/types/service/User";
 import { ActiveSharedReminders } from "./components/active-shared-reminders-list/ActiveSharedReminders";
 import { PastSharedRemindersToggle } from "./components/past-shared-reminders-list/PastSharedRemindersToggle";
 
-const SharedReminders = ({ user }: { user: UserData }) => {
+const SharedReminders:React.FC<UserDataType> = ({ user }) => {
   return (
     <>
       <ActiveSharedReminders user={user} />

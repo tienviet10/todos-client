@@ -1,7 +1,7 @@
 import { TFunction } from "i18next";
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { UserData } from "../../shared/types/User";
+import { UserData } from "../../shared/types/service/User";
 import { useGoogleAuth } from "../auth/google-auth";
 import { PasswordConfirmationProfileContext } from "../context/PasswordConfirmationProfileContext";
 

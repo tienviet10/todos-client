@@ -2,10 +2,10 @@ import { createContext, useState } from "react";
 import {
   CREATE_EMPTY_REMINDER,
   CREATE_EMPTY_SHARED_REMINDER,
-  NAV_TABS,
+  NAV_TABS
 } from "../../shared/constant/config";
-import { ReminderModalContextType } from "../../shared/types/ContextType";
-import { Reminder, SharedReminder } from "../../shared/types/Reminder";
+import { ReminderModalContextType } from "../../shared/types/service/ContextType";
+import { Reminder, SharedReminder } from "../../shared/types/service/Reminder";
 
 const ReminderModalContext = createContext<ReminderModalContextType>(
   {} as ReminderModalContextType

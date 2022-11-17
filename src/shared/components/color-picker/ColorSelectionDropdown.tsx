@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { TwitterPicker } from "react-color";
 import { COLOR_LIST } from "../../constant/config";
-import { Reminder, SharedReminder } from "../../types/Reminder";
+import { ColorSelectionDropdownType } from "../../types/sub-components/SharedComponents";
 import { classNames, returnAppropriateBtnColor } from "./color-choice";
 
-export const ColorSelectionDropdown = ({
+export const ColorSelectionDropdown:React.FC<ColorSelectionDropdownType> = ({
   item,
   saveNewChosenColor,
-}: {
-  item: Reminder | SharedReminder;
-  saveNewChosenColor: any;
 }) => {
+  
   const [isColorPickerOn, setIsColorPickerOn] = useState(false);
 
   return (

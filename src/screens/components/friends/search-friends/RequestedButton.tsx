@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { pendingFriendsLink } from "../../../../shared/service-link/url-link";
-import { SendFriendType } from "../../../../shared/types/MutationFuncType";
+import { RequestedButtonType } from "../../../../shared/types/friends/Friends";
 
-export const RequestedButton = ({
+export const RequestedButton:React.FC<RequestedButtonType> = ({
   sendFriendRequest,
   email,
-}: {
-  sendFriendRequest: SendFriendType;
-  email: string;
 }) => {
   const { t } = useTranslation();
   const [requestedButtonToggle, setRequestedButtonToggle] =

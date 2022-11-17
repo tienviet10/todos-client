@@ -1,16 +1,14 @@
 import { t } from "i18next";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useManageResponseSharedReminderState } from "../../../service/reminders-manage-state/manage-response-shared-reminder";
-import { NotificationData } from "../../types/RESTResponse";
+import { NotificationItemSharedReminderPendingType } from "../../types/sub-components/SharedComponents";
 import { DisableButtonWithColorAndText } from "../DisableButtonWithColorAndText";
 
-export const NotificationItemSharedReminderPending = ({
+export const NotificationItemSharedReminderPending:React.FC<NotificationItemSharedReminderPendingType> = ({
   notificationItem,
   navigateToFriends,
-}: {
-  notificationItem: NotificationData;
-  navigateToFriends: (notificationID: string) => void;
 }) => {
+  
   const { toggleOnOff, acceptASharedReminder, declineASharedReminder } =
     useManageResponseSharedReminderState();
 

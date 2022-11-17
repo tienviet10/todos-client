@@ -1,17 +1,10 @@
 import { useState } from "react";
-import {
-  SearchFriendType,
-  SendFriendType,
-} from "../../shared/types/MutationFuncType";
-import { EmailUserPicId } from "../../shared/types/RESTResponse";
+import { UseRestSearchFriendsType } from "../../shared/types/service/ManageRequest";
+import { EmailUserPicId } from "../../shared/types/service/User";
+
 import { useRQPostARecord, useRQUpdateARecord } from "./rest-request";
 
-export function useRestSearchFriends(): {
-  error: string;
-  searchedFriendsList: EmailUserPicId[];
-  sendFriendRequest: SendFriendType;
-  sendSearchFriendsRequest: SearchFriendType;
-} {
+export function useRestSearchFriends(): UseRestSearchFriendsType {
   const [searchedFriendsList, setSearchedFriendsList] = useState<
     EmailUserPicId[]
   >([]);

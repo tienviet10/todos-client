@@ -2,13 +2,13 @@ import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import withUser from "../service/auth/withUser";
 import { ResponseFriendsContext } from "../service/context/ResponseFriendsContext";
-import { UserData } from "../shared/types/User";
+import { UserDataType } from "../shared/types/service/User";
 import { CurrentFriends } from "./components/friends/current-friends/CurrentFriends";
 import { ResponseFriendsRequestMainPage } from "./components/friends/response-friends-request/ResponseFriendsRequestMainPage";
 import { SearchFriendsMainPage } from "./components/friends/search-friends/SearchFriendsMainPage";
 import { TabsComponent } from "./components/friends/TabsComponent";
 
-const Friends = ({ user }: { user: UserData }) => {
+const Friends:React.FC<UserDataType> = ({ user }) => {
   const { t } = useTranslation();
   const { listFriends, openTab, changeTab, refetchFriendList } = useContext(
     ResponseFriendsContext

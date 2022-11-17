@@ -1,10 +1,10 @@
 import { useManageSharedRemindersState } from "../../../service/reminders-manage-state/manage-shared-reminders-state";
 import Loader from "../../../shared/components/loading-spinner/CenterLoader";
-import { UserData } from "../../../shared/types/User";
+import { UserDataType } from "../../../shared/types/service/User";
 import { EmptyListDisplay } from "../personal-reminders/EmptyListDisplay";
 import { SharedRemindersList } from "./SheredRemindersList";
 
-export const ActiveSharedReminders = ({ user }: { user: UserData }) => {
+export const ActiveSharedReminders:React.FC<UserDataType> = ({ user }) => {
   const {
     allSharedReminders,
     loadingSharedReminders,

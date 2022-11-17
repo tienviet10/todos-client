@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { AuthContextType } from "../../shared/types/ContextType";
+import { AuthContextType } from "../../shared/types/service/ContextType";
 import { getLocalStorage, removeLocalStorage } from "../auth/auth";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);

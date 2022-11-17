@@ -1,28 +1,15 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { postLogInLink } from "../../shared/service-link/url-link";
+import { logInFunc } from "../../shared/types/service/Authentication";
 import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 
-type logInFunc = () => {
-  login: (e: any) => Promise<void>;
-  open: boolean;
-  loading: boolean;
-  error: string;
-  success: string;
-  email: string;
-  password: string;
-  buttonText: string;
-  toggle: () => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  navigate: NavigateFunction;
-  t: any;
-};
-
 export const useLogIn: logInFunc = () => {
+
   const { t } = useTranslation();
   const { login: signInAuth } = useContext(AuthContext);
   const navigate = useNavigate();

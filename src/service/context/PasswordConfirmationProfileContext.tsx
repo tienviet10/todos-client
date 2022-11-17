@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { updateUserProfileLink } from "../../shared/service-link/url-link";
-import { PasswordConfirmationProfileContextType } from "../../shared/types/ContextType";
-import { UserNewPassword } from "../../shared/types/User";
+import { PasswordConfirmationProfileContextType } from "../../shared/types/service/ContextType";
+import { UserNewPassword } from "../../shared/types/service/User";
 import { useRQUpdateARecord } from "../reminders-manage-request/rest-request";
 
 const PasswordConfirmationProfileContext =

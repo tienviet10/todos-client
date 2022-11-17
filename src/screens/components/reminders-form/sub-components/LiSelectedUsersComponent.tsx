@@ -1,17 +1,13 @@
 import { AiFillDelete } from "react-icons/ai";
 import { classNames } from "../../../../shared/components/color-picker/color-choice";
+import { LiSelectedUsersComponentType } from "../../../../shared/types/reminders-form/ReminderForm";
 
-export const LiSelectedUsersComponent = ({
+export const LiSelectedUsersComponent:React.FC<LiSelectedUsersComponentType> = ({
   indexToDelete,
   username,
   handleDeleteTags,
   color,
-}: {
-  indexToDelete: number;
-  username: string;
-  handleDeleteTags: (removedIndex: number) => void;
-  color: string;
-}) => {
+} ) => {
   return (
     <li
       //className="flex flex-shrink-0 w-auto h-[22px] items-center justify-center text-white rounded-md mr-3 bg-application-color"

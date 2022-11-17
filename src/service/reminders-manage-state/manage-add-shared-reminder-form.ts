@@ -4,11 +4,11 @@ import { CREATE_EMPTY_SHARED_REMINDER } from "../../shared/constant/config";
 import {
   getSuggestedCollaboratorsLink,
   sharedRemindersGeneralLink,
-  sharedReminderWithIDLink,
+  sharedReminderWithIDLink
 } from "../../shared/service-link/url-link";
-import { ManageAddSharedReminderFormStateType } from "../../shared/types/ManageStateType";
-import { SharedReminder } from "../../shared/types/Reminder";
-import { EmailUserPicId } from "../../shared/types/RESTResponse";
+import { ManageAddSharedReminderFormStateType } from "../../shared/types/service/ManageStateType";
+import { SharedReminder } from "../../shared/types/service/Reminder";
+import { EmailUserPicId } from "../../shared/types/service/User";
 import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
 import { ReminderModalContext } from "../context/ReminderModalContext";
 import { useRestAddCollaboratorsOnReminder } from "../reminders-manage-request/add-collaborators-shared-reminder";
@@ -118,9 +118,9 @@ export function useManageAddSharedReminderFormState(): ManageAddSharedReminderFo
         );
       return sumWithInitial === 0
         ? {
-            ...old,
-            pendingRequest: old.pendingRequest.concat(value),
-          }
+          ...old,
+          pendingRequest: old.pendingRequest.concat(value),
+        }
         : old;
     });
 

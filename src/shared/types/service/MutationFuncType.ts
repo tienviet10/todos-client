@@ -1,15 +1,13 @@
 import { MutateOptions, UseMutateFunction } from "react-query";
+import { ErrorHandling, FriendRequest, JSONStringResponse } from "./ManageRequest";
 import {
   AcceptDeclineSharedReminder,
-  ErrorHandling,
-  FriendRequest,
-  JSONStringResponse,
   NewReminderData,
   NewSharedReminderData,
   SearchFriend,
   SendFriend,
-  UpdateSeen,
-} from "./RESTResponse";
+  UpdateSeen
+} from "./RESTRequestDataType";
 
 export type SearchFriendType = UseMutateFunction<
   FriendRequest | undefined,
@@ -76,9 +74,9 @@ export type UpdateSharedType = UseMutateFunction<
 
 export type PasswordConfirmationType =
   | MutateOptions<
-      JSONStringResponse | undefined,
-      ErrorHandling | undefined,
-      any,
-      void
-    >
+    JSONStringResponse | undefined,
+    ErrorHandling | undefined,
+    any,
+    void
+  >
   | undefined;

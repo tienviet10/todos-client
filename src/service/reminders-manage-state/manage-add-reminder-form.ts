@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 import { CREATE_EMPTY_REMINDER } from "../../shared/constant/config";
 import {
   remindersGeneralLink,
-  reminderWithIDLink,
+  reminderWithIDLink
 } from "../../shared/service-link/url-link";
-import { ManageAddReminderFormStateType } from "../../shared/types/ManageStateType";
-import { Reminder } from "../../shared/types/Reminder";
+import { ManageAddReminderFormStateType } from "../../shared/types/service/ManageStateType";
+import { Reminder } from "../../shared/types/service/Reminder";
 import { ReminderContext } from "../context/ActiveRemindersContext";
 import { ReminderModalContext } from "../context/ReminderModalContext";
 

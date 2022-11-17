@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
-import { RestPastReminderType } from "../../shared/types/ContextType";
+import { RestPastReminderType } from "../../shared/types/service/ManageRequest";
+
 import { useRestPastReminder } from "../reminders-manage-request/past-reminders";
 
 const PastRemindersContext = createContext<RestPastReminderType>(

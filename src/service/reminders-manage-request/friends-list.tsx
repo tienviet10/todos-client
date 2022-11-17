@@ -1,17 +1,10 @@
 import { useState } from "react";
 import { friendsLink } from "../../shared/service-link/url-link";
-import {
-  GetListFriendsResponse,
-  UserFriendsList,
-} from "../../shared/types/RESTResponse";
+import { GetListFriendsResponse, UseRestFriendListType } from "../../shared/types/service/ManageRequest";
+import { UserFriendsList } from "../../shared/types/service/User";
 import { useRQGetRecords } from "./rest-request";
 
-export function useRestFriendList(): {
-  listFriends: UserFriendsList | null;
-  loading: boolean;
-  error: string;
-  refetchFriendList: () => void;
-} {
+export function useRestFriendList(): UseRestFriendListType {
   const [listFriends, setListFriends] = useState<UserFriendsList | null>(null);
   const [error, setError] = useState<string>("");
   const [loading, setIsLoading] = useState<boolean>(false);

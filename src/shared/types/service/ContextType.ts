@@ -1,33 +1,22 @@
 import { Dispatch, SetStateAction } from "react";
-import { ConfirmationType, DescriptionTextType } from "./ConfimationType";
-import {
-  AddReminderType,
-  AddSharedType,
-  DiscardRecordType,
-  UpdateReminderType,
-  UpdateSharedType,
-} from "./MutationFuncType";
-import { Reminder, SharedReminder } from "./Reminder";
-import { SevenDaysSummaryDataType, UserFriendsList } from "./RESTResponse";
-import { UserNewPassword } from "./User";
+import { Reminder, SevenDaysSummaryDataType, SharedReminder } from "./Reminder";
 
-export interface ReminderContextType {
-  allReminders: Reminder[];
-  error: string;
-  loading: boolean;
-  discardRecord: DiscardRecordType;
-  addRecord: AddReminderType;
-  updateRecord: UpdateReminderType;
+import { UserFriendsList, UserNewPassword } from "./User";
+
+export interface DescriptionTextType {
+  titleText: string;
+  displayText: string;
+  confirmText: string;
+  declineText: string;
 }
 
-export interface RestOperationSharedReminder {
-  allSharedReminders: SharedReminder[];
-  error: string;
-  loading: boolean;
-  discardSharedRecord: DiscardRecordType;
-  addSharedRecord: AddSharedType;
-  updateSharedRecord: UpdateSharedType;
-}
+export type ConfirmationType = ({
+  descriptionText,
+  onSuccess,
+}: {
+  descriptionText?: DescriptionTextType;
+  onSuccess: () => void;
+}) => void;
 
 export interface DetailOfAReminderContextType {
   detailOn: boolean;
@@ -36,24 +25,6 @@ export interface DetailOfAReminderContextType {
   setReminderDetails: Dispatch<SetStateAction<Reminder>>;
   setSharedReminderDetails: Dispatch<SetStateAction<SharedReminder>>;
   sharedReminderDetails: SharedReminder;
-}
-
-export interface RestPastReminderType {
-  pastReminders: Reminder[] | null;
-  error: string;
-  loading: boolean;
-  discardRecord: DiscardRecordType;
-  setIsPastRemindersOn: Dispatch<SetStateAction<boolean>>;
-  isPastRemindersOn: boolean;
-}
-
-export interface RestPastSharedReminderType {
-  pastSharedReminders: SharedReminder[] | null;
-  error: string;
-  loading: boolean;
-  discardRecord: DiscardRecordType;
-  setIsPastSharedRemindersOn: Dispatch<SetStateAction<boolean>>;
-  isPastSharedRemindersOn: boolean;
 }
 
 export interface SevenDaysSummaryContextType {
@@ -115,3 +86,5 @@ export interface PasswordConfirmationProfileContextType {
   setNewPasswordUpdate: Dispatch<SetStateAction<UserNewPassword>>;
   newPasswordUpdate: UserNewPassword;
 }
+
+

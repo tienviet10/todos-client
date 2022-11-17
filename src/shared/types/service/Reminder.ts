@@ -1,4 +1,5 @@
-import { EmailUserPicId } from "./RESTResponse";
+import { EmailUserPicId } from "./User";
+
 
 export interface Reminder {
   title: string;
@@ -41,4 +42,34 @@ export interface SharedReminder {
   createdAt?: string;
   // For sending to backend only
   pendingRequestTemp?: string[];
+}
+
+export interface NotificationData {
+  createdAt: string;
+  postedBy: {
+    username: string;
+    email: string;
+    picture: string;
+  };
+  remindedAt: any;
+  reminderID: string;
+  reminderTypes: string;
+  seen: boolean;
+  sharedWith: {
+    picture: string;
+    username: string;
+  }[];
+  title: string;
+  _id: string;
+}
+
+export interface SevenDaysSummaryDataType {
+  color: string;
+  createdAt: string;
+  description: string;
+  remindedAt: any;
+  status: string;
+  title: string;
+  updatedAt: string;
+  _id: string;
 }

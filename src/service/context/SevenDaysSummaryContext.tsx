@@ -1,11 +1,8 @@
 import { createContext, useState } from "react";
 import { getSevenRemindersSummaryLink } from "../../shared/service-link/url-link";
-import { SevenDaysSummaryContextType } from "../../shared/types/ContextType";
-import {
-  SevenDaysSummaryDataType,
-  SevenDaySummaryDataResponse,
-} from "../../shared/types/RESTResponse";
-
+import { SevenDaysSummaryContextType } from "../../shared/types/service/ContextType";
+import { SevenDaySummaryDataResponse } from "../../shared/types/service/ManageRequest";
+import { SevenDaysSummaryDataType } from "../../shared/types/service/Reminder";
 import { useRQGetRecords } from "../reminders-manage-request/rest-request";
 
 const SevenDaysSummaryContext = createContext<SevenDaysSummaryContextType>(

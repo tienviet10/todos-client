@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { SendFriendType } from "../../shared/types/MutationFuncType";
+import { UseRestResponseFriendsType } from "../../shared/types/service/ManageRequest";
 import { useRQUpdateARecord } from "./rest-request";
 
-export function useRestResponseFriends(): {
-  error: string;
-  acceptOrDeclinedFriendRequest: SendFriendType;
-} {
+export function useRestResponseFriends():UseRestResponseFriendsType {
   const [error, setError] = useState<string>("");
   const queryClient = useQueryClient();
 

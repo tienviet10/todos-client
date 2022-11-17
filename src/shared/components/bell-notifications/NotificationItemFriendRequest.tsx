@@ -1,15 +1,12 @@
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useManageResponseFriendState } from "../../../service/reminders-manage-state/manage-response-friends";
-import { NotificationData } from "../../types/RESTResponse";
+import { NotificationItemFriendRequestType } from "../../types/sub-components/SharedComponents";
 import { DisableButtonWithColorAndText } from "../DisableButtonWithColorAndText";
 
-export const NotificationItemFriendRequest = ({
+export const NotificationItemFriendRequest:React.FC<NotificationItemFriendRequestType> = ({
   notificationItem,
   navigateToFriends,
-}: {
-  notificationItem: NotificationData;
-  navigateToFriends: (notificationID: string) => void;
-}) => {
+} ) => {
   const { toggleOnOff, acceptAFriend, declineAFriend, t } =
     useManageResponseFriendState();
 

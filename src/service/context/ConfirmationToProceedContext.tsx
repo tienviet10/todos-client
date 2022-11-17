@@ -1,7 +1,7 @@
 import { createContext, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DescriptionTextType } from "../../shared/types/ConfimationType";
-import { ConfirmationContextType } from "../../shared/types/ContextType";
+
+import { ConfirmationContextType, DescriptionTextType } from "../../shared/types/service/ContextType";
 
 const ConfirmationContext = createContext<ConfirmationContextType>(
   {} as ConfirmationContextType

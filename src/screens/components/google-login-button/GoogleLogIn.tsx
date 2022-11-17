@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { ButtonIconText } from "../../../shared/components/ButtonIconText";
+import { GoogleLogInOut } from "../../../shared/types/service/Authentication";
 
 const getIconFromName = () => {
   return (
@@ -27,7 +28,7 @@ const getIconFromName = () => {
   );
 };
 
-export const GoogleLogIn = ({ onClick }: { onClick: () => void }) => {
+export const GoogleLogIn:React.FC<GoogleLogInOut> = ({ onClick }) => {
   const { t } = useTranslation();
   const icon: JSX.Element = getIconFromName();
 

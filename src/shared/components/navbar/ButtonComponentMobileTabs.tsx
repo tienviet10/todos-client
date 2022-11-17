@@ -1,17 +1,12 @@
 import { Disclosure } from "@headlessui/react";
-import { EachTab } from "../../types/Tab";
+import { ButtonComponentMobileTabsType } from "../../types/sub-components/SharedComponents";
 import { classNames } from "../color-picker/color-choice";
 
-export const ButtonComponentMobileTabs = ({
+export const ButtonComponentMobileTabs:React.FC<ButtonComponentMobileTabsType> = ({
   item,
   changeTabsAndNavigation,
   tabName,
   selectedNavTab,
-}: {
-  item: EachTab;
-  changeTabsAndNavigation: (name: string, href: string) => void;
-  tabName: string;
-  selectedNavTab: string;
 }) => {
   return (
     <Disclosure.Button

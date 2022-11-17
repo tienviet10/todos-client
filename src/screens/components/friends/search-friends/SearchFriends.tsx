@@ -1,15 +1,12 @@
-import { Dispatch, SetStateAction } from "react";
-import { useTranslation } from "react-i18next";
 
-export const SearchFriends = ({
+import { useTranslation } from "react-i18next";
+import { SearchFriendsType } from "../../../../shared/types/friends/Friends";
+
+export const SearchFriends:React.FC<SearchFriendsType> = ({
   searchUser,
   setSearchUser,
   searchNewFriend,
-}: {
-  searchUser: string;
-  setSearchUser: Dispatch<SetStateAction<string>>;
-  searchNewFriend: () => void;
-}) => {
+} ) => {
   const { t } = useTranslation();
   return (
     <div className="relative">
@@ -36,7 +33,7 @@ export const SearchFriends = ({
         className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-indigo-200"
         name="searchTerm"
         value={searchUser}
-        placeholder={t("placeholder_shared_reminder")}
+        placeholder={t("placeholder_shared_reminder") as string}
         autoFocus
         onChange={(e) => setSearchUser(e.target.value)}
       />

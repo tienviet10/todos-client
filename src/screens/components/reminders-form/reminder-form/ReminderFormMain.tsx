@@ -39,7 +39,7 @@ export const ReminderFormMain = () => {
                 className="border-solid border-gray-300 border mr-2 py-2 px-4 w-full rounded text-white bg-[#1b3663]"
                 name="title"
                 value={title}
-                placeholder={t("placeholder_add_reminder")}
+                placeholder={t("placeholder_add_reminder")  as string}
                 autoFocus
                 onChange={handleChange}
                 autoComplete="off"

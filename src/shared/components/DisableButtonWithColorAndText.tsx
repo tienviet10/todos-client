@@ -1,11 +1,9 @@
+import { DisableButtonWithColorAndTextType } from "../types/sub-components/SharedComponents";
 import { classNames } from "./color-picker/color-choice";
 
-export const DisableButtonWithColorAndText = ({
+export const DisableButtonWithColorAndText:React.FC<DisableButtonWithColorAndTextType> = ({
   buttonColor,
   buttonText,
-}: {
-  buttonColor: string;
-  buttonText: string;
 }) => {
   return (
     <button

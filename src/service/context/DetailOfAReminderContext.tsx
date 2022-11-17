@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
 import {
   CREATE_EMPTY_REMINDER,
-  CREATE_EMPTY_SHARED_REMINDER,
+  CREATE_EMPTY_SHARED_REMINDER
 } from "../../shared/constant/config";
-import { DetailOfAReminderContextType } from "../../shared/types/ContextType";
-import { Reminder, SharedReminder } from "../../shared/types/Reminder";
+import { DetailOfAReminderContextType } from "../../shared/types/service/ContextType";
+import { Reminder, SharedReminder } from "../../shared/types/service/Reminder";
 
 const DetailOfAReminderContext = createContext<DetailOfAReminderContextType>(
   {} as DetailOfAReminderContextType

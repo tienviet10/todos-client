@@ -1,11 +1,11 @@
 import withUser from "../../../service/auth/withUser";
 import { useManageRemindersState } from "../../../service/reminders-manage-state/manage-reminders-state";
 import Loader from "../../../shared/components/loading-spinner/CenterLoader";
-import { UserData } from "../../../shared/types/User";
+import { UserDataType } from "../../../shared/types/service/User";
 import { RemindersList } from "../active-reminders-list/RemindersList";
 import { EmptyListDisplay } from "./EmptyListDisplay";
 
-const PersonalReminder = ({ user }: { user: UserData }) => {
+const PersonalReminder:React.FC<UserDataType> = ({ user }) => {
   //Manage all operation of the active reminder
   const {
     allReminders,

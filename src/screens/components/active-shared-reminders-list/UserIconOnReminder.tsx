@@ -1,12 +1,9 @@
 import { classNames } from "../../../shared/components/color-picker/color-choice";
-import { EmailUserPicId } from "../../../shared/types/RESTResponse";
+import { UserIconOnReminderType } from "../../../shared/types/reminders-shared-reminders-components/RemindersComponents";
 
-export const UserIconOnReminder = ({
+export const UserIconOnReminder:React.FC<UserIconOnReminderType> = ({
   user,
   color,
-}: {
-  user: EmailUserPicId;
-  color: string;
 }) => {
   return user?.picture ? (
     <img

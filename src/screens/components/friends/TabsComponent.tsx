@@ -1,13 +1,10 @@
-export const TabsComponent = ({
+import { TabsComponentType } from "../../../shared/types/friends/Friends";
+
+export const TabsComponent:React.FC<TabsComponentType> = ({
   openTab,
   changeTab,
   tabNumber,
   tabName,
-}: {
-  openTab: number;
-  changeTab: (tabIndex: number) => void;
-  tabNumber: number;
-  tabName: string;
 }) => {
   return (
     // Tabs at the top for switching in Friends section
