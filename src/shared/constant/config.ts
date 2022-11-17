@@ -25,7 +25,7 @@ type ChosenColorReminder = {
   white: string;
 };
 
-type EachLanguage = {
+export type EachLanguage = {
   code: string;
   name: string;
   country_code: string;

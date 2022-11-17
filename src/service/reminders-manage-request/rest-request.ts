@@ -1,36 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 import { useMutation, useQuery } from "react-query";
 import { API } from "../../shared/constant/config";
-import { Reminder, SharedReminder } from "../../shared/types/Reminder";
+import {
+  ErrorHandling,
+  FriendRequest,
+  JSONStringResponse,
+  NewDataAPI,
+} from "../../shared/types/RESTResponse";
 import { getLocalStorage } from "../auth/auth";
-
-interface NewData {
-  url: string;
-  data?:
-    | {
-        searchUser: string;
-      }
-    | Reminder
-    | SharedReminder;
-  from?: string;
-}
-
-interface NewDataAPI extends NewData {
-  method: "get" | "post" | "put" | "delete";
-}
-
-interface SuccessfulDataResponse {
-  data: string;
-  status: number;
-  statusText: string;
-  request: {
-    status: number;
-  };
-}
-
-interface ErrorHandling {
-  error: string;
-}
 
 const client: AxiosInstance = axios.create({ baseURL: `${API}` });
 
@@ -43,42 +20,15 @@ const request = ({ ...options }: NewDataAPI) => {
   return client(options).then(onSuccess).catch(onError);
 };
 
-// function createARecordWithTokenFunction(newData: NewData) {
-//   return request({
-//     url: newData.url,
-//     method: newData.method,
-//     data: newData.data,
-//   });
-// }
-
-// function getRecordsWithTokenFunction(newData: NewData) {
-//   return request({ url: newData.url, method: newData.method });
-// }
-
-// function updatedARecordWithTokenFunction(newData: NewData) {
-//   return request({
-//     url: newData.url,
-//     method: newData.method,
-//     data: newData.data,
-//   });
-// }
-
-// function deleteARecordWithTokenFunction(newData: NewData) {
-//   return request({
-//     url: newData.url,
-//     method: newData.method,
-//   });
-// }
-
 //Create a record or records
 export const useRQPostARecord = (
-  onSuccess: (data?: any) => void,
+  onSuccess: (data?: FriendRequest) => void,
   onError: (err?: ErrorHandling, context?: any) => void,
-  onMutate: (data?: NewData) => void,
+  onMutate: (data?: any) => void,
   onSettled: () => void
 ) => {
   return useMutation(
-    (newData: NewData) => request({ ...newData, method: "post" }),
+    (newData: any) => request({ ...newData, method: "post" }),
     {
       onSuccess,
       onError,
@@ -90,7 +40,7 @@ export const useRQPostARecord = (
 
 //Get a record or records
 export const useRQGetRecords = (
-  cacheVar: string,
+  cacheVar: string | string[],
   urlLink: string,
   typeDefault: boolean,
   onSuccess: (data: any) => void,
@@ -105,25 +55,22 @@ export const useRQGetRecords = (
 
 //Update a record
 export const useRQUpdateARecord = (
-  onSuccess: (data?: any) => void,
+  onSuccess: (data?: JSONStringResponse) => void,
   onError: (err?: ErrorHandling, context?: any) => void,
-  onMutate: (data?: NewData) => void,
+  onMutate: (data?: any) => void,
   onSettled: () => void
 ) => {
-  return useMutation(
-    (newData: NewData) => request({ ...newData, method: "put" }),
-    {
-      onSuccess,
-      onError,
-      onMutate,
-      onSettled,
-    }
-  );
+  return useMutation((newData: any) => request({ ...newData, method: "put" }), {
+    onSuccess,
+    onError,
+    onMutate,
+    onSettled,
+  });
 };
 
 //Delete a record
 export const useRQDeleteARecord = (
-  onSuccess: (data?: SuccessfulDataResponse) => void,
+  onSuccess: (data?: JSONStringResponse) => void,
   onError: (err?: ErrorHandling, context?: any) => void,
   onMutate: (data: string) => unknown,
   onSettled: () => void

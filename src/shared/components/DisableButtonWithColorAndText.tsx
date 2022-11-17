@@ -6,7 +6,7 @@ export const DisableButtonWithColorAndText = ({
 }: {
   buttonColor: string;
   buttonText: string;
-}): JSX.Element => {
+}) => {
   return (
     <button
       disabled

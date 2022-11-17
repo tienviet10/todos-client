@@ -10,7 +10,7 @@ export const LinkComponentProfileIcon = ({
   changeTabsWithoutNavigation: (name: string) => void;
   link: string;
   displayName: string;
-}): JSX.Element => {
+}) => {
   return (
     <Menu.Item>
       {({ active }) => (

@@ -1,5 +1,5 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Dispatch, Fragment, SetStateAction } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import withUser from "../../../service/auth/withUser";
@@ -19,10 +19,10 @@ const Navbar = ({
   setNavTab,
   selectedNavTab,
 }: {
-  setNavTab: string;
+  setNavTab: Dispatch<SetStateAction<string>>;
   user: UserData;
   selectedNavTab: string;
-}): JSX.Element => {
+}) => {
   const {
     isAuth,
     setDropdownOpen,

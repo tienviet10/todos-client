@@ -1,14 +1,12 @@
-import { MouseEventHandler } from "react";
-
 export const ButtonIconText = ({
   iconImage,
   testDisplay,
   onClick,
 }: {
-  iconImage: string;
+  iconImage: JSX.Element;
   testDisplay: string;
-  onClick: MouseEventHandler<HTMLButtonElement> | undefined;
-}): JSX.Element => {
+  onClick: () => void;
+}) => {
   return (
     <button
       className="flex p-2 text-application-color font-bold uppercase text-xs px-4 py-2 mr-1 mb-1 rounded border border-application-color outline-none focus:outline-none hover:bg-hover-color hover:border-hover-color hover:text-white active:bg-application-color ease-linear transition-all duration-150"

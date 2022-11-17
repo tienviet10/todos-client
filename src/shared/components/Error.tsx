@@ -1,4 +1,4 @@
-export default function Error({ error }: { error: string }): JSX.Element {
+export default function Error({ error }: { error: string }) {
   return (
     <div>
       <div

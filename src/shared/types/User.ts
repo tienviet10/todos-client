@@ -12,12 +12,34 @@ export interface UserData {
   };
 }
 
-export interface DataRespond {
-  data: UserData;
-  status: number;
-  statusText: string;
-  request: {
-    status: number;
-    statusText: string;
-  };
+export interface UserNewPassword {
+  email: string;
+  username: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
 }
+
+export interface UserInfoRegistration {
+  username: string;
+  email: string;
+  password: string;
+  reconfirmedPassword: string;
+  error: string;
+  success: string;
+  buttonText: string;
+}
+
+export interface GreetingImageType {
+  statement: string;
+  image: string;
+}
+
+// export interface DataRespond {
+//   data: UserData;
+//   status: number;
+//   statusText: string;
+//   request: {
+//     status: number;
+//     statusText: string;
+//   };
+// }

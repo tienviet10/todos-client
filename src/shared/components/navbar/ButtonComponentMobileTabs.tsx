@@ -12,7 +12,7 @@ export const ButtonComponentMobileTabs = ({
   changeTabsAndNavigation: (name: string, href: string) => void;
   tabName: string;
   selectedNavTab: string;
-}): JSX.Element => {
+}) => {
   return (
     <Disclosure.Button
       key={item.name}

@@ -6,7 +6,7 @@ export const GlobeIcon = ({
   width?: number;
   height?: number;
   color?: string;
-}): JSX.Element => (
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}

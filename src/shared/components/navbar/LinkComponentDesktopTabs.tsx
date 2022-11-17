@@ -12,7 +12,7 @@ export const LinkComponentDesktopTabs = ({
   changeTabsWithoutNavigation: (name: string) => void;
   tabName: string;
   selectedNavTab: string;
-}): JSX.Element => {
+}) => {
   return (
     <Link
       key={item.name}

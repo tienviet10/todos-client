@@ -1,4 +1,4 @@
-export default function Success({ success }: { success: string }): JSX.Element {
+export default function Success({ success }: { success: string }) {
   return (
     <div>
       <div

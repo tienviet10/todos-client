@@ -1,8 +1,4 @@
-export const CloseButton = ({
-  takeAction,
-}: {
-  takeAction: () => void;
-}): JSX.Element => {
+export const CloseButton = ({ takeAction }: { takeAction: () => void }) => {
   return (
     <button
       type="button"
