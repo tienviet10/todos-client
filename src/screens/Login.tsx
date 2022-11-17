@@ -2,7 +2,7 @@ import {
   AiFillEye,
   AiFillEyeInvisible,
   AiFillFire,
-  AiFillLock,
+  AiFillLock
 } from "react-icons/ai";
 import { useLogIn } from "../service/auth/login";
 import Error from "../shared/components/Error";
@@ -55,7 +55,7 @@ export const Login = () => {
                   autoComplete="email"
                   required
                   className="relative appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md sm:text-sm outline-none"
-                  placeholder={t("email")}
+                  placeholder={t("email") as string}
                   onChange={handleChange}
                 />
               </div>
@@ -68,7 +68,7 @@ export const Login = () => {
                   autoComplete="current-password"
                   required
                   className="flex-shrink flex-grow flex-auto px-3 py-2 outline-none rounded-bl-md placeholder-gray-500 text-gray-900 sm:text-sm"
-                  placeholder={t("pass")}
+                  placeholder={t("pass") as string}
                   onChange={handleChange}
                 />
                 <div className="flex bg-white rounded-br-md">

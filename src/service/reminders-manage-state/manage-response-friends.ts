@@ -1,19 +1,13 @@
-import { TFunction } from "i18next";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   acceptFriendsLink,
-  declineFriendsLink,
+  declineFriendsLink
 } from "../../shared/service-link/url-link";
+import { UseManageResponseFriendStateType } from "../../shared/types/service/ManageStateType";
 import { useRestResponseFriends } from "../reminders-manage-request/response-friends";
 
-export function useManageResponseFriendState(): {
-  toggleOnOff: string;
-  setToggleOnOff: Dispatch<SetStateAction<string>>;
-  acceptAFriend: (email: string) => void;
-  declineAFriend: (email: string) => void;
-  t: TFunction<"translation", undefined>;
-} {
+export function useManageResponseFriendState(): UseManageResponseFriendStateType {
   const { t } = useTranslation();
   const [toggleOnOff, setToggleOnOff] = useState<string>("");
   const { acceptOrDeclinedFriendRequest } = useRestResponseFriends();

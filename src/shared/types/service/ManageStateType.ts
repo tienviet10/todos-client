@@ -2,6 +2,7 @@ import { TFunction } from "i18next";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
 import { EachLanguage } from "../../constant/config";
+import { SendFriendType } from "./MutationFuncType";
 import { NotificationData, Reminder, SharedReminder } from "./Reminder";
 import { EmailUserPicId, GreetingImageType, UserInfoRegistration } from "./User";
 
@@ -143,4 +144,39 @@ export interface ManageAddSharedReminderFormStateType {
   filteredData: EmailUserPicId[];
   handleSelectUserFromSuggestion: (value: EmailUserPicId) => void;
   t: TFunction<"translation", undefined>;
+}
+
+export interface SseManageProfileStateType {
+  username: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
+  handleAuthClick: () => void;
+  handleGoogleLogout: (userID: any) => void;
+  handleFieldChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSummit: () => void;
+  t: TFunction<"translation", undefined>;
+}
+
+export interface UseManageResponseFriendStateType {
+  toggleOnOff: string;
+  setToggleOnOff: Dispatch<SetStateAction<string>>;
+  acceptAFriend: (email: string) => void;
+  declineAFriend: (email: string) => void;
+  t: TFunction<"translation", undefined>;
+}
+
+export interface UseManageResponseSharedReminderStateType {
+  toggleOnOff: string;
+  setToggleOnOff: Dispatch<SetStateAction<string>>;
+  acceptASharedReminder: (_id: string) => void;
+  declineASharedReminder: (_id: string) => void;
+}
+
+export interface UseManageSearchFriendsStateType {
+  error: string;
+  searchUser: string;
+  setSearchUser: Dispatch<SetStateAction<string>>;
+  searchedFriendsList: EmailUserPicId[];
+  sendFriendRequest: SendFriendType;
+  searchNewFriend: () => void;
 }

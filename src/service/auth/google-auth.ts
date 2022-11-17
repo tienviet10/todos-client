@@ -3,19 +3,20 @@ import { useQueryClient } from "react-query";
 import { SCOPES } from "../../shared/constant/config";
 import {
   createGoogleTokensLink,
-  deleteGoogleRefreshAccessLink,
+  deleteGoogleRefreshAccessLink
 } from "../../shared/service-link/url-link";
+import { TokenClientCallback, UseGoogleAuthType } from "../../shared/types/service/Authentication";
 import {
   useRQDeleteARecord,
-  useRQPostARecord,
+  useRQPostARecord
 } from "../reminders-manage-request/rest-request";
 
-let tokenClient;
-const google = window.google;
+let tokenClient: any;
+const google = (window as any).google;
 
-export function useGoogleAuth() {
-  const [error, setError] = useState(null);
+export function useGoogleAuth(): UseGoogleAuthType {
   const queryClient = useQueryClient();
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     function gisLoaded() {
@@ -34,43 +35,45 @@ export function useGoogleAuth() {
   //Add a record to mongodb then to google calendar
   const { mutate: createAGoogleCalendarToken } = useRQPostARecord(
     (data) => {
-      data.request !== undefined &&
-        data.request.status === 404 &&
-        setError(data.message);
+      data?.request?.status === 404 &&
+        setError(data?.message as string);
       queryClient.invalidateQueries("userDetail");
     },
-    (err) => setError(err)
+    (err) => setError(err?.error as string),
+    () => { },
+    () => { },
   );
 
   //Add a record to mongodb then to google calendar
   const { mutate: deleteGoogleTokens } = useRQDeleteARecord(
     (data) => {
-      data.request !== undefined &&
-        data.request.status === 404 &&
-        setError(data.data);
-
+      data?.request?.status === 404 &&
+        setError(data?.message as string);
       queryClient.invalidateQueries("userDetail");
     },
-    (err) => setError(err)
+    (err) => setError(err?.error as string),
+    () => { },
+    () => { }
   );
 
   function handleAuthClick() {
     //callback defined here
-    tokenClient.callback = async (resp) => {
-      if (resp.error !== undefined) {
+    tokenClient.callback = async (resp: TokenClientCallback) => {
+
+      if (resp?.error !== undefined) {
         throw resp;
       }
 
       createAGoogleCalendarToken({
         url: createGoogleTokensLink(),
-        data: { code: resp.code },
+        data: { code: resp?.code },
       });
     };
 
     tokenClient.requestCode();
   }
 
-  function handleGoogleLogout(userID) {
+  function handleGoogleLogout(userID: string) {
     deleteGoogleTokens(deleteGoogleRefreshAccessLink(userID));
   }
 

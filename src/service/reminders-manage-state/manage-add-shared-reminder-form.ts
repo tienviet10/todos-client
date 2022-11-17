@@ -13,6 +13,10 @@ import { SharedReminderContext } from "../context/ActiveSharedRemindersContext";
 import { ReminderModalContext } from "../context/ReminderModalContext";
 import { useRestAddCollaboratorsOnReminder } from "../reminders-manage-request/add-collaborators-shared-reminder";
 
+type addRemoveUsers = {
+  add: string[];
+  remove: string[];
+}
 const createEmptySharedReminder: SharedReminder = CREATE_EMPTY_SHARED_REMINDER;
 
 export function useManageAddSharedReminderFormState(): ManageAddSharedReminderFormStateType {
@@ -35,10 +39,7 @@ export function useManageAddSharedReminderFormState(): ManageAddSharedReminderFo
   } = useRestAddCollaboratorsOnReminder();
 
   const [searchUser, setSearchUser] = useState<string>("");
-  const [newUsersAddedToPending, setNewUsersAddedToPending] = useState<{
-    add: string[];
-    remove: string[];
-  }>({
+  const [newUsersAddedToPending, setNewUsersAddedToPending] = useState<addRemoveUsers>({
     add: [],
     remove: [],
   });

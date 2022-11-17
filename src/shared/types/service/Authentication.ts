@@ -1,3 +1,4 @@
+import { TFunction } from "i18next";
 import { NavigateFunction } from "react-router-dom";
 
 export interface GoogleLogInOut {
@@ -16,8 +17,18 @@ export type logInFunc = () => {
     toggle: () => void;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     navigate: NavigateFunction;
-    t: any;
+    t: TFunction<"translation", undefined>;
 };
+
+export type UseGoogleAuthType = {
+    handleAuthClick: () => void, handleGoogleLogout: (userID: string) => void, error: string
+}
+
+export type TokenClientCallback = {
+    error?: string,
+    code?: string,
+    scope?: string
+}
 
 export type SetLocalStorageType = (key: string, value: string) => void
 

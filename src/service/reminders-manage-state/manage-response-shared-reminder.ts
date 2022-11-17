@@ -1,16 +1,12 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import {
   acceptJoinedSharedReminderLink,
-  declineJoinedSharedReminderLink,
+  declineJoinedSharedReminderLink
 } from "../../shared/service-link/url-link";
+import { UseManageResponseSharedReminderStateType } from "../../shared/types/service/ManageStateType";
 import { useRestResponseSharedReminder } from "../reminders-manage-request/response-shared-reminder";
 
-export function useManageResponseSharedReminderState(): {
-  toggleOnOff: string;
-  setToggleOnOff: Dispatch<SetStateAction<string>>;
-  acceptASharedReminder: (_id: string) => void;
-  declineASharedReminder: (_id: string) => void;
-} {
+export function useManageResponseSharedReminderState(): UseManageResponseSharedReminderStateType {
   const [toggleOnOff, setToggleOnOff] = useState<string>("");
   const { acceptOrDeclinedSharedReminderRequest } =
     useRestResponseSharedReminder();

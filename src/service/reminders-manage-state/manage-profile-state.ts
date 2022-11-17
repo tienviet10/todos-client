@@ -1,20 +1,11 @@
-import { TFunction } from "i18next";
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { SseManageProfileStateType } from "../../shared/types/service/ManageStateType";
 import { UserData } from "../../shared/types/service/User";
 import { useGoogleAuth } from "../auth/google-auth";
 import { PasswordConfirmationProfileContext } from "../context/PasswordConfirmationProfileContext";
 
-export function useManageProfileState(user: UserData): {
-  username: string;
-  newPassword: string;
-  newPasswordConfirmation: string;
-  handleAuthClick: () => void;
-  handleGoogleLogout: (userID: any) => void;
-  handleFieldChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSummit: () => void;
-  t: TFunction<"translation", undefined>;
-} {
+export function useManageProfileState(user: UserData): SseManageProfileStateType {
   const { t } = useTranslation();
 
   const {
@@ -22,7 +13,6 @@ export function useManageProfileState(user: UserData): {
     setNewPasswordUpdate,
     newPasswordUpdate,
   } = useContext(PasswordConfirmationProfileContext);
-
   const { username, newPassword, newPasswordConfirmation } = newPasswordUpdate;
 
   const { handleAuthClick, handleGoogleLogout } = useGoogleAuth();

@@ -1,17 +1,9 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { friendsLink } from "../../shared/service-link/url-link";
-import { SendFriendType } from "../../shared/types/service/MutationFuncType";
-import { EmailUserPicId } from "../../shared/types/service/User";
+import { UseManageSearchFriendsStateType } from "../../shared/types/service/ManageStateType";
 import { useRestSearchFriends } from "../reminders-manage-request/search-friend-requests";
 
-export function useManageSearchFriendsState(): {
-  error: string;
-  searchUser: string;
-  setSearchUser: Dispatch<SetStateAction<string>>;
-  searchedFriendsList: EmailUserPicId[];
-  sendFriendRequest: SendFriendType;
-  searchNewFriend: () => void;
-} {
+export function useManageSearchFriendsState(): UseManageSearchFriendsStateType {
   const [searchUser, setSearchUser] = useState<string>("");
 
   const {
