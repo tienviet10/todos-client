@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { SseManageProfileStateType } from "../../shared/types/service/ManageStateType";
+import { UseManageProfileStateType } from "../../shared/types/service/ManageStateType";
 import { UserData } from "../../shared/types/service/User";
 import { useGoogleAuth } from "../auth/google-auth";
 import { PasswordConfirmationProfileContext } from "../context/PasswordConfirmationProfileContext";
 
-export function useManageProfileState(user: UserData): SseManageProfileStateType {
+export function useManageProfileState(user: UserData): UseManageProfileStateType {
   const { t } = useTranslation();
 
   const {

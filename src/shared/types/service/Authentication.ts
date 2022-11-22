@@ -6,7 +6,7 @@ export interface GoogleLogInOut {
 }
 
 export type logInFunc = () => {
-    login: (e: any) => Promise<void>;
+    login: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
     open: boolean;
     loading: boolean;
     error: string;

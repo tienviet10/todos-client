@@ -34,6 +34,7 @@ export const ActiveSharedReminders:React.FC<UserDataType> = ({ user }) => {
         <EmptyListDisplay />
       ) : (
         <>
+        <div className="h-[60px]">
           {user.user && user.user.username && user.user.username !== "" && (
             <div className="flex max-w-[1240px] w-full mx-auto pt-4 font-bold px-4 mb-2 justify-center items-center text-2xl text-white">
               <div>
@@ -44,6 +45,7 @@ export const ActiveSharedReminders:React.FC<UserDataType> = ({ user }) => {
               </div>
             </div>
           )}
+        </div>
           {/* Main List */}
           <SharedRemindersList
             remindersList={allSharedReminders}

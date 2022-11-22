@@ -50,24 +50,26 @@ export function useManageAddReminderFormState(): ManageAddReminderFormStateType 
   };
 
   const saveOrAddReminder = () => {
-    if (newReminder._id === "") {
-      const reminderContentToAdd: Reminder = {
-        ...newReminder,
-      };
-      delete reminderContentToAdd._id;
-      addRecord({
-        data: reminderContentToAdd,
-        url: remindersGeneralLink(),
-      });
-    } else {
-      updateRecord({
-        from: "current",
-        url: reminderWithIDLink(newReminder._id as string),
-        data: newReminder,
-      });
+    if (newReminder.title !== "" && newReminder.description !== "") {
+      if (newReminder._id === "") {
+        const reminderContentToAdd: Reminder = {
+          ...newReminder,
+        };
+        delete reminderContentToAdd._id;
+        addRecord({
+          data: reminderContentToAdd,
+          url: remindersGeneralLink(),
+        });
+      } else {
+        updateRecord({
+          from: "current",
+          url: reminderWithIDLink(newReminder._id as string),
+          data: newReminder,
+        });
+      }
+      setNewReminder(createEmptyReminder);
+      setModalOn(false);
     }
-    setNewReminder(createEmptyReminder);
-    setModalOn(false);
   };
 
   const setReminderDate = (remindedAt: Date) => {

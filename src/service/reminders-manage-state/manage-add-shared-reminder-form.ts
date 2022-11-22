@@ -165,34 +165,37 @@ export function useManageAddSharedReminderFormState(): ManageAddSharedReminderFo
   // For adding users, add the final list of users without the main or owner user since that would be added to the list on server
   // For the editing/updating, add the new list in newSharedReminder.groupUsers.editor to users
   const saveOrAddReminder = () => {
-    const finalListChosen: string[] = newSharedReminder.pendingRequest.map(
-      (users) => users._id
-    );
-    if (newSharedReminder._id === "") {
-      const reminderContentToAdd: SharedReminder = {
-        ...newSharedReminder,
-        pendingRequestTemp: finalListChosen,
-      };
-      delete reminderContentToAdd._id;
+    if (newSharedReminder.title !== "" && newSharedReminder.description !== "") {
 
-      addSharedRecord({
-        data: reminderContentToAdd,
-        url: sharedRemindersGeneralLink(),
-      });
-    } else {
-      // newUsersAddedToPending keep track new users being added or delete when editing a shared reminder
-      updateSharedRecord({
-        from: "current",
-        url: sharedReminderWithIDLink(newSharedReminder._id as string),
-        data: {
+      const finalListChosen: string[] = newSharedReminder.pendingRequest.map(
+        (users) => users._id
+      );
+      if (newSharedReminder._id === "") {
+        const reminderContentToAdd: SharedReminder = {
           ...newSharedReminder,
           pendingRequestTemp: finalListChosen,
-          newUsersAddedToPending,
-        },
-      });
+        };
+        delete reminderContentToAdd._id;
+
+        addSharedRecord({
+          data: reminderContentToAdd,
+          url: sharedRemindersGeneralLink(),
+        });
+      } else {
+        // newUsersAddedToPending keep track new users being added or delete when editing a shared reminder
+        updateSharedRecord({
+          from: "current",
+          url: sharedReminderWithIDLink(newSharedReminder._id as string),
+          data: {
+            ...newSharedReminder,
+            pendingRequestTemp: finalListChosen,
+            newUsersAddedToPending,
+          },
+        });
+      }
+      setNewSharedReminder(createEmptySharedReminder);
+      setModalOn(false);
     }
-    setNewSharedReminder(createEmptySharedReminder);
-    setModalOn(false);
   };
 
   return {

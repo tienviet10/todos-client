@@ -72,7 +72,7 @@ export const Login = () => {
                   onChange={handleChange}
                 />
                 <div className="flex bg-white rounded-br-md">
-                  <span className="flex items-center text-2xl mr-1">
+                  <span className="flex items-center text-2xl pr-1">
                     {open === false ? (
                       <AiFillEye onClick={toggle} />
                     ) : (

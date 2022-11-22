@@ -146,12 +146,12 @@ export interface ManageAddSharedReminderFormStateType {
   t: TFunction<"translation", undefined>;
 }
 
-export interface SseManageProfileStateType {
+export interface UseManageProfileStateType {
   username: string;
   newPassword: string;
   newPasswordConfirmation: string;
   handleAuthClick: () => void;
-  handleGoogleLogout: (userID: any) => void;
+  handleGoogleLogout: (userID: string) => void;
   handleFieldChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSummit: () => void;
   t: TFunction<"translation", undefined>;

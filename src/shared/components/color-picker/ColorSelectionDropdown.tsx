@@ -34,6 +34,9 @@ export const ColorSelectionDropdown:React.FC<ColorSelectionDropdownType> = ({
               COLOR_LIST.white,
             ]}
             onChangeComplete={(e) => {
+              // const reminderItem = item as SharedReminder;
+              // reminderItem?.groupUsers ? saveNewChosenColor(e.hex, item as SharedReminder):saveNewChosenColor(e.hex, item as Reminder);
+              // console.log(reminderItem?.groupUsers ? "shared":"reminder")
               saveNewChosenColor(e.hex, item);
               setIsColorPickerOn(false);
             }}
