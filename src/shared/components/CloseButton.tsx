@@ -1,8 +1,6 @@
-export const CloseButton = ({
-  takeAction,
-}: {
-  takeAction: () => void;
-}): JSX.Element => {
+import { CloseButtonType } from "../types/sub-components/SharedComponents";
+
+export const CloseButton:React.FC<CloseButtonType> = ({ takeAction }) => {
   return (
     <button
       type="button"

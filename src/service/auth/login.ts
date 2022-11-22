@@ -1,28 +1,15 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { NAV_TABS } from "../../shared/constant/config";
 import { postLogInLink } from "../../shared/service-link/url-link";
+import { logInFunc } from "../../shared/types/service/Authentication";
 import { AuthContext } from "../context/AuthServiceContext";
 import { storeAuthentication } from "./auth";
 
-type logInFunc = () => {
-  login: (e: any) => Promise<void>;
-  open: boolean;
-  loading: boolean;
-  error: string;
-  success: string;
-  email: string;
-  password: string;
-  buttonText: string;
-  toggle: () => void;
-  handleChange: (name: any) => (e: any) => void;
-  navigate: NavigateFunction;
-  t: any;
-};
-
 export const useLogIn: logInFunc = () => {
+
   const { t } = useTranslation();
   const { login: signInAuth } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -49,16 +36,15 @@ export const useLogIn: logInFunc = () => {
     setOpen(!open);
   };
 
-  const handleChange =
-    (name: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      setState((item) => ({
-        ...item,
-        [name]: e.target.value,
-        error: "",
-        success: "",
-        buttonText: t("log_in"),
-      }));
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState((item) => ({
+      ...item,
+      [e.target.name]: e.target.value,
+      error: "",
+      success: "",
+      buttonText: t("log_in"),
+    }));
+  };
 
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

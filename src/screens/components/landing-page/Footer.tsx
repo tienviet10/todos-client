@@ -1,8 +1,7 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 
-const Footer: React.FC = () => {
+const Footer = () => {
   const { t } = useTranslation();
   const SocialStyle =
     "rounded-full border-2 border-whit p-2 hover:cursor-pointer";

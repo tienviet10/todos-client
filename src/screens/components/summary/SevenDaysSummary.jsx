@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { DetailOfAReminderContext } from "../../../service/context/DetailOfAReminderContext";
 import { SevenDaysSummaryContext } from "../../../service/context/SevenDaysSummaryContext";
 import { CloseButton } from "../../../shared/components/CloseButton";
@@ -73,7 +73,7 @@ export const SevenDaysSummary = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-base text-gray-700">
+                      <p className="text-base text-white">
                         No Reminders Today!
                       </p>
                     )}

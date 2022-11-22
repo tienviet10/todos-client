@@ -1,5 +1,5 @@
-import { Reminder, SharedReminder } from "../types/Reminder";
-import { EachTab } from "../types/Tab";
+import { Reminder, SharedReminder } from "../types/service/Reminder";
+import { EachTab } from "../types/service/Tab";
 
 type HomeScreenReminder = {
   _id: string;
@@ -25,7 +25,7 @@ type ChosenColorReminder = {
   white: string;
 };
 
-type EachLanguage = {
+export type EachLanguage = {
   code: string;
   name: string;
   country_code: string;

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ConfirmationContext } from "../../service/context/ConfirmationToProceedContext";
 import { CloseButton } from "./CloseButton";
 
-export const Confirmation: React.FC = () => {
+export const Confirmation = () => {
   const { setConfirmationOn, descriptionText, confirmationFunction } =
     useContext(ConfirmationContext);
   return (

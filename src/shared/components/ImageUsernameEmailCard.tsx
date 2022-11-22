@@ -1,14 +1,11 @@
-export const ImageUsernameEmailCard = ({
+import { ImageUsernameEmailCardType } from "../types/sub-components/SharedComponents";
+
+export const ImageUsernameEmailCard:React.FC<ImageUsernameEmailCardType> = ({
   username,
   picture,
   email,
   children,
-}: {
-  username: string;
-  picture: string;
-  email: string;
-  children: JSX.Element;
-}): JSX.Element => {
+}) => {
   return (
     <div className="bg-white p-4 shadow-lg rounded-md mt-4">
       <div className="flex items-center">

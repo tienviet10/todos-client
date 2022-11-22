@@ -1,12 +1,10 @@
-export const GlobeIcon = ({
+import { GlobeIconType } from "../types/sub-components/SharedComponents";
+
+export const GlobeIcon:React.FC<GlobeIconType> = ({
   width = 23,
   height = 23,
   color = "black",
-}: {
-  width?: number;
-  height?: number;
-  color?: string;
-}): JSX.Element => (
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}

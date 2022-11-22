@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import withUser from "../../../service/auth/withUser";
 import { useManageNavbarState } from "../../../service/reminders-manage-state/manage-navbar-state";
 import { NAV_TABS } from "../../constant/config";
-import { UserData } from "../../types/User";
+import { NavbarType } from "../../types/sub-components/SharedComponents";
 import { BellNotification } from "../bell-notifications/BellNotification";
 
 import { classNames } from "../color-picker/color-choice";
@@ -14,15 +14,12 @@ import { ButtonComponentMobileTabs } from "./ButtonComponentMobileTabs";
 import { LinkComponentDesktopTabs } from "./LinkComponentDesktopTabs";
 import { LinkComponentProfileIcon } from "./LinkComponentProfileIcon";
 
-const Navbar = ({
+const Navbar:React.FC<NavbarType> = ({
   user,
   setNavTab,
   selectedNavTab,
-}: {
-  setNavTab: string;
-  user: UserData;
-  selectedNavTab: string;
-}): JSX.Element => {
+}) => {
+  
   const {
     isAuth,
     setDropdownOpen,
