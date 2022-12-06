@@ -6,6 +6,7 @@ export const TabsComponent:React.FC<TabsComponentType> = ({
   tabNumber,
   tabName,
 }) => {
+
   return (
     // Tabs at the top for switching in Friends section
     <li className="flex-auto -mb-px mr-2 last:mr-0 text-center">
@@ -16,7 +17,7 @@ export const TabsComponent:React.FC<TabsComponentType> = ({
             ? "text-white bg-application-color"
             : "text-application-color bg-white")
         }
-        onClick={() => changeTab(tabNumber)}
+        onClick={(e)=> changeTab(e,tabNumber)}
         data-toggle="tab"
         href={"#link" + tabNumber}
         role="tablist"

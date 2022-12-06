@@ -30,7 +30,7 @@ export interface SearchFriendsType {
 
 export interface TabsComponentType {
     openTab: number;
-    changeTab: (tabIndex: number) => void;
+    changeTab: (e: any, tabIndex: number) => any;
     tabNumber: number;
     tabName: string;
 }

@@ -12,8 +12,15 @@ function ResponseFriendsProvider({ children }: { children: React.ReactNode }) {
   const { listFriends, loading, error, refetchFriendList } =
     useRestFriendList();
 
-  const changeTab =
-    (tabIndex: number) => (e: React.FormEvent<HTMLFormElement>) => {
+  // const changeTab =
+  //   (tabIndex: number) => (e: React.FormEvent<HTMLFormElement>) => {
+  //     refetchFriendList();
+  //     e.preventDefault();
+  //     setOpenTab(tabIndex);
+  //   };
+
+    const changeTab =
+    (e: any, tabIndex: number) => {
       refetchFriendList();
       e.preventDefault();
       setOpenTab(tabIndex);
