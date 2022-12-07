@@ -1,4 +1,4 @@
-import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Reminder, SevenDaysSummaryDataType, SharedReminder } from "./Reminder";
 
 import { UserFriendsList, UserNewPassword } from "./User";
@@ -41,7 +41,7 @@ export interface ResponseFriendsContextType {
   error: string;
   openTab: number;
   setOpenTab: Dispatch<SetStateAction<number>>;
-  changeTab: (e: MouseEvent<HTMLAnchorElement, MouseEvent>, tabIndex: number) => void;
+  changeTab: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, tabIndex: number) => void;
   refetchFriendList: () => void;
 }
 

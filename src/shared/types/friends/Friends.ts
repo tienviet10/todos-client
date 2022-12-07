@@ -30,7 +30,7 @@ export interface SearchFriendsType {
 
 export interface TabsComponentType {
     openTab: number;
-    changeTab: (e: any, tabIndex: number) => any;
+    changeTab: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, tabIndex: number) => any;
     tabNumber: number;
     tabName: string;
 }

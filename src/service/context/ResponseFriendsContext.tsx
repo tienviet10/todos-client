@@ -20,7 +20,7 @@ function ResponseFriendsProvider({ children }: { children: React.ReactNode }) {
   //   };
 
     const changeTab =
-    (e: any, tabIndex: number) => {
+    (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, tabIndex: number) => {
       refetchFriendList();
       e.preventDefault();
       setOpenTab(tabIndex);
