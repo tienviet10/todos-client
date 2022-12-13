@@ -93,6 +93,5 @@ Install:
 
 ## TODO
 
-* Add TypeScript to the project
 * Choose what personal reminders can be added to your Google Calendar
 * Increase performance on load
