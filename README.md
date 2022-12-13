@@ -24,7 +24,7 @@
 
 ## Tech Stack & Features
 
-* React.js
+* [React.js](https://reactjs.org)
 * [Tailwind](https://tailwindcss.com/) for design/styling
 * [React Router](https://reactrouter.com/) for routing
 * Managing data requests using [React Query](https://react-query-v3.tanstack.com)
